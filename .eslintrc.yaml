@@ -1,0 +1,6 @@
+root: true
+extends:
+  - "@spryrocks/react"
+env:
+  browser: true
+  es6: true

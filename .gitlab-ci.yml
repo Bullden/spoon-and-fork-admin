@@ -1,0 +1,48 @@
+image: node:latest
+stages:
+  - compile
+  - build
+cache:
+  paths:
+    - node_modules/
+compile:
+  stage: compile
+  script:
+    - yarn install
+    - yarn compile
+    - yarn lint
+build:
+  image: docker:19.03.8
+  stage: build
+  variables:
+    CONTAINER_CACHE_BUILD_DEPS_IMAGE: $CI_REGISTRY_IMAGE:cache-build-deps
+    CONTAINER_CACHE_BUILD_STAGING_IMAGE: $CI_REGISTRY_IMAGE/staging:cache-build
+    CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE: $CI_REGISTRY_IMAGE/production:cache-build
+    CONTAINER_CACHE_STAGING_IMAGE: $CI_REGISTRY_IMAGE/staging:cache
+    CONTAINER_CACHE_PRODUCTION_IMAGE: $CI_REGISTRY_IMAGE/production:cache
+    CONTAINER_STAGING_IMAGE: $CI_REGISTRY_IMAGE/staging:$CI_BUILD_TAG
+    CONTAINER_PRODUCTION_IMAGE: $CI_REGISTRY_IMAGE/production:$CI_BUILD_TAG
+  only:
+    - /^(\w+.\w+\.\w+)-(sprint\d+)(?>-((?>dev|fix|hotfix)\d+))?$/i
+  services:
+    - docker:19.03.8-dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CONTAINER_CACHE_BUILD_DEPS_IMAGE || true
+    - docker pull $CONTAINER_CACHE_BUILD_STAGING_IMAGE || true
+    - docker pull $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE || true
+    - docker pull $CONTAINER_CACHE_STAGING_IMAGE || true
+    - docker pull $CONTAINER_CACHE_PRODUCTION_IMAGE || true
+  script:
+    - docker build --target build-deps --cache-from=$CONTAINER_CACHE_BUILD_DEPS_IMAGE --tag $CONTAINER_CACHE_BUILD_DEPS_IMAGE .
+    - docker push $CONTAINER_CACHE_BUILD_DEPS_IMAGE
+    - docker build --target build --cache-from=$CONTAINER_CACHE_BUILD_STAGING_IMAGE --cache-from=$CONTAINER_CACHE_BUILD_DEPS_IMAGE --tag $CONTAINER_CACHE_BUILD_STAGING_IMAGE --build-arg buildEnv=staging --build-arg buildPath=/staging .
+    - docker push $CONTAINER_CACHE_BUILD_STAGING_IMAGE
+    - docker build --target build --cache-from=$CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --cache-from=$CONTAINER_CACHE_BUILD_DEPS_IMAGE --tag $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --build-arg buildEnv=production --build-arg buildPath= .
+    - docker push $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE
+    - docker build --cache-from $CONTAINER_CACHE_STAGING_IMAGE --cache-from $CONTAINER_CACHE_BUILD_STAGING_IMAGE --tag $CONTAINER_STAGING_IMAGE --tag $CONTAINER_CACHE_STAGING_IMAGE --build-arg buildEnv=staging --build-arg buildPath=/staging .
+    - docker push $CONTAINER_CACHE_STAGING_IMAGE
+    - docker push $CONTAINER_STAGING_IMAGE
+    - docker build --cache-from $CONTAINER_CACHE_PRODUCTION_IMAGE --cache-from $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --tag $CONTAINER_PRODUCTION_IMAGE --tag $CONTAINER_CACHE_PRODUCTION_IMAGE --build-arg buildEnv=production --build-arg buildPath= .
+    - docker push $CONTAINER_CACHE_PRODUCTION_IMAGE
+    - docker push $CONTAINER_PRODUCTION_IMAGE
