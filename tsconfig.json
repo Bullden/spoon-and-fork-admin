@@ -35,7 +35,9 @@
     "scripts",
     "acceptance-tests",
     "webpack",
-    "jest",
-    "tsconfig.json"
+    "jest"
+  ],
+  "include": [
+    "src"
   ]
 }
