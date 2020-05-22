@@ -1,13 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "build",
-    "module": "esnext",
     "target": "es6",
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": ".",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -16,7 +13,6 @@
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
-    "baseUrl": "./src",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "strict": true,
@@ -24,8 +20,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "lib": [
-      "dom",
-      "dom.iterable",
       "esnext"
     ]
   },
@@ -36,6 +30,6 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "tsconfig.json"
+    "src/setupTests.ts"
   ]
 }
