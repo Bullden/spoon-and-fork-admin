@@ -65,6 +65,12 @@
     "env-cmd": "^10.1.0",
     "react-app-rewired": "^2.1.5",
     "ts-node": "^8.9.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "husky": "^4.2.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn compile && yarn lint"
+    }
   }
 }
