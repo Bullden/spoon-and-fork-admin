@@ -1,0 +1,195 @@
+%field-shared {
+  display: flex;
+  flex-direction: column;
+}
+%button-shared {
+  font-size: 16px;
+}
+
+.extraInfoContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 40px;
+}
+
+.containerName {
+  text-align: center;
+  font-family: Roboto,sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 47px;
+  color: #4065E0;
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
+.ordersList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.listElement {
+  width: 345px;
+  height: 60px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #EBF0FF;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-family: Roboto,sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #4065E0;
+}
+
+.listElementLaundryServices{
+  width: 345px;
+  height: 300px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #EBF0FF;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-family: Roboto,sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #4065E0;
+}
+
+.orderServicesTitle{
+  padding-right: 10px;
+}
+
+.buttons {
+  margin-top: 72px;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  width: 210px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #4065E0;
+  color: #fff;
+  font-family: Roboto,sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  outline: none;
+  transition: all 0.3s;
+
+  &:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s;
+  }
+}
+
+.orderMainInfo {
+  font-family: Roboto,sans-serif;
+  color: #fff;
+  padding-right: 40px;
+
+  &__number {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 33px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__status {
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+
+    &__fieldName {
+      font-weight: bold;
+      color: #9FB1EC;
+    }
+  }
+}
+
+.detailsContainer {
+  width: 100%;
+  padding: 30px 80px;
+  overflow: scroll;
+  &__paper {
+    @extend %field-shared;
+    font-family: Roboto,sans-serif;
+    color: #FFFFFF;
+    &__avatar {
+      padding-left: 20px;
+      padding-right: 30px;
+    }
+    &__name {
+      font-weight: bold;
+      font-size: 24px;
+      margin: 0;
+    }
+    &__field {
+      @extend %field-shared;
+      justify-content: space-between;
+      font-size: 20px;
+      line-height: 23px;
+      color: #FFFFFF;
+    }
+    &__element {
+      margin: 0;
+      padding: 0 40px 0 0;
+      font-size: 20px;
+    }
+
+    &__element:first-child {
+      margin: 0 0 18px;
+    }
+
+    &__nameField{
+      @extend %field-shared;
+      justify-content: center;
+    }
+    &__label {
+      font-size: 20px;
+      font-weight: bold;
+      color: #9FB1EC;
+    }
+    &__info {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      padding: 45px 100px;
+    }
+    &__documentImage {
+      height: 300px;
+      margin-right: 20px;
+    }
+    &__footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+}
+.buttonAccept {
+@extend %button-shared;
+  background: #4065E0;
+}
+.buttonDecline {
+  @extend %button-shared;
+}

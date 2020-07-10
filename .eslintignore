@@ -1,7 +1,6 @@
 /src/api/graphql/types.ts
 config-overrides.js
 firebase-messaging-sw.js
-src/serviceWorker.ts
+src/serviceWorker.js
 src/react-app-env.d.ts
 scripts
-typings.d.ts

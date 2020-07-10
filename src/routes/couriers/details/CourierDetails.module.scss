@@ -1,0 +1,263 @@
+%field-shared {
+  display: flex;
+  flex-direction: column;
+}
+%button-shared {
+  font-size: 16px;
+}
+
+.avatarContainer {
+  padding: 0 15px 0 35px;
+  position: relative;
+}
+
+.statusIcon {
+  div {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  &__newStatusIcon {
+    background-color: #5592ff;
+  }
+
+  &__verificationRequestedStatusIcon {
+    background-color: #FFB800;
+  }
+
+  &__approvedStatusIcon {
+    background-color: #52C445;
+  }
+
+  &__rejectedStatusIcon {
+    background-color: #D60000;
+  }
+}
+
+.noOrders {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+}
+
+.user {
+  color: #fff;
+  font-family: Roboto,sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 40px;
+
+  &__name {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__position {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.details {
+  padding: 16px 40px 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+
+  &__fieldName {
+    font-size: 20px;
+    font-weight: bold;
+    color: #9FB1EC;
+  }
+}
+
+.extraInfoContainer {
+  padding: 0 40px 50px;
+}
+
+.tabs {
+  button {
+    font-family: Roboto,sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    margin: 30px 40px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
+  &__default {
+    color: #C0CAEB;
+  }
+
+  &__opened {
+    color: #4065E0;
+  }
+}
+
+.documentsList {
+  display: flex;
+  justify-content: space-between;
+}
+
+.documentName {
+  margin: 0;
+  padding-bottom: 10px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #2B4BB7;
+}
+
+.documentsImagesContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 40px;
+}
+
+.documentImageContainer {
+  width: calc(50% - 20px);
+  box-sizing: border-box;
+  height: 200px;
+  overflow: hidden;
+  margin-right: 20px;
+}
+
+.defaultImage {
+  width: calc(50% - 20px);
+  box-sizing: border-box;
+  height: 200px;
+  background-color: #E2EEFF;
+  margin-right: 20px;
+}
+
+.documentsGroupsList {
+  width: calc(50% - 20px);
+  box-sizing: border-box;
+}
+
+
+.detailsContainer {
+  width: 100%;
+  padding: 30px 80px;
+  overflow: scroll;
+  &__paper {
+    @extend %field-shared;
+    font-family: Roboto,sans-serif;
+    color: #FFFFFF;
+    &__name {
+      font-weight: bold;
+      font-size: 24px;
+      margin: 0;
+    }
+    &__field {
+      @extend %field-shared;
+      justify-content: space-between;
+      font-size: 20px;
+      padding-right: 40px;
+      color: #FFFFFF;
+    }
+    &__nameField{
+      @extend %field-shared;
+      justify-content: center;
+    }
+    &__label {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    &__info {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      padding: 0 80px;
+    }
+    &__documentImage {
+      width: 100%;
+      object-fit: cover;
+    }
+    &__footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonAcceptCourier {
+  background: #4065E0;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  color: #fff;
+  width: 160px;
+  height: 35px;
+  border: none;
+  outline: none;
+}
+
+.buttonDeclineCourier {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  color: #4065E0;
+  width: 160px;
+  height: 35px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.commentField {
+  margin-bottom: 10px;
+  width: 320px;
+  height: 35px;
+  padding: 0 10px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #4065E0;
+  border: 2px solid #4065E0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.buttonAccept {
+@extend %button-shared;
+  background: #4065E0;
+  border-radius: 10px;
+}
+.buttonDecline {
+  @extend %button-shared;
+}
