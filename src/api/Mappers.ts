@@ -1,4 +1,4 @@
-import RegisterRequest from '@spryrocks/react-auth/RegisterRequest';
+import RegisterRequest from 'auth/RegisterRequest';
 import ApiRegisterRequest from 'api/entities/RegisterRequest';
 import LoginRequest from '@spryrocks/react-auth/LoginRequest';
 import ApiLoginRequest from 'api/entities/LoginRequest';
@@ -9,6 +9,11 @@ import ApiConfiguration from '@spryrocks/react-api/ApiConfiguration';
 import {
   Account as GQLAccount,
   Address as GQLAddress,
+  Set as GQLSet,
+  Dish as GQLDish,
+  Ingredient as GQLIngredient,
+  Status as GQLStatus,
+  OrderState as GQLOrderState,
   Bag as GQLBag,
   WashingInfo as GQLWashingInfo,
   User as GQLUser,
@@ -16,18 +21,22 @@ import {
   OrderInfo as GQLOrderInfo,
   Client as GQLClient,
   Courier as GQLCourier,
-  Laundry as GQLLaundry,
+  Restaurant as GQLRestaurant,
   InformationPage as GQLInformationPage,
   Document as GQLDocument,
   DocumentGroup as GQLDocumentGroup,
   DocumentsRevisionStatus as GQLDocumentsRevisionStatus,
   DocumentsRevision as GQLDocumentsRevision,
 } from './graphql/types';
-import Order from 'entities/Order';
 import Client from 'entities/Client';
 import Courier from 'entities/Courier';
-import Laundry from 'entities/Laundry';
+import Restaurant from 'entities/Restaurant';
 import InformationPage from 'entities/InformationPage';
+import Set from 'entities/Set';
+import Dish from 'entities/Dish';
+import Ingredient from 'entities/Ingredient';
+import Status from 'entities/Status';
+import Order, {OrderState} from 'entities/Order';
 import {
   Document,
   DocumentsRevision,
@@ -41,13 +50,14 @@ import {WashingInfo} from 'entities/WashingInfo';
 import OrderInfo from '../entities/OrderInfo';
 import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
 import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
-import UpdateLaundryInformationRequest from './entities/UpdateLaundryInformationRequest';
+import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 
 export const mapRegisterRequestToApi = (
   registerRequest: RegisterRequest,
 ): ApiRegisterRequest => ({
   name: registerRequest.name,
   email: registerRequest.email,
+  phoneNumber: registerRequest.phoneNumber,
   password: registerRequest.password,
 });
 
@@ -64,7 +74,6 @@ export const mapUpdateClientInformationRequestToGQL = (
 ): UpdateClientInformationRequest => ({
   id: updateClientInformationRequest.id,
   name: updateClientInformationRequest.name,
-  birthday: updateClientInformationRequest.birthday,
   email: updateClientInformationRequest.email,
   phoneNumber: updateClientInformationRequest.phoneNumber,
 });
@@ -88,22 +97,17 @@ export const mapImageFromGQL = (
   return `${configuration.rest.path}/files/${imageId}`;
 };
 
-export const mapUserFromGQL = (configuration: ApiConfiguration, user: GQLUser): User => ({
+export const mapUserFromGQL = (user: GQLUser): User => ({
   id: user.id,
   name: user.name,
-  birthday: user.birthday,
-  image: mapImageFromGQL(configuration, user.image),
-  additionalUserInfo: user.additionalUserInfo
+  additionalInfo: user.additionalUserInfo
     ? mapAdditionalUserInfoFromGQL(user.additionalUserInfo)
     : undefined,
 });
 
-export const mapMyAccountFromGQL = (
-  configuration: ApiConfiguration,
-  account: GQLAccount,
-): Account => ({
+export const mapMyAccountFromGQL = (account: GQLAccount): Account => ({
   info: mapAdditionalUserInfoFromGQL(account.info),
-  user: mapUserFromGQL(configuration, account.user),
+  user: mapUserFromGQL(account.user),
 });
 
 export const mapDocumentsRevisionStatusFromGQL = (
@@ -155,21 +159,17 @@ export const mapWashingInfoFromGQL = (washingInfo: GQLWashingInfo): WashingInfo 
 
 export const mapAddressFromGQL = (location: GQLAddress): Address => ({
   id: location.id,
-  placeId: location.placeId || undefined,
+  palaceId: location.placeId || undefined,
   description: location.description,
   latLng: location.latLng,
 });
 
-export const mapOrderInfoFromGQL = (
-  configuration: ApiConfiguration,
-  orderInfo: GQLOrderInfo,
-): OrderInfo => ({
+export const mapOrderInfoFromGQL = (orderInfo: GQLOrderInfo): OrderInfo => ({
   id: orderInfo.id,
   weight: orderInfo.weight,
-  distanceMiles: orderInfo.distanceMiles,
   priceCents: orderInfo.priceCents,
+  distanceMiles: orderInfo.distanceMiles,
   clientAddress: mapAddressFromGQL(orderInfo.clientAddress),
-  isOneWay: orderInfo.isOneWay,
 });
 
 export const mapClientFromGQL = (
@@ -177,52 +177,29 @@ export const mapClientFromGQL = (
   client: GQLClient,
 ): Client => ({
   id: client.id,
-  user: mapUserFromGQL(configuration, client.user),
+  user: mapUserFromGQL(client.user),
 });
 
-export const mapCourierFromGQL = (
-  configuration: ApiConfiguration,
-  courier: GQLCourier,
-): Courier => ({
+export const mapCourierFromGQL = (courier: GQLCourier): Courier => ({
   id: courier.id,
-  user: mapUserFromGQL(configuration, courier.user),
-  revision: courier.revision
-    ? mapDocumentsRevisionFromGQL(configuration, courier.revision)
-    : undefined,
+  user: mapUserFromGQL(courier.user),
 });
 
-export const mapLaundryFromGQL = (
-  configuration: ApiConfiguration,
-  laundry: GQLLaundry,
-): Laundry => ({
-  id: laundry.id,
-  title: laundry.title,
-  image: mapImageFromGQL(configuration, laundry.imageId),
-  additionalInfo: laundry.additionalInfo,
-  contactPerson: laundry.contactPerson,
-  website: laundry.website,
-  address: mapAddressFromGQL(laundry.address),
-  beginningOfWorkingDay: laundry.beginningOfWorkingDay,
-  endOfWorkingDay: laundry.endOfWorkingDay,
-  phoneNumber: laundry.phoneNumber,
-  services: laundry.services,
+export const mapRestaurantFromGQL = (restaurant: GQLRestaurant): Restaurant => ({
+  id: restaurant.id,
+  userId: restaurant.userId,
+  imageId: restaurant.imageId,
+  description: restaurant.description,
+  address: mapAddressFromGQL(restaurant.address),
 });
 
-export const mapUpdateLaundryInformationRequestToGQL = (
-  updateLaundryInformationRequest: UpdateLaundryInformationRequest,
-): UpdateLaundryInformationRequest => ({
-  id: updateLaundryInformationRequest.id,
-  title: updateLaundryInformationRequest.title,
-  additionalInfo: updateLaundryInformationRequest.additionalInfo,
-  contactPerson: updateLaundryInformationRequest.contactPerson,
-  website: updateLaundryInformationRequest.website,
-  addressDescription: updateLaundryInformationRequest.addressDescription,
-  lat: updateLaundryInformationRequest.lat,
-  lng: updateLaundryInformationRequest.lng,
-  beginningOfWorkingDay: updateLaundryInformationRequest.beginningOfWorkingDay,
-  endOfWorkingDay: updateLaundryInformationRequest.endOfWorkingDay,
-  phoneNumber: updateLaundryInformationRequest.phoneNumber,
-  services: updateLaundryInformationRequest.services,
+export const mapUpdateRestaurantInformationRequestToGQL = (
+  updateRestaurantInformationRequest: UpdateRestaurantInformationRequest,
+): UpdateRestaurantInformationRequest => ({
+  id: updateRestaurantInformationRequest.id,
+  addressDescription: updateRestaurantInformationRequest.addressDescription,
+  lat: updateRestaurantInformationRequest.lat,
+  lng: updateRestaurantInformationRequest.lng,
 });
 
 export const mapInformationPageFromGQL = (
@@ -243,24 +220,94 @@ export const mapBagFromGQL = (bag: GQLBag): Bag => ({
 export const mapBagsFromGQL = (bags: GQLBag[]): Bag[] =>
   bags.map((bag) => mapBagFromGQL(bag));
 
+export const mapIngredientFromGQL = (ingredient: GQLIngredient): Ingredient => ({
+  id: ingredient.id,
+  name: ingredient.name,
+});
+
+export const mapIngredientsFromGQL = (ingredients: GQLIngredient[]): Ingredient[] => {
+  return ingredients.map((ingredient) => mapIngredientFromGQL(ingredient));
+};
+
+export const mapDishFromGQL = (configuration: ApiConfiguration, dish: GQLDish): Dish => ({
+  id: dish.id,
+  name: dish.name,
+  description: dish.description,
+  image: mapImageFromGQL(configuration, dish.imageId),
+  weight: dish.weight,
+  kal: dish.kal,
+  ingredients: mapIngredientsFromGQL(dish.ingredients),
+});
+
+export const mapDishesFromGQL = (
+  configuration: ApiConfiguration,
+  dishes: GQLDish[],
+): Dish[] => {
+  return dishes.map((dish) => mapDishFromGQL(configuration, dish));
+};
+
+export const mapStatusFromGQL = (
+  configuration: ApiConfiguration,
+  status: GQLStatus,
+): Status => ({
+  id: status.id,
+  name: status.name,
+  imageId: mapImageFromGQL(configuration, status.imageId),
+});
+
+export const mapStatusesFromGQL = (
+  configuration: ApiConfiguration,
+  statuses: GQLStatus[],
+): Status[] => {
+  return statuses.map((status) => mapStatusFromGQL(configuration, status));
+};
+
+export const mapSetFromGQL = (configuration: ApiConfiguration, set: GQLSet): Set => ({
+  id: set.id,
+  name: set.name,
+  imageId: mapImageFromGQL(configuration, set.imageId),
+  priceCents: set.priceCents,
+  cuisineId: set.cuisineId,
+  dishes: mapDishesFromGQL(configuration, set.dishes),
+  statuses: mapStatusesFromGQL(configuration, set.statuses),
+});
+
+export const mapOrderStateFromGQL = (orderState: GQLOrderState): OrderState => {
+  switch (orderState) {
+    case 'WaitingForPayment':
+      return OrderState.WaitingForPayment;
+    case 'ReadyForDelivery':
+      return OrderState.ReadyForDelivery;
+    case 'AcceptedByCourier':
+      return OrderState.AcceptedByCourier;
+    case 'Delivering':
+      return OrderState.Delivering;
+    case 'Delivered':
+      return OrderState.Delivered;
+    case 'Completed':
+      return OrderState.Completed;
+    default:
+      throw new Error('Not implemented');
+  }
+};
+
 export const mapOrderFromGQL = (
   configuration: ApiConfiguration,
   order: GQLOrder,
 ): Order => ({
   id: order.id,
-  laundry: mapLaundryFromGQL(configuration, order.laundry),
-  client: mapUserFromGQL(configuration, order.client),
-  bags: mapBagsFromGQL(order.bags),
-  orderInfo: mapOrderInfoFromGQL(configuration, order.orderInfo),
-  comment: order.comment,
+  client: mapUserFromGQL(order.client),
+  restaurant: mapRestaurantFromGQL(order.restaurant),
+  bag: order.bag ? mapBagFromGQL(order.bag) : undefined,
+  set: mapSetFromGQL(configuration, order.set),
   number: order.number,
+  orderInfo: mapOrderInfoFromGQL(order.orderInfo),
   created: order.created,
   placement: order.placement,
-  state: order.state,
-  washingInfo: order.washingInfo ? mapWashingInfoFromGQL(order.washingInfo) : undefined,
-  firstCourierId: order.firstCourierId ? order.firstCourierId : '',
-  secondCourierId: order.secondCourierId ? order.secondCourierId : '',
-  preferredService: order.preferredService,
+  state: mapOrderStateFromGQL(order.state),
+  courierId: order.courierId ? order.courierId : undefined,
+  courier: order.courier ? mapCourierFromGQL(order.courier) : undefined,
+  rating: order.rating ? order.rating : undefined,
 });
 
 export const groupDocumentFromGQL = (
@@ -301,12 +348,12 @@ export const mapClientsFromGQL = (
 export const mapCouriersFromGQL = (
   configuration: ApiConfiguration,
   couriers: GQLCourier[],
-): Courier[] => couriers.map((courier) => mapCourierFromGQL(configuration, courier));
+): Courier[] => couriers.map((courier) => mapCourierFromGQL(courier));
 
-export const mapLaundriesFromGQL = (
+export const mapRestaurantsFromGQL = (
   configuration: ApiConfiguration,
-  laundries: GQLLaundry[],
-): Laundry[] => laundries.map((laundry) => mapLaundryFromGQL(configuration, laundry));
+  restaurants: GQLRestaurant[],
+): Restaurant[] => restaurants.map((restaurant) => mapRestaurantFromGQL(restaurant));
 
 export const mapInformationPagesFromGQL = (
   configuration: ApiConfiguration,

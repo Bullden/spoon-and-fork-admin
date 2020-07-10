@@ -1,6 +1,0 @@
-const prefix = 'LAUNDRIES_';
-
-export default {
-  FETCH_LAUNDRIES: `${prefix}FETCH_LAUNDRIES`,
-  FETCH_LAUNDRIES_COMPLETED: `${prefix}FETCH_LAUNDRIES_COMPLETED`,
-};

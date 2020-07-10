@@ -12,13 +12,13 @@ type AcceptedByCourier = {
 type CheckedIn = {
   action: 'checkedIn';
   orderId: string;
-  type: CourierType | 'laundry';
+  type: CourierType | 'restaurant';
 };
 
 type CheckedOut = {
   action: 'checkedOut';
   orderId: string;
-  type: CourierType | 'laundry';
+  type: CourierType | 'restaurant';
 };
 
 type WashingPaymentRequested = {

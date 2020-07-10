@@ -2,18 +2,18 @@ import types from './types';
 import {all, put, takeEvery} from 'redux-saga/effects';
 import {Action} from 'redux-actions';
 import {SpoonAndForkApi} from 'api/index';
-import actions, {FetchDetailsCompleted, UpdateLaundryInformation} from './actions';
+import actions, {FetchDetailsCompleted, UpdateRestaurantInformation} from './actions';
 import {actions as snackActions, snackBarActions} from '../snackBar';
 import {processError} from '../alert/saga';
-import Laundry from 'entities/Laundry';
+import Restaurant from 'entities/Restaurant';
 import {ID} from 'entities/Common';
-import {mapUpdateLaundryInformationRequestToGQL} from 'api/Mappers';
+import {mapUpdateRestaurantInformationRequestToGQL} from 'api/Mappers';
 
 function* fetchDetails({payload}: Action<ID>) {
   try {
-    const laundry: Laundry = yield SpoonAndForkApi.getLaundryById(payload);
+    const restaurant: Restaurant = yield SpoonAndForkApi.getRestaurantById(payload);
 
-    yield put(actions.fetchDetailsCompleted({laundry}));
+    yield put(actions.fetchDetailsCompleted({restaurant}));
   } catch (e) {
     yield put(actions.fetchDetailsCompleted(e));
   }
@@ -30,21 +30,21 @@ function* fetchDetailsCompleted({payload, error}: Action<FetchDetailsCompleted>)
   }
 }
 
-function* updateLaundryInformation({
+function* updateRestaurantInformation({
   payload: {request},
-}: Action<UpdateLaundryInformation>) {
+}: Action<UpdateRestaurantInformation>) {
   try {
-    yield SpoonAndForkApi.updateLaundryInformationRequest(
-      mapUpdateLaundryInformationRequestToGQL(request),
+    yield SpoonAndForkApi.updateRestaurantInformationRequest(
+      mapUpdateRestaurantInformationRequestToGQL(request),
     );
 
-    yield put(actions.updateLaundryInformationRequestCompleted(request));
+    yield put(actions.updateRestaurantInformationRequestCompleted(request));
   } catch (e) {
-    yield put(actions.updateLaundryInformationRequestCompleted(e));
+    yield put(actions.updateRestaurantInformationRequestCompleted(e));
   }
 }
 
-function* updateLaundryInformationCompleted({payload, error}: Action<Laundry>) {
+function* updateRestaurantInformationCompleted({payload, error}: Action<Restaurant>) {
   if (error) {
     yield put(
       snackActions.showSnackbar({message: processError({error: payload}), type: 'error'}),
@@ -60,10 +60,10 @@ export default function* () {
     //
     takeEvery(types.FETCH_DETAILS, fetchDetails),
     takeEvery(types.FETCH_DETAILS_COMPLETED, fetchDetailsCompleted),
-    takeEvery(types.UPDATE_LAUNDRY_INFORMATION, updateLaundryInformation),
+    takeEvery(types.UPDATE_RESTAURANT_INFORMATION, updateRestaurantInformation),
     takeEvery(
-      types.UPDATE_LAUNDRY_INFORMATION_COMPLETED,
-      updateLaundryInformationCompleted,
+      types.UPDATE_RESTAURANT_INFORMATION_COMPLETED,
+      updateRestaurantInformationCompleted,
     ),
   ]);
 }

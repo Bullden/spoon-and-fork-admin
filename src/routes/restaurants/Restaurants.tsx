@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
-import {useLaundryActions} from 'state/hooks/UseActions';
-import styles from './Laundries.module.scss';
+import {useRestaurantActions} from 'state/hooks/UseActions';
+import styles from 'routes/restaurants/Restaurants.module.scss';
 import {useSelector} from 'state/hooks';
 import Table from 'components/Table/Table';
-import Laundry from 'entities/Laundry';
+import Restaurant from 'entities/Restaurant';
 import {useHistory} from 'react-router-dom';
 import {AuthInfoKeeper} from 'auth';
 import {useTranslation} from 'react-i18next';
 
-const Laundries: React.FC = () => {
-  const {t} = useTranslation('laundries');
+const Restaurants: React.FC = () => {
+  const {t} = useTranslation('restaurants');
   const history = useHistory();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Laundries: React.FC = () => {
     });
   }, []);
 
-  const laundryActions = useLaundryActions();
+  const restaurantActions = useRestaurantActions();
 
   const columns = React.useMemo(
     () => [
@@ -41,29 +41,29 @@ const Laundries: React.FC = () => {
   );
 
   useEffect(() => {
-    laundryActions.fetchLaundries();
+    restaurantActions.fetchRestaurants();
   }, []);
 
   // TODO: IMPLEMENT BETTER SOLUTION WITH TYPES
-  const selectLaundry = (laundry: Laundry) => {
-    if (laundry.id) {
-      laundryActions.selectLaundry(laundry.id);
+  const selectRestaurant = (restaurant: Restaurant) => {
+    if (restaurant.id) {
+      restaurantActions.selectRestaurant(restaurant.id);
     }
   };
 
-  const data = useSelector((state) => state.laundries);
+  const data = useSelector((state) => state.restaurants);
 
   return (
     <div className={styles.container}>
       <Table
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
-        rowClick={selectLaundry}
+        rowClick={selectRestaurant}
         columns={columns}
-        data={data.isSuccess ? data.laundries : []}
+        data={data.isSuccess ? data.restaurants : []}
       />
     </div>
   );
 };
 
-export default Laundries;
+export default Restaurants;

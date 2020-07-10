@@ -1,6 +1,6 @@
 import Logo from './Logo.png';
 import CustomerIcon from './CustomerIcon.png';
-import LaundryIcon from './LaundryIcon.png';
+import RestaurantIcon from 'assets/RestaurantIcon.png';
 import LogoutIcon from './LogoutIcon.png';
 import OrderIconActive from './OrderIcon.png';
 import OrderDisableLogo from './OrderDisableLogo.png';
@@ -15,7 +15,7 @@ import PagesActiveIcon from 'assets/PagesActiveIcon.png';
 export {
   Logo,
   CustomerIcon,
-  LaundryIcon,
+  RestaurantIcon,
   LogoutIcon,
   OrderIconActive,
   OrderDisableLogo,

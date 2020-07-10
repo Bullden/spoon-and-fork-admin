@@ -112,21 +112,13 @@ export type LatLngInput = {
   lng: Scalars['Float'],
 };
 
-export type Laundry = {
-   __typename?: 'Laundry',
-  id: Scalars['ID'],
-  title: Scalars['String'],
-  imageId: Scalars['String'],
-  additionalInfo: Scalars['String'],
-  contactPerson: Scalars['String'],
-  website: Scalars['String'],
-  address: Address,
-  beginningOfWorkingDay: Scalars['DateTime'],
-  endOfWorkingDay: Scalars['DateTime'],
-  isAvailable: Scalars['Boolean'],
-  services: Scalars['String'],
-  phoneNumber: Scalars['String'],
-  user?: Maybe<User>,
+export type Restaurant = {
+  __typename?: 'Restaurant';
+  id: Scalars['ID'];
+  userId: Scalars['String'];
+  imageId: Scalars['String'];
+  description: Scalars['String'];
+  address: Address;
 };
 
 export type Mutation = {
@@ -134,10 +126,10 @@ export type Mutation = {
   updateMyAccount: Account,
   updateMyAccountPreferences: Account,
   updateMyAccountImage: Scalars['Boolean'],
-  createLaundry: Laundry,
-  updateLaundryInformation: Scalars['Boolean'],
+  createRestaurant: Restaurant,
+  updateRestaurantInformation: Scalars['Boolean'],
   setIsAvailable: Scalars['Boolean'],
-  updateLaundry: Scalars['Boolean'],
+  updateRestaurant: Scalars['Boolean'],
   createOrder: Order,
   evaluateOrder: Scalars['Boolean'],
   payForOrder: RequestedPayment,
@@ -175,7 +167,7 @@ export type MutationUpdateMyAccountImageArgs = {
 };
 
 
-export type MutationCreateLaundryArgs = {
+export type MutationCreateRestaurantArgs = {
   phoneNumber: Scalars['String'],
   services: Scalars['String'],
   workHours: WorkHours,
@@ -188,18 +180,11 @@ export type MutationCreateLaundryArgs = {
 };
 
 
-export type MutationUpdateLaundryInformationArgs = {
-  phoneNumber: Scalars['String'],
-  services: Scalars['String'],
-  endOfWorkingDay: Scalars['DateTime'],
-  beginningOfWorkingDay: Scalars['DateTime'],
+export type MutationUpdateRestaurantInformationArgs = {
+
   lng: Scalars['Float'],
   lat: Scalars['Float'],
   addressDescription: Scalars['String'],
-  website: Scalars['String'],
-  contactPerson: Scalars['String'],
-  additionalInfo: Scalars['String'],
-  title: Scalars['String'],
   id: Scalars['ID']
 };
 
@@ -209,7 +194,7 @@ export type MutationSetIsAvailableArgs = {
 };
 
 
-export type MutationUpdateLaundryArgs = {
+export type MutationUpdateRestaurantArgs = {
   phoneNumber: Scalars['String'],
   services: Scalars['String'],
   endOfWorkingDay: Scalars['DateTime'],
@@ -232,7 +217,7 @@ export type MutationCreateOrderArgs = {
   clientAddress: CreateAddressRequest,
   weight: Scalars['Float'],
   bagIds: Array<Scalars['String']>,
-  laundryId: Scalars['String']
+  restaurantId: Scalars['String']
 };
 
 
@@ -321,7 +306,6 @@ export type MutationUpdateLocationArgs = {
 export type MutationUpdateClientInformationArgs = {
   phoneNumber: Scalars['String'],
   email: Scalars['String'],
-  birthday: Scalars['DateTime'],
   name: Scalars['String'],
   id: Scalars['ID']
 };
@@ -344,54 +328,78 @@ export type MutationSetPaypalIdArgs = {
 };
 
 export type Order = {
-   __typename?: 'Order',
-  id: Scalars['String'],
-  client: User,
-  laundry: Laundry,
-  comment: Scalars['String'],
-  bags: Array<Bag>,
-  number: Scalars['Float'],
-  orderInfo: OrderInfo,
-  created: Scalars['DateTime'],
-  washingInfo?: Maybe<WashingInfo>,
-  placement: OrderPlacement,
-  state: OrderState,
-  firstCourierId?: Maybe<Scalars['String']>,
-  secondCourierId?: Maybe<Scalars['String']>,
-  firstCourier?: Maybe<Courier>,
-  secondCourier?: Maybe<Courier>,
-  rating?: Maybe<Scalars['String']>,
-  unlockCode: Scalars['String'],
-  myOrder: Scalars['Boolean'],
-  preferredService: Scalars['String'],
-  firstCourierTipsValue?: Maybe<Scalars['Float']>,
-  secondCourierTipsValue?: Maybe<Scalars['Float']>,
-  tipsPaymentSuccessful?: Maybe<Scalars['Boolean']>,
+  __typename?: 'Order';
+  id: Scalars['String'];
+  client: User;
+  restaurant: Restaurant;
+  bag: Maybe<Bag>;
+  set: Set;
+  number: Scalars['Float'];
+  orderInfo: OrderInfo;
+  created: Scalars['DateTime'];
+  placement: OrderPlacement;
+  state: OrderState;
+  courierId?: Maybe<Scalars['String']>;
+  courier?: Maybe<Courier>;
+  rating?: Maybe<Scalars['String']>;
 };
 
 export type OrderInfo = {
-   __typename?: 'OrderInfo',
-  id: Scalars['String'],
-  weight: Scalars['Float'],
-  clientAddress: Address,
-  distanceMiles: Scalars['Float'],
-  priceCents: Scalars['Int'],
-  isOneWay: Scalars['Boolean'],
+  __typename?: 'OrderInfo';
+  id: Scalars['String'];
+  weight: Scalars['Float'];
+  clientAddress: Address;
+  distanceMiles: Scalars['Float'];
+  priceCents: Scalars['Int'];
 };
 
 export enum OrderPlacement {
   Client = 'Client',
-  Laundry = 'Laundry'
+  Restaurant = 'Restaurant'
 }
+
+export type Ingredient = {
+  __typename?: 'Ingredient';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type Status = {
+  __typename?: 'Status';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  imageId: Scalars['String'];
+};
+
+export type Dish = {
+  __typename?: 'Dish';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  description: Scalars['String'];
+  imageId: Scalars['String'];
+  weight: Scalars['String'];
+  kal: Scalars['String'];
+  ingredients: Array<Ingredient>;
+};
+
+export type Set = {
+  __typename?: 'Set';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  imageId: Scalars['String'];
+  cuisineId: Scalars['String'];
+  priceCents: Scalars['Int'];
+  dishes: Array<Dish>;
+  statuses: Array<Status>;
+};
 
 export enum OrderState {
   WaitingForPayment = 'WaitingForPayment',
   ReadyForDelivery = 'ReadyForDelivery',
   AcceptedByCourier = 'AcceptedByCourier',
-  AcceptedByLaundry = 'AcceptedByLaundry',
+  AcceptedByRestaurant = 'AcceptedByRestaurant',
   Delivering = 'Delivering',
   Delivered = 'Delivered',
-  Washing = 'Washing',
   Completed = 'Completed'
 }
 
@@ -403,9 +411,9 @@ export type Preferences = {
 export type Query = {
    __typename?: 'Query',
   myAccount: Account,
-  laundryById: Laundry,
-  currentLaundry?: Maybe<Laundry>,
-  laundries: Array<Laundry>,
+  restaurantById: Restaurant,
+  currentRestaurant?: Maybe<Restaurant>,
+  restaurants: Array<Restaurant>,
   orders: Array<Order>,
   orderById: Order,
   orderState: OrderState,
@@ -417,7 +425,7 @@ export type Query = {
   bagsByOrderId: Array<Bag>,
   currentRevision?: Maybe<DocumentsRevision>,
   documents: Array<Document>,
-  distanceToLaundry: Scalars['Float'],
+  distanceToRestaurant: Scalars['Float'],
   userLocation: LatLng,
   couriers: Array<Courier>,
   courierById: Courier,
@@ -430,8 +438,8 @@ export type Query = {
 };
 
 
-export type QueryLaundryByIdArgs = {
-  laundryId: Scalars['ID']
+export type QueryRestaurantByIdArgs = {
+  restaurantId: Scalars['ID']
 };
 
 
@@ -465,9 +473,9 @@ export type QueryDocumentsArgs = {
 };
 
 
-export type QueryDistanceToLaundryArgs = {
+export type QueryDistanceToRestaurantArgs = {
   latLng: LatLngInput,
-  laundryId: Scalars['String']
+  restaurantId: Scalars['String']
 };
 
 

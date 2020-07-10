@@ -6,6 +6,10 @@
   font-size: 16px;
 }
 
+.container {
+  margin-left: 35px;
+}
+
 .extraInfoContainer {
   display: flex;
   justify-content: space-between;
@@ -46,7 +50,7 @@
   color: #4065E0;
 }
 
-.listElementLaundryServices{
+.listElementRestaurantServices{
   width: 345px;
   height: 300px;
   padding: 0 40px;

@@ -6,5 +6,4 @@ export default interface OrderInfo {
   distanceMiles: number;
   priceCents: number;
   clientAddress: Address;
-  isOneWay: boolean;
 }

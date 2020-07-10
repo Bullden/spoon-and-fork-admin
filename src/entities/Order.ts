@@ -1,37 +1,36 @@
-import Laundry from 'entities/Laundry';
+import Restaurant from 'entities/Restaurant';
 import {Bag} from 'entities/Bag';
+import Set from 'entities/Set';
 import User from 'entities/User';
-import OrderInfo from './OrderInfo';
-import {WashingInfo} from './WashingInfo';
+import OrderInfo from 'entities/OrderInfo';
+import Courier from 'entities/Courier';
 
 export default interface Order {
   id: string;
-  laundry: Laundry;
+  restaurant: Restaurant;
   client: User;
-  bags: Bag[];
+  bag?: Bag;
+  set: Set;
   orderInfo: OrderInfo;
-  comment: string;
   number: number;
   created: Date;
   placement: OrderPlacement;
   state: OrderState;
-  washingInfo: WashingInfo | undefined;
-  firstCourierId: string;
-  secondCourierId: string;
-  preferredService: string;
+  courierId: string | undefined;
+  courier: Courier | undefined;
+  rating: string | undefined;
 }
 
 export enum OrderState {
   WaitingForPayment = 'WaitingForPayment',
   ReadyForDelivery = 'ReadyForDelivery',
   AcceptedByCourier = 'AcceptedByCourier',
-  AcceptedByLaundry = 'AcceptedByLaundry',
   Delivering = 'Delivering',
   Delivered = 'Delivered',
-  Washing = 'Washing',
   Completed = 'Completed',
 }
+
 export enum OrderPlacement {
-  Client,
-  Laundry,
+  Client = 'Client',
+  Restaurant = 'Restaurant',
 }

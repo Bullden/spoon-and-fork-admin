@@ -29,7 +29,7 @@ export type NavigationPayload = {history: H.History};
 export type SelectOrder = {id: string} & NavigationPayload;
 export type SelectClient = {clientId: string} & NavigationPayload;
 export type SelectCourier = {courierId: string} & NavigationPayload;
-export type SelectLaundry = {laundryId: string} & NavigationPayload;
+export type SelectRestaurant = {restaurantId: string} & NavigationPayload;
 export type CreateOrUpdateInformationPage = NavigationPayload;
 
 export default {
@@ -52,8 +52,8 @@ export default {
   navigateToCourierDetails: createAction<SelectCourier>(
     types.NAVIGATE_TO_COURIER_DETAILS,
   ),
-  navigateToLaundryDetails: createAction<SelectLaundry>(
-    types.NAVIGATE_TO_LAUNDRY_DETAILS,
+  navigateToRestaurantDetails: createAction<SelectRestaurant>(
+    types.NAVIGATE_TO_RESTAURANT_DETAILS,
   ),
   navigateToCreateOrUpdatePage: createAction<CreateOrUpdateInformationPage>(
     types.NAVIGATE_TO_CREATE_OR_UPDATE_PAGE,

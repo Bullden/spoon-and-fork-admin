@@ -6,6 +6,6 @@ export interface Orders {
 }
 
 export interface OrderContainer {
-  laundryOrders: LoadableContainer<Orders>;
+  restaurantOrders: LoadableContainer<Orders>;
   clientOrders: LoadableContainer<Orders>;
 }

@@ -6,8 +6,8 @@ import {
   clientsQuery,
   courierByIdQuery,
   couriersQuery,
-  laundriesQuery,
-  laundryByIdQuery,
+  restaurantsQuery,
+  restaurantByIdQuery,
   informationPagesQuery,
   informationPageByIdQuery,
   documentsQuery,
@@ -15,7 +15,7 @@ import {
   mutationUpdateMyAccountImage,
   mutationCreateOrUpdateInformationPage,
   mutationUpdateClientInformation,
-  mutationUpdateLaundryInformation,
+  mutationUpdateRestaurantInformation,
   myAccountQuery,
   deleteOrderMutation,
   removeTheCurrentCourierMutation,
@@ -25,7 +25,7 @@ import {
   EvaluateDocumentsRevisionType,
   MutationCreateOrUpdateInformationPageArgs,
   MutationUpdateClientInformationArgs,
-  MutationUpdateLaundryInformationArgs,
+  MutationUpdateRestaurantInformationArgs,
 } from 'api/graphql/types';
 
 export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
@@ -75,16 +75,18 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
     return this.query(courierByIdQuery({courierId}));
   }
 
-  public async queryLaundries() {
-    return this.query(laundriesQuery());
+  public async queryRestaurants() {
+    return this.query(restaurantsQuery());
   }
 
-  public async queryLaundryById(laundryId: ID) {
-    return this.query(laundryByIdQuery({laundryId}));
+  public async queryRestaurantById(restaurantId: ID) {
+    return this.query(restaurantByIdQuery({restaurantId}));
   }
 
-  public mutationUpdateLaundryInformation(request: MutationUpdateLaundryInformationArgs) {
-    return this.mutation(mutationUpdateLaundryInformation(request));
+  public mutationUpdateRestaurantInformation(
+    request: MutationUpdateRestaurantInformationArgs,
+  ) {
+    return this.mutation(mutationUpdateRestaurantInformation(request));
   }
 
   public async queryInformationPages() {

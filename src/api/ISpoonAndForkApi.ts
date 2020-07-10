@@ -6,14 +6,14 @@ import ForgotPasswordRequest from 'api/entities/ForgotPasswordRequest';
 import Order from 'entities/Order';
 import Client from 'entities/Client';
 import Courier from 'entities/Courier';
-import Laundry from 'entities/Laundry';
+import Restaurant from 'entities/Restaurant';
 import InformationPage from 'entities/InformationPage';
 import {ID} from 'entities/Common';
 import {DocumentsGroups, EvaluateDocumentsRevisionType} from 'entities/Documents';
 import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest';
 import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
 import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
-import UpdateLaundryInformationRequest from './entities/UpdateLaundryInformationRequest';
+import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 
 export interface ISpoonAndForkApi {
   register(request: RegisterRequest): Promise<Session>;
@@ -36,10 +36,10 @@ export interface ISpoonAndForkApi {
   getCouriers(): Promise<Courier[]>;
   getCourierById(id: ID): Promise<Courier>;
 
-  getLaundries(): Promise<Laundry[]>;
-  getLaundryById(id: ID): Promise<Laundry>;
-  updateLaundryInformationRequest(
-    request: UpdateLaundryInformationRequest,
+  getRestaurants(): Promise<Restaurant[]>;
+  getRestaurantById(id: ID): Promise<Restaurant>;
+  updateRestaurantInformationRequest(
+    request: UpdateRestaurantInformationRequest,
   ): Promise<void>;
 
   getInformationPages(): Promise<InformationPage[]>;

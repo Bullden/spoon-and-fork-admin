@@ -14,8 +14,6 @@ function* fetchDetails({payload}: Action<ID>) {
     const courier: Courier = yield SpoonAndForkApi.getCourierById(payload);
 
     let groups: DocumentsGroups | undefined;
-    if (courier.revision)
-      groups = yield SpoonAndForkApi.getDocuments(courier.revision.id);
     yield put(actions.fetchDetailsCompleted({courier, groups}));
   } catch (e) {
     yield put(actions.fetchDetailsCompleted(e));

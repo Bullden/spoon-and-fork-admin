@@ -1,4 +1,4 @@
-export {default as actions, default as laundryDetailsActions} from './actions';
+export {default as actions, default as restaurantDetailsActions} from './actions';
 
 export {default as saga} from './saga';
 

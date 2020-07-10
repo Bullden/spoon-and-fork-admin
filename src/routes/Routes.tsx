@@ -11,8 +11,8 @@ import Clients from './clients/Clients';
 import ClientDetails from './clients/details/ClientDetails';
 import Couriers from './couriers/Couriers';
 import CourierDetails from './couriers/details/CourierDetails';
-import Laundries from './laundries/Laundries';
-import LaundryDetails from './laundries/details/LaundryDetails';
+import Restaurants from './restaurants/Restaurants';
+import RestaurantDetails from './restaurants/details/RestaurantDetails';
 import InformationPages from 'routes/informationPages/InformationPages';
 import {useAuthActions} from 'state/hooks/UseActions';
 import Settings from 'routes/settings/Settings';
@@ -46,7 +46,7 @@ const Routes: React.FC = () => {
             <Redirect to="/couriers" />
           </Route>
           <Route exact path="/main">
-            <Redirect to="/laundries" />
+            <Redirect to="/restaurants" />
           </Route>
           <Route exact path="/main">
             <Redirect to="/informationPages" />
@@ -129,8 +129,8 @@ const Routes: React.FC = () => {
           />
           <AppRoute
             exact
-            path="/laundries"
-            component={Laundries}
+            path="/restaurants"
+            component={Restaurants}
             layout={Layout.AdminLayout}
           />
           <AppRoute
@@ -141,14 +141,14 @@ const Routes: React.FC = () => {
           />
           <AppRoute
             exact
-            path="/laundries/:laundryId"
-            component={LaundryDetails}
+            path="/restaurants/:restaurantId"
+            component={RestaurantDetails}
             layout={Layout.AdminLayout}
           />
           <AppRoute
             exact
-            path="/laundries/:laundryId/editProfile"
-            component={LaundryDetails}
+            path="/restaurants/:restaurantId/editProfile"
+            component={RestaurantDetails}
             layout={Layout.AdminLayout}
           />
           <AppRoute

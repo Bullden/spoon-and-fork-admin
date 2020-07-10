@@ -21,8 +21,7 @@ const OrderDetails: React.FC = () => {
 
   const renderDetails = (order: Order) => {
     return (
-      // eslint-disable-next-line no-inline-styles/no-inline-styles
-      <Grid container style={{paddingLeft: 35}}>
+      <Grid container className={styles.container}>
         <Grid className={styles.orderMainInfo} item>
           <p className={styles.orderMainInfo__number}>
             <span>{t('order')}</span>
@@ -46,11 +45,13 @@ const OrderDetails: React.FC = () => {
         <Grid className={styles.detailsContainer__paper__field} item>
           <p className={styles.detailsContainer__paper__element}>
             <span className={styles.detailsContainer__paper__label}>{t('courier')}</span>
-            {order.secondCourierId ? order.secondCourierId : order.firstCourierId}
+            {order.courierId}
           </p>
           <p className={styles.detailsContainer__paper__element}>
-            <span className={styles.detailsContainer__paper__label}>{t('laundry')}</span>
-            {order.laundry.address.description}
+            <span className={styles.detailsContainer__paper__label}>
+              {t('restaurant')}
+            </span>
+            {order.restaurant.address.description}
           </p>
         </Grid>
       </Grid>
@@ -64,10 +65,6 @@ const OrderDetails: React.FC = () => {
           <h1 className={styles.containerName}>Order info</h1>
           <ul className={styles.ordersList}>
             <li className={styles.listElement}>
-              <span>Total bags</span>
-              <span>{order.bags.length}</span>
-            </li>
-            <li className={styles.listElement}>
               <span>Total weight</span>
               <span>{order.orderInfo.weight}</span>
             </li>
@@ -77,23 +74,12 @@ const OrderDetails: React.FC = () => {
             </li>
             <li className={styles.listElement}>
               <span>Order cost</span>
-              <span>
-                $
-                {(order.washingInfo
-                  ? order.washingInfo?.price &&
-                    (order.washingInfo?.price + order.orderInfo.priceCents * 2) / 100
-                  : (order.orderInfo.priceCents * 2) / 100
-                )?.toFixed(2)}
-              </span>
-            </li>
-            <li className={styles.listElementLaundryServices}>
-              <span className={styles.orderServicesTitle}>Order services</span>
-              <span>{order.preferredService}</span>
+              <span>${((order.orderInfo.priceCents * 2) / 100)?.toFixed(2)}</span>
             </li>
           </ul>
         </div>
         <div className={styles.buttons}>
-          {order.firstCourierId && (
+          {order.courierId && (
             <button
               type="submit"
               className={styles.button}

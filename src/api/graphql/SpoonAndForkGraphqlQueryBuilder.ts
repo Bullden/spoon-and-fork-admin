@@ -9,19 +9,19 @@ import {
   Order,
   Client,
   Courier,
-  Laundry,
+  Restaurant,
   Document,
   InformationPage,
   MutationEvaluateDocumentsRevisionArgs,
   QueryOrderByIdArgs,
   QueryClientByIdArgs,
   QueryCourierByIdArgs,
-  QueryLaundryByIdArgs,
+  QueryRestaurantByIdArgs,
   QueryInformationPageByIdArgs,
   QueryDocumentsArgs,
   MutationCreateOrUpdateInformationPageArgs,
   MutationUpdateClientInformationArgs,
-  MutationUpdateLaundryInformationArgs,
+  MutationUpdateRestaurantInformationArgs,
   MutationDeleteOrderArgs,
   MutationRemoveTheCurrentCourierArgs,
 } from './types';
@@ -111,8 +111,8 @@ const BagFragment = () => gql`
 const OrderFragment = () => gql`
   fragment Order on Order {
     id
-    laundry {
-      ...Laundry
+    restaurant {
+      ...Restaurant
     }
     client {
       ...User
@@ -158,8 +158,8 @@ const CourierFragment = () => gql`
   }
 `;
 
-const LaundryFragment = () => gql`
-  fragment Laundry on Laundry {
+const RestaurantFragment = () => gql`
+  fragment Restaurant on Restaurant {
     additionalInfo
     address {
       ...Address
@@ -224,7 +224,7 @@ export const ordersQuery = createQuery<{orders: Order[]}, Order[]>(
   gql`
     ${LatLngFragment()}
     ${AddressFragment()}
-    ${LaundryFragment()}
+    ${RestaurantFragment()}
     ${AdditionalUserInfoFragment()}
     ${UserFragment()}
     ${BagFragment()}
@@ -270,7 +270,7 @@ export const orderByIdQuery = createQueryWithVariables<
   gql`
     ${LatLngFragment()}
     ${AddressFragment()}
-    ${LaundryFragment()}
+    ${RestaurantFragment()}
     ${AdditionalUserInfoFragment()}
     ${UserFragment()}
     ${BagFragment()}
@@ -379,45 +379,45 @@ export const courierByIdQuery = createQueryWithVariables<
   ({courierById}) => courierById,
 );
 
-export const laundriesQuery = createQuery<{laundries: Laundry[]}, Laundry[]>(
+export const restaurantsQuery = createQuery<{restaurants: Restaurant[]}, Restaurant[]>(
   gql`
     ${LatLngFragment()}
     ${AddressFragment()}
-    ${LaundryFragment()}
+    ${RestaurantFragment()}
     query {
-      laundries {
-        ...Laundry
+      restaurant {
+        ...Restaurant
       }
     }
   `,
-  ({laundries}) => laundries,
+  ({restaurants}) => restaurants,
 );
 
-export const laundryByIdQuery = createQueryWithVariables<
-  QueryLaundryByIdArgs,
-  {laundryById: Laundry},
-  Laundry
+export const restaurantByIdQuery = createQueryWithVariables<
+  QueryRestaurantByIdArgs,
+  {restaurantById: Restaurant},
+  Restaurant
 >(
   gql`
     ${LatLngFragment()}
     ${AddressFragment()}
-    ${LaundryFragment()}
-    query($laundryId: ID!) {
-      laundryById(laundryId: $laundryId) {
-        ...Laundry
+    ${RestaurantFragment()}
+    query($restaurantId: ID!) {
+      restaurantById(restaurantId: $restaurantId) {
+        ...Restaurant
       }
     }
   `,
-  ({laundryById}) => laundryById,
+  ({restaurantById}) => restaurantById,
 );
 
-export const mutationUpdateLaundryInformation = createMutationWithVariables<
-  MutationUpdateLaundryInformationArgs,
-  {updateLaundryInformation: boolean},
+export const mutationUpdateRestaurantInformation = createMutationWithVariables<
+  MutationUpdateRestaurantInformationArgs,
+  {updateRestaurantInformation: boolean},
   void
 >(
   gql`
-    mutation updateLaundryInformation(
+    mutation updateRestaurantInformation(
       $id: ID!
       $title: String!
       $additionalInfo: String!
@@ -431,7 +431,7 @@ export const mutationUpdateLaundryInformation = createMutationWithVariables<
       $phoneNumber: String!
       $services: String!
     ) {
-      updateLaundryInformation(
+      updateRestaurantInformation(
         id: $id
         title: $title
         additionalInfo: $additionalInfo

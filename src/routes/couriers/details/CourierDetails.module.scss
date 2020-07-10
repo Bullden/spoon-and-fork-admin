@@ -11,6 +11,24 @@
   position: relative;
 }
 
+.statusIconNew {
+  width: 17px;
+  height: 17px;
+}
+.statusIconVerificationRequested {
+  width: 6px;
+  height: 20px;
+}
+.statusIconApproved {
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+}
+.statusIconRejected {
+  width: 15px;
+  height: 15px;
+}
+
 .statusIcon {
   div {
     position: absolute;

@@ -5,19 +5,19 @@ import {SpoonAndForkApi} from 'api/index';
 import actions from './actions';
 import {snackBarActions} from '../snackBar';
 import {processError} from '../alert/saga';
-import Laundry from 'entities/Laundry';
+import Restaurant from 'entities/Restaurant';
 
-function* fetchLaundries() {
+function* fetchRestaurants() {
   try {
-    const laundries: Laundry[] = yield SpoonAndForkApi.getLaundries();
+    const restaurants: Restaurant[] = yield SpoonAndForkApi.getRestaurants();
 
-    yield put(actions.fetchLaundriesCompleted(laundries));
+    yield put(actions.fetchRestaurantsCompleted(restaurants));
   } catch (e) {
-    yield put(actions.fetchLaundriesCompleted(e));
+    yield put(actions.fetchRestaurantsCompleted(e));
   }
 }
 
-function* fetchLaundriesCompleted({payload, error}: Action<Laundry[]>) {
+function* fetchRestaurantsCompleted({payload, error}: Action<Restaurant[]>) {
   if (error) {
     yield put(
       snackBarActions.showSnackbar({
@@ -31,7 +31,7 @@ function* fetchLaundriesCompleted({payload, error}: Action<Laundry[]>) {
 export default function* () {
   yield all([
     //
-    takeEvery(types.FETCH_LAUNDRIES, fetchLaundries),
-    takeEvery(types.FETCH_LAUNDRIES_COMPLETED, fetchLaundriesCompleted),
+    takeEvery(types.FETCH_RESTAURANTS, fetchRestaurants),
+    takeEvery(types.FETCH_RESTAURANTS_COMPLETED, fetchRestaurantsCompleted),
   ]);
 }

@@ -6,7 +6,7 @@ import {
   CourierActiveLogo,
   CourierIcon,
   CustomerIcon,
-  LaundryIcon,
+  RestaurantIcon,
   LogoutIcon,
   OrderDisableLogo,
   OrderIconActive,
@@ -62,7 +62,7 @@ const AdminLayout: React.FC = ({children}) => {
       icon: CourierIcon,
       activeIcon: CourierActiveLogo,
     },
-    {label: t('laundry'), path: 'laundries', icon: LaundryIcon},
+    {label: t('restaurants'), path: 'restaurants', icon: RestaurantIcon},
     {label: t('settings'), path: 'settings', icon: SettingsIcon},
     {
       label: t('pages'),

@@ -26,6 +26,11 @@ interface InformationPagesFormValues {
   body: string;
 }
 
+const editorStyles = {
+  height: '500px',
+  width: '100%',
+};
+
 const mdParser = new MarkdownIt();
 
 const date = new Date();
@@ -206,8 +211,7 @@ const InformationPages: React.FC = () => {
                 type="keyword"
                 as={TextField}
                 label={t('keyword')}
-                {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
-                style={{marginBottom: 15}}
+                className={styles.form__field}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   return setKey(e.target.value);
                 }}
@@ -221,8 +225,7 @@ const InformationPages: React.FC = () => {
                 type="title"
                 id="title"
                 as={TextField}
-                {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
-                style={{marginBottom: 15}}
+                className={styles.form__field}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   return setTitle(e.target.value);
                 }}
@@ -231,8 +234,7 @@ const InformationPages: React.FC = () => {
               <MdEditor
                 value={body}
                 renderHTML={(text) => mdParser.render(text)}
-                {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
-                style={{height: '500px', width: '100%'}}
+                style={editorStyles}
                 config={{
                   view: {
                     menu: true,

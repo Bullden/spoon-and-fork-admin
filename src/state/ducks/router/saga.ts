@@ -7,7 +7,7 @@ import {
   SelectOrder,
   SelectClient,
   SelectCourier,
-  SelectLaundry,
+  SelectRestaurant,
   CreateOrUpdateInformationPage,
 } from './actions';
 import {actions as sessionActions} from '../session';
@@ -60,8 +60,8 @@ function navigateToCourierDetails({payload}: Action<SelectCourier>) {
   payload.history.push(`/couriers/${payload.courierId}`);
 }
 
-function navigateToLaundryDetails({payload}: Action<SelectLaundry>) {
-  payload.history.push(`/laundries/${payload.laundryId}`);
+function navigateToRestaurantDetails({payload}: Action<SelectRestaurant>) {
+  payload.history.push(`/restaurants/${payload.restaurantId}`);
 }
 
 function navigateToCreateOrUpdatePage({payload}: Action<CreateOrUpdateInformationPage>) {
@@ -80,7 +80,7 @@ export default function* () {
     takeEvery(types.NAVIGATE_TO_ORDER_DETAILS, navigateToOrderDetails),
     takeEvery(types.NAVIGATE_TO_CLIENT_DETAILS, navigateToClientDetails),
     takeEvery(types.NAVIGATE_TO_COURIER_DETAILS, navigateToCourierDetails),
-    takeEvery(types.NAVIGATE_TO_LAUNDRY_DETAILS, navigateToLaundryDetails),
+    takeEvery(types.NAVIGATE_TO_RESTAURANT_DETAILS, navigateToRestaurantDetails),
     takeEvery(types.NAVIGATE_TO_CREATE_OR_UPDATE_PAGE, navigateToCreateOrUpdatePage),
   ]);
 }

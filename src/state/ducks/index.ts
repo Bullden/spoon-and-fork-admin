@@ -8,7 +8,10 @@ import {saga as imagePickerSaga} from 'state/ducks/imagePicker';
 import {reducer as ordersReducer, saga as ordersSaga} from 'state/ducks/order';
 import {reducer as clientsReducer, saga as clientsSaga} from 'state/ducks/client';
 import {reducer as couriersReducer, saga as couriersSaga} from 'state/ducks/courier';
-import {reducer as laundriesReducer, saga as laundriesSaga} from 'state/ducks/laundry';
+import {
+  reducer as restaurantsReducer,
+  saga as restaurantsSaga,
+} from 'state/ducks/restaurant';
 import {
   reducer as informationPagesReducer,
   saga as informationPagesSaga,
@@ -26,9 +29,9 @@ import {
   saga as courierDetailsSaga,
 } from 'state/ducks/courierDetails';
 import {
-  reducer as laundryDetailsReducer,
-  saga as laundryDetailsSaga,
-} from 'state/ducks/laundryDetails';
+  reducer as restaurantDetailsReducer,
+  saga as restaurantDetailsSaga,
+} from 'state/ducks/restaurantDetails';
 import {
   reducer as informationPageDetailsReducer,
   saga as informationPageDetailsSaga,
@@ -48,8 +51,8 @@ export const rootReducer = combineReducers<State>({
   clientDetails: clientDetailsReducer,
   couriers: couriersReducer,
   courierDetails: courierDetailsReducer,
-  laundries: laundriesReducer,
-  laundryDetails: laundryDetailsReducer,
+  restaurants: restaurantsReducer,
+  restaurantDetails: restaurantDetailsReducer,
   informationPages: informationPagesReducer,
   informationPageDetails: informationPageDetailsReducer,
 });
@@ -67,8 +70,8 @@ export function* rootSaga() {
     orderDetailsSaga(),
     couriersSaga(),
     courierDetailsSaga(),
-    laundriesSaga(),
-    laundryDetailsSaga(),
+    restaurantsSaga(),
+    restaurantDetailsSaga(),
     informationPagesSaga(),
     informationPageDetailsSaga(),
     pushNotificationSaga(),

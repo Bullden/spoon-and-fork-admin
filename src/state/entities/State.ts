@@ -8,8 +8,8 @@ import ClientsContainer from 'state/entities/ClientsContainer';
 import {ClientDetailsContainer} from 'state/entities/ClientDetailsContainer';
 import CouriersContainer from 'state/entities/CouriersContainer';
 import {CourierDetailsContainer} from 'state/entities/CourierDetailsContainer';
-import LaundriesContainer from 'state/entities/LaundriesContainer';
-import {LaundryDetailsContainer} from 'state/entities/LaundryDetailsContainer';
+import RestaurantsContainer from 'state/entities/RestaurantsContainer';
+import {RestaurantDetailsContainer} from 'state/entities/RestaurantDetailsContainer';
 import InformationPagesContainer from 'state/entities/InformationPagesContainer';
 import {InformationPageDetailsContainer} from 'state/entities/InformationPageDetailsContainer';
 
@@ -22,8 +22,8 @@ export default interface State {
   clientDetails: ClientDetailsContainer;
   couriers: LoadableContainer<CouriersContainer>;
   courierDetails: CourierDetailsContainer;
-  laundries: LoadableContainer<LaundriesContainer>;
-  laundryDetails: LaundryDetailsContainer;
+  restaurants: LoadableContainer<RestaurantsContainer>;
+  restaurantDetails: RestaurantDetailsContainer;
   informationPages: LoadableContainer<InformationPagesContainer>;
   informationPageDetails: InformationPageDetailsContainer;
   snackBar: SnackBar;

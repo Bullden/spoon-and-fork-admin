@@ -11,17 +11,17 @@ import {useHistory} from 'react-router-dom';
 import {orderActions} from '../ducks/order';
 import {clientActions} from '../ducks/client';
 import {courierActions} from '../ducks/courier';
-import {laundryActions} from '../ducks/laundry';
+import {restaurantActions} from '../ducks/restaurant';
 import {informationPageActions} from '../ducks/informationPage';
 import {orderDetailsActions} from '../ducks/orderDetails';
 import {clientDetailsActions} from '../ducks/clientDetails';
 import {courierDetailsActions} from '../ducks/courierDetails';
-import {laundryDetailsActions} from '../ducks/laundryDetails';
+import {restaurantDetailsActions} from '../ducks/restaurantDetails';
 import {informationPageDetailsActions} from '../ducks/informationPageDetails';
 import {EvaluateDocumentsRevisionType} from 'entities/Documents';
 import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
 import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
-import UpdateLaundryInformationRequest from '../../api/entities/UpdateLaundryInformationRequest';
+import UpdateRestaurantInformationRequest from 'api/entities/UpdateRestaurantInformationRequest';
 
 export function useAuthActions() {
   const dispatch = useDispatch();
@@ -135,32 +135,32 @@ export function useCourierDetailsActions() {
   };
 }
 
-export function useLaundryActions() {
+export function useRestaurantActions() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   return {
-    fetchLaundries: () => dispatch(laundryActions.fetchLaundries()),
-    selectLaundry: (id: string) => {
-      dispatch(routerActions.navigateToLaundryDetails({history, laundryId: id}));
+    fetchRestaurants: () => dispatch(restaurantActions.fetchRestaurants()),
+    selectRestaurant: (id: string) => {
+      dispatch(routerActions.navigateToRestaurantDetails({history, restaurantId: id}));
     },
   };
 }
 
-export function useLaundryDetailsActions() {
+export function useRestaurantDetailsActions() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   return {
-    fetchLaundryDetails: (laundryId: string) => {
-      dispatch(laundryDetailsActions.fetchDetails(laundryId));
+    fetchRestaurantDetails: (restaurantId: string) => {
+      dispatch(restaurantDetailsActions.fetchDetails(restaurantId));
     },
-    updateLaundryInformation: (
-      updateLaundryInformationRequest: UpdateLaundryInformationRequest,
+    updateRestaurantInformation: (
+      updateRestaurantInformationRequest: UpdateRestaurantInformationRequest,
     ) => {
       dispatch(
-        laundryDetailsActions.updateLaundryInformationRequest({
-          request: updateLaundryInformationRequest,
+        restaurantDetailsActions.updateRestaurantInformationRequest({
+          request: updateRestaurantInformationRequest,
           history,
         }),
       );

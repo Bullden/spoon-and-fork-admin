@@ -12,8 +12,8 @@ import {
   mapClientsFromGQL,
   mapCourierFromGQL,
   mapCouriersFromGQL,
-  mapLaundryFromGQL,
-  mapLaundriesFromGQL,
+  mapRestaurantFromGQL,
+  mapRestaurantsFromGQL,
   mapMyAccountFromGQL,
   mapInformationPagesFromGQL,
   mapInformationPageFromGQL,
@@ -35,7 +35,7 @@ import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest'
 import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
 import InformationPage from 'entities/InformationPage';
 import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
-import UpdateLaundryInformationRequest from './entities/UpdateLaundryInformationRequest';
+import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 
 export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi {
   // private refreshQueue = new Queue(1, Infinity);
@@ -74,7 +74,7 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
 
   public async myAccount() {
     return this.wrapApiCall(async () =>
-      mapMyAccountFromGQL(this.configuration, await this.graphqlApi.queryMyAccount()),
+      mapMyAccountFromGQL(await this.graphqlApi.queryMyAccount()),
     );
   }
 
@@ -165,27 +165,27 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
 
   public async getCourierById(id: ID) {
     return this.wrapApiCall(async () =>
-      mapCourierFromGQL(this.configuration, await this.graphqlApi.queryCourierById(id)),
+      mapCourierFromGQL(await this.graphqlApi.queryCourierById(id)),
     );
   }
 
-  public async getLaundries() {
+  public async getRestaurants() {
     return this.wrapApiCall(async () =>
-      mapLaundriesFromGQL(this.configuration, await this.graphqlApi.queryLaundries()),
+      mapRestaurantsFromGQL(this.configuration, await this.graphqlApi.queryRestaurants()),
     );
   }
 
-  public async getLaundryById(id: ID) {
+  public async getRestaurantById(id: ID) {
     return this.wrapApiCall(async () =>
-      mapLaundryFromGQL(this.configuration, await this.graphqlApi.queryLaundryById(id)),
+      mapRestaurantFromGQL(await this.graphqlApi.queryRestaurantById(id)),
     );
   }
 
-  public async updateLaundryInformationRequest(
-    request: UpdateLaundryInformationRequest,
+  public async updateRestaurantInformationRequest(
+    request: UpdateRestaurantInformationRequest,
   ): Promise<void> {
     return this.wrapApiCall(async () =>
-      this.graphqlApi.mutationUpdateLaundryInformation(request),
+      this.graphqlApi.mutationUpdateRestaurantInformation(request),
     );
   }
 
