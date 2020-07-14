@@ -33,22 +33,13 @@ const InformationPageFragment = () => gql`
   }
 `;
 
-const LatLngFragment = () => gql`
-  fragment LatLng on LatLng {
-    lat
-    lng
-  }
-`;
-
 const AddressFragment = () => gql`
-  ${LatLngFragment()}
   fragment Address on Address {
     id
     placeId
     description
-    latLng {
-      ...LatLng
-    }
+    lat
+    lng
   }
 `;
 
