@@ -30,11 +30,11 @@ const Clients: React.FC = () => {
       },
       {
         Header: t('phone'),
-        accessor: 'user.additionalUserInfo.phoneNumber',
+        accessor: 'user.additionalInfo.phoneNumber',
       },
       {
         Header: t('email'),
-        accessor: 'user.additionalUserInfo.email',
+        accessor: 'user.additionalInfo.email',
       },
     ],
     [],

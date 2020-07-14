@@ -18,9 +18,8 @@ import {clientDetailsActions} from '../ducks/clientDetails';
 import {courierDetailsActions} from '../ducks/courierDetails';
 import {restaurantDetailsActions} from '../ducks/restaurantDetails';
 import {informationPageDetailsActions} from '../ducks/informationPageDetails';
-import {EvaluateDocumentsRevisionType} from 'entities/Documents';
 import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
-import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
+import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from 'api/entities/UpdateRestaurantInformationRequest';
 
 export function useAuthActions() {
@@ -93,7 +92,7 @@ export function useClientDetailsActions() {
       dispatch(clientDetailsActions.fetchDetails(clientId));
     },
     updateClientInformation: (
-      updateClientInformationRequest: UpdateClientInformationRequest,
+      updateClientInformationRequest: UpdateUserInformationRequest,
     ) => {
       dispatch(
         clientDetailsActions.updateClientInformationRequest({
@@ -119,17 +118,20 @@ export function useCourierActions() {
 
 export function useCourierDetailsActions() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   return {
     fetchCourierDetails: (courierId: string) => {
       dispatch(courierDetailsActions.fetchDetails(courierId));
     },
-    evaluateDocumentsRevision: (
-      courierId: string,
-      type: EvaluateDocumentsRevisionType,
-      comment: string,
+    updateCourierInformation: (
+      updateCourierInformationRequest: UpdateUserInformationRequest,
     ) => {
       dispatch(
-        courierDetailsActions.evaluateDocumentsRevision({courierId, type, comment}),
+        courierDetailsActions.updateCourierInformationRequest({
+          request: updateCourierInformationRequest,
+          history,
+        }),
       );
     },
   };

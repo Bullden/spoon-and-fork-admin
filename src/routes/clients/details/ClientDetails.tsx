@@ -10,7 +10,7 @@ import Client from 'entities/Client';
 import {useTranslation} from 'react-i18next';
 import Order from 'entities/Order';
 
-const editProfileIcon = require('./assets/editProfile.png');
+const editProfileIcon = require('./assets/editProfile.svg');
 
 const ClientDetails: React.FC = () => {
   const {t} = useTranslation('clientDetails');
@@ -85,8 +85,7 @@ const ClientDetails: React.FC = () => {
             onClick={() => selectOrder(order)}
           >
             <p>{format(new Date(order.created), 'MM.dd.yyyy')}</p>
-            <p>{`${order.orderInfo.weight} lbs`}</p>
-            <p>${(order.courierId ? order.orderInfo.priceCents / 100 : 0).toFixed(2)}</p>
+            <p>${(order.orderInfo.priceCents / 100).toFixed(2)}</p>
           </li>
         ))}
       </ul>
@@ -166,8 +165,6 @@ const ClientDetails: React.FC = () => {
               <p className={styles.extraInfo__field__value}>{client.user.name}</p>
             )}
           </div>
-        </div>
-        <div className={styles.extraInfo__fieldsRow}>
           <div className={styles.extraInfo__field}>
             <p className={styles.extraInfo__field__name}>Mobile phone:</p>
             {isEditing ? (
@@ -187,6 +184,8 @@ const ClientDetails: React.FC = () => {
               </p>
             )}
           </div>
+        </div>
+        <div className={styles.extraInfo__fieldsRow}>
           <div className={styles.extraInfo__field}>
             <p className={styles.extraInfo__field__name}>E-mail address:</p>
             {isEditing ? (

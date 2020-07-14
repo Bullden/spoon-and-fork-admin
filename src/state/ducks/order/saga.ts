@@ -10,7 +10,6 @@ import Order from 'entities/Order';
 function* fetchOrders() {
   try {
     const orders: Order[] = yield SpoonAndForkApi.getOrders();
-
     yield put(actions.fetchOrdersCompleted(orders));
   } catch (e) {
     yield put(actions.fetchOrdersCompleted(e));

@@ -1,26 +1,27 @@
 import {createAction} from 'redux-actions';
 import types from './types';
-import {DocumentsGroups, EvaluateDocumentsRevisionType} from 'entities/Documents';
 import {ID} from 'entities/Common';
 import Courier from 'entities/Courier';
-
-export type UpdateRevision = {
-  courierId: ID;
-  type: EvaluateDocumentsRevisionType;
-  comment: string;
-};
+import UpdateCourierInformationRequest from 'api/entities/UpdateUserInformationRequest';
+import {NavigationPayload} from 'state/ducks/router/actions';
 
 export type FetchDetailsCompleted = {
   courier: Courier;
-  groups: DocumentsGroups | undefined;
 };
+
+export type UpdateCourierInformation = {
+  request: UpdateCourierInformationRequest;
+} & NavigationPayload;
 
 export default {
   fetchDetails: createAction<ID>(types.FETCH_DETAILS),
   fetchDetailsCompleted: createAction<FetchDetailsCompleted>(
     types.FETCH_DETAILS_COMPLETED,
   ),
-  evaluateDocumentsRevision: createAction<UpdateRevision>(
-    types.EVALUATE_DOCUMENTS_REVISION,
+  updateCourierInformationRequest: createAction<UpdateCourierInformation>(
+    types.UPDATE_COURIER_INFORMATION,
+  ),
+  updateCourierInformationRequestCompleted: createAction(
+    types.UPDATE_COURIER_INFORMATION_COMPLETED,
   ),
 };

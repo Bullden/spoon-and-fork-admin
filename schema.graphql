@@ -224,6 +224,7 @@ type Mutation {
   removeTheCurrentCourier(orderId: ID!): Boolean!
   updatePreferences(allowSmsNotifications: Boolean, allowEmailNotifications: Boolean, allowPushNotifications: Boolean): Preferences!
   updateClientInformation(phoneNumber: String!, email: String!, name: String!, id: ID!): Boolean!
+  updateCourierInformation(phoneNumber: String!, email: String!, name: String!, id: ID!): Boolean!
   createCartAndDistributeOrders(selectedSetsInfo: [SelectedSetInfo!]!, clientAddress: CreateAddressRequest!): Boolean!
   createAddress(location: CreateAddressRequest!): Boolean!
 }

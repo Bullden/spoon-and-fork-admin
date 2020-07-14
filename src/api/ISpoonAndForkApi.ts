@@ -9,10 +9,9 @@ import Courier from 'entities/Courier';
 import Restaurant from 'entities/Restaurant';
 import InformationPage from 'entities/InformationPage';
 import {ID} from 'entities/Common';
-import {DocumentsGroups, EvaluateDocumentsRevisionType} from 'entities/Documents';
 import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest';
 import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
-import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
+import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 
 export interface ISpoonAndForkApi {
@@ -31,10 +30,11 @@ export interface ISpoonAndForkApi {
 
   getClients(): Promise<Client[]>;
   getClientById(id: ID): Promise<Client>;
-  updateClientInformationRequest(request: UpdateClientInformationRequest): Promise<void>;
+  updateClientInformationRequest(request: UpdateUserInformationRequest): Promise<void>;
 
   getCouriers(): Promise<Courier[]>;
   getCourierById(id: ID): Promise<Courier>;
+  updateCourierInformationRequest(request: UpdateUserInformationRequest): Promise<void>;
 
   getRestaurants(): Promise<Restaurant[]>;
   getRestaurantById(id: ID): Promise<Restaurant>;
@@ -47,14 +47,6 @@ export interface ISpoonAndForkApi {
   createOrUpdateInformationPageRequest(
     request: CreateOrUpdateInformationPageRequest,
   ): Promise<InformationPage>;
-
-  evaluateDocumentsRevision(
-    revisionId: ID,
-    type: EvaluateDocumentsRevisionType,
-    comment: string,
-  ): Promise<void>;
-
-  getDocuments(revisionId: ID): Promise<DocumentsGroups>;
 
   updateFirebaseToken(request: UpdateFirebaseTokenRequest): Promise<void>;
 

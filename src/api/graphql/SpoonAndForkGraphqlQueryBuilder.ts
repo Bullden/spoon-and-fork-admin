@@ -10,20 +10,18 @@ import {
   Client,
   Courier,
   Restaurant,
-  Document,
   InformationPage,
-  MutationEvaluateDocumentsRevisionArgs,
   QueryOrderByIdArgs,
   QueryClientByIdArgs,
   QueryCourierByIdArgs,
   QueryRestaurantByIdArgs,
   QueryInformationPageByIdArgs,
-  QueryDocumentsArgs,
   MutationCreateOrUpdateInformationPageArgs,
   MutationUpdateClientInformationArgs,
   MutationUpdateRestaurantInformationArgs,
   MutationDeleteOrderArgs,
   MutationRemoveTheCurrentCourierArgs,
+  MutationUpdateCourierInformationArgs,
 } from './types';
 
 const InformationPageFragment = () => gql`
@@ -35,21 +33,6 @@ const InformationPageFragment = () => gql`
   }
 `;
 
-const AdditionalUserInfoFragment = () => gql`
-  fragment AdditionalUserInfo on AdditionalUserInfo {
-    phoneNumber
-    email
-  }
-`;
-
-const DocumentsRevisionFragment = () => gql`
-  fragment DocumentsRevision on DocumentsRevision {
-    id
-    status
-    comment
-  }
-`;
-
 const LatLngFragment = () => gql`
   fragment LatLng on LatLng {
     lat
@@ -58,6 +41,7 @@ const LatLngFragment = () => gql`
 `;
 
 const AddressFragment = () => gql`
+  ${LatLngFragment()}
   fragment Address on Address {
     id
     placeId
@@ -68,72 +52,62 @@ const AddressFragment = () => gql`
   }
 `;
 
-const WashingInfoFragment = () => gql`
-  fragment WashingInfo on WashingInfo {
-    weight
-    price
-    washingFinish
-  }
-`;
-
-const OrderInfoFragment = () => gql`
-  fragment OrderInfo on OrderInfo {
-    id
-    weight
-    distanceMiles
-    priceCents
-    clientAddress {
-      ...Address
-    }
-    isOneWay
-  }
-`;
-
 const UserFragment = () => gql`
   fragment User on User {
     id
     name
-    image
-    birthday
     additionalUserInfo {
-      ...AdditionalUserInfo
+      email
+      phoneNumber
     }
   }
 `;
 
-const BagFragment = () => gql`
-  fragment Bag on Bag {
+const IngredientFragment = () => gql`
+  fragment Ingredient on Ingredient {
     id
-    code
+    name
   }
 `;
 
-const OrderFragment = () => gql`
-  fragment Order on Order {
+const DishFragment = () => gql`
+  ${IngredientFragment()}
+  fragment Dish on Dish {
     id
-    restaurant {
-      ...Restaurant
+    name
+    description
+    imageId
+    weight
+    kal
+    ingredients {
+      ...Ingredient
     }
-    client {
-      ...User
+  }
+`;
+
+const StatusFragment = () => gql`
+  fragment Status on Status {
+    id
+    name
+    imageId
+  }
+`;
+
+const SetFragment = () => gql`
+  ${StatusFragment()}
+  ${DishFragment()}
+  fragment Set on Set {
+    id
+    name
+    imageId
+    cuisineId
+    priceCents
+    statuses {
+      ...Status
     }
-    bags {
-      ...Bag
+    dishes {
+      ...Dish
     }
-    orderInfo {
-      ...OrderInfo
-    }
-    comment
-    number
-    created
-    placement
-    state
-    washingInfo {
-      ...WashingInfo
-    }
-    firstCourierId
-    secondCourierId
-    preferredService
   }
 `;
 
@@ -152,36 +126,68 @@ const CourierFragment = () => gql`
     user {
       ...User
     }
-    revision {
-      ...DocumentsRevision
-    }
   }
 `;
 
 const RestaurantFragment = () => gql`
   fragment Restaurant on Restaurant {
-    additionalInfo
+    id
+    userId
+    imageId
+    description
     address {
       ...Address
     }
-    website
-    id
-    imageId
-    title
-    beginningOfWorkingDay
-    endOfWorkingDay
-    imageId
-    contactPerson
-    phoneNumber
-    services
   }
 `;
 
-const DocumentFragment = () => gql`
-  fragment Document on Document {
+const CartFragment = () => gql`
+  fragment Cart on Cart {
     id
-    group
-    fileId
+    userId
+  }
+`;
+
+export const OrderFragment = () => gql`
+  ${SetFragment()}
+  ${UserFragment()}
+  ${AddressFragment()}
+  ${RestaurantFragment()}
+  ${CourierFragment()}
+  ${CartFragment()}
+  fragment Order on Order {
+    id
+    bag {
+      id
+      code
+    }
+    set {
+      ...Set
+    }
+    client {
+      ...User
+    }
+    orderInfo {
+      priceCents
+      distanceMiles
+      clientAddress {
+        ...Address
+      }
+    }
+    restaurant {
+      ...Restaurant
+    }
+    number
+    created
+    placement
+    state
+    courier {
+      ...Courier
+    }
+    rating
+    cart {
+      ...Cart
+    }
   }
 `;
 
@@ -222,16 +228,6 @@ export const mutationUpdateMyAccountImage = createMutationWithVariables<
 
 export const ordersQuery = createQuery<{orders: Order[]}, Order[]>(
   gql`
-    ${LatLngFragment()}
-    ${AddressFragment()}
-    ${RestaurantFragment()}
-    ${AdditionalUserInfoFragment()}
-    ${UserFragment()}
-    ${BagFragment()}
-    ${LatLngFragment()}
-    ${AddressFragment()}
-    ${OrderInfoFragment()}
-    ${WashingInfoFragment()}
     ${OrderFragment()}
     query {
       orders {
@@ -268,16 +264,6 @@ export const orderByIdQuery = createQueryWithVariables<
   Order
 >(
   gql`
-    ${LatLngFragment()}
-    ${AddressFragment()}
-    ${RestaurantFragment()}
-    ${AdditionalUserInfoFragment()}
-    ${UserFragment()}
-    ${BagFragment()}
-    ${LatLngFragment()}
-    ${AddressFragment()}
-    ${OrderInfoFragment()}
-    ${WashingInfoFragment()}
     ${OrderFragment()}
     query($id: ID!) {
       orderById(id: $id) {
@@ -290,7 +276,6 @@ export const orderByIdQuery = createQueryWithVariables<
 
 export const clientsQuery = createQuery<{clients: Client[]}, Client[]>(
   gql`
-    ${AdditionalUserInfoFragment()}
     ${UserFragment()}
     ${ClientFragment()}
     query {
@@ -308,7 +293,6 @@ export const clientByIdQuery = createQueryWithVariables<
   Client
 >(
   gql`
-    ${AdditionalUserInfoFragment()}
     ${UserFragment()}
     ${ClientFragment()}
     query($clientId: ID!) {
@@ -329,14 +313,12 @@ export const mutationUpdateClientInformation = createMutationWithVariables<
     mutation updateClientInformation(
       $id: ID!
       $name: String!
-      $birthday: DateTime!
       $email: String!
       $phoneNumber: String!
     ) {
       updateClientInformation(
         id: $id
         name: $name
-        birthday: $birthday
         email: $email
         phoneNumber: $phoneNumber
       )
@@ -347,10 +329,8 @@ export const mutationUpdateClientInformation = createMutationWithVariables<
 
 export const couriersQuery = createQuery<{couriers: Courier[]}, Courier[]>(
   gql`
-    ${AdditionalUserInfoFragment()}
     ${UserFragment()}
     ${CourierFragment()}
-    ${DocumentsRevisionFragment()}
     query {
       couriers {
         ...Courier
@@ -366,10 +346,8 @@ export const courierByIdQuery = createQueryWithVariables<
   Courier
 >(
   gql`
-    ${AdditionalUserInfoFragment()}
     ${UserFragment()}
     ${CourierFragment()}
-    ${DocumentsRevisionFragment()}
     query($courierId: ID!) {
       courierById(courierId: $courierId) {
         ...Courier
@@ -379,13 +357,35 @@ export const courierByIdQuery = createQueryWithVariables<
   ({courierById}) => courierById,
 );
 
+export const mutationUpdateCourierInformation = createMutationWithVariables<
+  MutationUpdateCourierInformationArgs,
+  {updateCourierInformation: boolean},
+  void
+>(
+  gql`
+    mutation updateCourierInformation(
+      $id: ID!
+      $name: String!
+      $email: String!
+      $phoneNumber: String!
+    ) {
+      updateCourierInformation(
+        id: $id
+        name: $name
+        email: $email
+        phoneNumber: $phoneNumber
+      )
+    }
+  `,
+  () => undefined,
+);
+
 export const restaurantsQuery = createQuery<{restaurants: Restaurant[]}, Restaurant[]>(
   gql`
-    ${LatLngFragment()}
     ${AddressFragment()}
     ${RestaurantFragment()}
     query {
-      restaurant {
+      restaurants {
         ...Restaurant
       }
     }
@@ -399,7 +399,6 @@ export const restaurantByIdQuery = createQueryWithVariables<
   Restaurant
 >(
   gql`
-    ${LatLngFragment()}
     ${AddressFragment()}
     ${RestaurantFragment()}
     query($restaurantId: ID!) {
@@ -479,35 +478,6 @@ export const informationPageByIdQuery = createQueryWithVariables<
     }
   `,
   ({informationPageById}) => informationPageById,
-);
-
-export const evaluateDocumentsRevisionMutation = createMutationWithVariables<
-  MutationEvaluateDocumentsRevisionArgs,
-  {evaluateDocumentsRevision: boolean},
-  void
->(
-  gql`
-    mutation($courierId: ID!, $type: EvaluateDocumentsRevisionType!, $comment: String!) {
-      evaluateDocumentsRevision(courierId: $courierId, type: $type, comment: $comment)
-    }
-  `,
-  () => undefined,
-);
-
-export const documentsQuery = createQueryWithVariables<
-  QueryDocumentsArgs,
-  {documents: Document[]},
-  Document[]
->(
-  gql`
-    ${DocumentFragment()}
-    query($revisionId: ID!) {
-      documents(revisionId: $revisionId) {
-        ...Document
-      }
-    }
-  `,
-  ({documents}) => documents,
 );
 
 export const deleteOrderMutation = createMutationWithVariables<

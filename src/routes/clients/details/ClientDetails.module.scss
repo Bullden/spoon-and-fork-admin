@@ -11,7 +11,7 @@
 }
 
 .mainInfoContainer {
-  color: #4065E0;
+  color: rgb(252, 112, 54);
   font-family: Roboto,sans-serif;
   display: flex;
   flex-direction: column;
@@ -36,18 +36,18 @@
 
     & > div {
       &::before {
-        border-bottom: 2px solid #4065E0 !important;
+        border-bottom: 2px solid rgb(252, 112, 54) !important;
       }
 
       & > input {
         padding-top: 0 !important;
         padding-bottom: 4px !important;
-        color: #4065E0 !important;
+        color: rgb(252, 112, 54) !important;
       }
 
       button {
         padding: 0 !important;
-        color: #899ED6 !important;
+        color: rgba(252, 112, 54, 0.14) !important;
 
         svg {
           padding-bottom: 10px !important;
@@ -58,7 +58,7 @@
 }
 
 .extraInfo {
-  color: #4065E0;
+  color: rgb(252, 112, 54);
   font-family: Roboto,sans-serif;
   display: flex;
   flex-direction: column;
@@ -68,11 +68,11 @@
     margin-right: 5px;
     margin-bottom: -2px;
     box-sizing: border-box;
-    color: #4065E0;
+    color: rgb(252, 112, 54);
     font-family: Roboto,sans-serif;
-    background: #F4F7FF;
+    background: rgba(252, 112, 54, 0.04);
     border: none;
-    border-bottom: 2px solid #4065E0;
+    border-bottom: 2px solid rgb(252, 112, 54);
     font-weight: bold;
     font-size: 18px;
     line-height: 21px;
@@ -82,7 +82,7 @@
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
-    border-bottom: 1px solid #E8EEFF;
+    border-bottom: 1px solid rgba(252, 112, 54, 0.14);
 
     p {
       font-weight: 500;
@@ -127,8 +127,8 @@
 
   &__field {
     width: calc(50% - 20px);
-    background: #F4F7FF;
-    border: 1px solid #E8EEFF;
+    background: rgba(252, 112, 54, 0.04);
+    border: 1px solid rgba(252, 112, 54, 0.24);
     box-sizing: border-box;
     border-radius: 5px;
     padding: 16px;
@@ -138,7 +138,7 @@
       margin-bottom: 18px;
       font-size: 16px;
       line-height: 19px;
-      color: #899ED6;
+      color: rgba(252, 112, 54, 0.54);
     }
 
     &__value {
@@ -157,27 +157,27 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid #4065E0;
+  border-bottom: 1px solid rgb(252, 112, 54);
   width: 100%;
 
   &__name {
     font-weight: bold;
     font-size: 24px;
     line-height: 28px;
-    color: #4065E0;
+    color: rgb(252, 112, 54);
     margin-bottom: 5px;
   }
 
   &__position {
     font-size: 16px;
     line-height: 19px;
-    color: #4065E0;
+    color: rgb(252, 112, 54);
     margin-bottom: 30px;
   }
 }
 
 .orders {
-  color: #4065E0;
+  color: rgb(252, 112, 54);
   font-family: Roboto,sans-serif;
   width: 100%;
 
@@ -192,7 +192,7 @@ p {
     font-weight: bold;
     font-size: 18px;
     line-height: 19px;
-    color: #4065E0;
+    color: rgb(252, 112, 54);
   }
 
   &__list {
@@ -204,14 +204,14 @@ p {
   &__listItem {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #E8EEFF;
+    border-bottom: 1px solid rgba(252, 112, 54, 0.04);
     padding: 15px 0;
     transition: background-color 0.3s;
 
     &__header {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid #E8EEFF;
+      border-bottom: 1px solid rgba(252, 112, 54, 0.04);
       padding: 15px 0;
       font-weight: bold;
 
@@ -220,14 +220,14 @@ p {
         text-align: center;
 
         &:nth-child(2) {
-          border-left: 1px solid #E8EEFF;
-          border-right: 1px solid #E8EEFF;
+          border-left: 1px solid rgba(252, 112, 54, 0.04);
+          border-right: 1px solid rgba(252, 112, 54, 0.04);
         }
       }
     }
 
     &:hover {
-      background-color: #E8EEFF;
+      background-color: rgba(252, 112, 54, 0.04);
       transition: background-color 0.2s;
       cursor: pointer;
     }
@@ -241,8 +241,8 @@ p {
       text-align: center;
 
       &:nth-child(2) {
-        border-left: 1px solid #E8EEFF;
-        border-right: 1px solid #E8EEFF;
+        border-left: 1px solid rgba(252, 112, 54, 0.04);
+        border-right: 1px solid rgba(252, 112, 54, 0.04);
       }
     }
   }
@@ -309,7 +309,7 @@ p {
 }
 .buttonAccept {
 @extend %button-shared;
-  background: #4065E0;
+  background: rgb(252, 112, 54);
 }
 .buttonDecline {
   @extend %button-shared;

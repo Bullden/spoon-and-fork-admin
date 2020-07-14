@@ -1,4 +1,4 @@
-export default interface UpdateClientInformationRequest {
+export default interface UpdateUserInformationRequest {
   id: string;
   name: string;
   email: string;

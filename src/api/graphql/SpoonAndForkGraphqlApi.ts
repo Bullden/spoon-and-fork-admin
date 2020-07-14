@@ -10,11 +10,10 @@ import {
   restaurantByIdQuery,
   informationPagesQuery,
   informationPageByIdQuery,
-  documentsQuery,
-  evaluateDocumentsRevisionMutation,
   mutationUpdateMyAccountImage,
   mutationCreateOrUpdateInformationPage,
   mutationUpdateClientInformation,
+  mutationUpdateCourierInformation,
   mutationUpdateRestaurantInformation,
   myAccountQuery,
   deleteOrderMutation,
@@ -22,9 +21,9 @@ import {
 } from './SpoonAndForkGraphqlQueryBuilder';
 import {ID} from 'entities/Common';
 import {
-  EvaluateDocumentsRevisionType,
   MutationCreateOrUpdateInformationPageArgs,
   MutationUpdateClientInformationArgs,
+  MutationUpdateCourierInformationArgs,
   MutationUpdateRestaurantInformationArgs,
 } from 'api/graphql/types';
 
@@ -49,6 +48,10 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public mutationUpdateClientInformation(request: MutationUpdateClientInformationArgs) {
     return this.mutation(mutationUpdateClientInformation(request));
+  }
+
+  public mutationUpdateCourierInformation(request: MutationUpdateCourierInformationArgs) {
+    return this.mutation(mutationUpdateCourierInformation(request));
   }
 
   public async queryOrders() {
@@ -95,18 +98,6 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public async queryInformationPageById(informationPageId: string) {
     return this.query(informationPageByIdQuery({informationPageId}));
-  }
-
-  public async evaluateDocumentsRevision(
-    courierId: ID,
-    type: EvaluateDocumentsRevisionType,
-    comment: string,
-  ) {
-    return this.mutation(evaluateDocumentsRevisionMutation({courierId, type, comment}));
-  }
-
-  public async queryDocuments(revisionId: ID) {
-    return this.query(documentsQuery({revisionId}));
   }
 
   public async queryDeleteOrder(orderId: string) {

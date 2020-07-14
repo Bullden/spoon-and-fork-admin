@@ -10,7 +10,7 @@
 }
 
 .arrow {
-  border: solid white;
+  border: solid #EE5B30;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
@@ -37,10 +37,11 @@
   table-layout: fixed;
   &__head {
     &__row {
+      box-shadow: 0 0 16px rgba(238, 91, 48, 0.15);
     &__header {
       @extend %row-shared;
-      color: #FFFFFF;
-      background: #4065E0;
+      color: #EE5B30;
+      background: #FFFFFF;
     };
     }
   }
@@ -48,13 +49,15 @@
     &__row {
       &:hover {
         .table__body__row__data {
-          background: #C9D5FF;
+          background: rgba(252, 112, 54, 0.14);
+          transition: all 0.2s;
         }
       }
       &__data {
         @extend %row-shared;
-        color: #4065E0;
-        background: #EBF0FF;
+        color: #EE5B30;
+        background: rgba(252, 112, 54, 0.04);
+        transition: all 0.2s;
       }
     }
   }

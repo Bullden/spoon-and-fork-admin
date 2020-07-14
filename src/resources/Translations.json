@@ -43,7 +43,7 @@
       "email": "Email",
       "status": "Status"
     },
-    "laundries": {
+    "restaurants": {
       "title": "Title",
       "contactPerson": "Contact person",
       "address": "Address"
@@ -150,7 +150,7 @@
     },
     "additionalInfo": {
       "additionalInfo": "Additional Info",
-      "laundryName": "Bussiness name",
+      "restaurantName": "Bussiness name",
       "workHours": "Work hours",
       "contactPerson": "Contact person",
       "website": "Website (optional)",
@@ -174,7 +174,7 @@
       "order": "Order ",
       "status": "Status: ",
       "address": "Address: ",
-      "laundry": "Laundry: ",
+      "restaurant": "Restaurant: ",
       "customer": "Customer: ",
       "courier": "Courier: "
     },
@@ -211,10 +211,10 @@
     "adminLayout": {
       "orders": "ORDERS",
       "customers": "CUSTOMERS",
-      "courier": "COURIERS",
-      "laundry": "LAUNDRIES",
+      "couriers": "COURIERS",
+      "restaurants": "RESTAURANTS",
       "settings": "SETTINGS",
-      "pages": "PAGES",
+      "payments": "PAYMENTS",
       "logout": "LOGOUT"
     },
     "errorPlaceholder": {

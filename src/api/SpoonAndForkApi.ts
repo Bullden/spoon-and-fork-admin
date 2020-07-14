@@ -5,7 +5,6 @@ import RestApi from 'api/rest/RestApi';
 import ApiConfiguration from '@spryrocks/react-api/ApiConfiguration';
 import SpoonAndForkGraphqlApi from 'api/graphql/SpoonAndForkGraphqlApi';
 import {
-  groupDocumentFromGQL,
   mapOrderFromGQL,
   mapOrdersFromGQL,
   mapClientFromGQL,
@@ -19,6 +18,7 @@ import {
   mapInformationPageFromGQL,
   mapCreateOrUpdateInformationPageRequestToGQL,
   mapUpdateClientInformationRequestToGQL,
+  mapUpdateCourierInformationRequestToGQL,
 } from 'api/Mappers';
 // import {ApolloError} from 'apollo-boost';
 // import * as R from 'ramda';
@@ -30,11 +30,10 @@ import ApiDelegate, {AuthInfo} from '@spryrocks/react-api/ApiDelegate';
 import ApiBase from '@spryrocks/react-api/ApiBase';
 import IApiTokenHolder from '@spryrocks/react-api/IApiTokenHolder';
 import {ID} from 'entities/Common';
-import {EvaluateDocumentsRevisionType} from 'entities/Documents';
 import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest';
 import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
 import InformationPage from 'entities/InformationPage';
-import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
+import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 
 export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi {
@@ -148,7 +147,7 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
   }
 
   public async updateClientInformationRequest(
-    request: UpdateClientInformationRequest,
+    request: UpdateUserInformationRequest,
   ): Promise<void> {
     return this.wrapApiCall(async () =>
       this.graphqlApi.mutationUpdateClientInformation(
@@ -166,6 +165,16 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
   public async getCourierById(id: ID) {
     return this.wrapApiCall(async () =>
       mapCourierFromGQL(await this.graphqlApi.queryCourierById(id)),
+    );
+  }
+
+  public async updateCourierInformationRequest(
+    request: UpdateUserInformationRequest,
+  ): Promise<void> {
+    return this.wrapApiCall(async () =>
+      this.graphqlApi.mutationUpdateCourierInformation(
+        mapUpdateCourierInformationRequestToGQL(request),
+      ),
     );
   }
 
@@ -213,25 +222,6 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
     return this.wrapApiCall(async () =>
       this.graphqlApi.mutationCreateOrUpdateInformationPage(
         mapCreateOrUpdateInformationPageRequestToGQL(request),
-      ),
-    );
-  }
-
-  public async evaluateDocumentsRevision(
-    courierId: ID,
-    type: EvaluateDocumentsRevisionType,
-    comment: string,
-  ) {
-    return this.wrapApiCall(async () =>
-      this.graphqlApi.evaluateDocumentsRevision(courierId, type, comment),
-    );
-  }
-
-  public async getDocuments(revisionId: ID) {
-    return this.wrapApiCall(async () =>
-      groupDocumentFromGQL(
-        this.configuration,
-        await this.graphqlApi.queryDocuments(revisionId),
       ),
     );
   }

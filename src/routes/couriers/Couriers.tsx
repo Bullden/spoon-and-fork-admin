@@ -1,11 +1,8 @@
 import React, {useEffect} from 'react';
 import {useCourierActions} from 'state/hooks/UseActions';
-import {CellProps} from 'react-table';
-import classNames from 'classnames';
 import styles from './Couriers.module.scss';
 import {useSelector} from 'state/hooks';
 import Table from 'components/Table/Table';
-import {DocumentsRevisionStatus} from 'entities/Documents';
 import Courier from 'entities/Courier';
 import {useHistory} from 'react-router-dom';
 import {AuthInfoKeeper} from 'auth';
@@ -33,30 +30,11 @@ const Couriers: React.FC = () => {
       },
       {
         Header: t('phone'),
-        accessor: 'user.additionalUserInfo.phoneNumber',
+        accessor: 'user.additionalInfo.phoneNumber',
       },
       {
         Header: t('email'),
-        accessor: 'user.additionalUserInfo.email',
-      },
-      {
-        Header: t('status'),
-        accessor: 'revision.status',
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        Cell: ({cell: {value}}: CellProps<any>) => {
-          return (
-            <span
-              className={classNames({
-                [styles.Approved]: value === DocumentsRevisionStatus.Approved,
-                [styles.Verifying]:
-                  value === DocumentsRevisionStatus.VerificationRequested,
-                [styles.Reject]: value === DocumentsRevisionStatus.Rejected,
-              })}
-            >
-              {value}
-            </span>
-          );
-        },
+        accessor: 'user.additionalInfo.email',
       },
     ],
     [],

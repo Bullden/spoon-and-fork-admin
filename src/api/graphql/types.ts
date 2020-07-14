@@ -47,7 +47,6 @@ export type Courier = {
    __typename?: 'Courier',
   id: Scalars['String'],
   user: User,
-  revision?: Maybe<DocumentsRevision>,
 };
 
 export type CreateAddressRequest = {
@@ -55,43 +54,6 @@ export type CreateAddressRequest = {
   latLng: LatLngInput,
   description: Scalars['String'],
 };
-
-
-export type Document = {
-   __typename?: 'Document',
-  id: Scalars['ID'],
-  group: DocumentGroup,
-  fileId: Scalars['String'],
-};
-
-export enum DocumentGroup {
-  W4 = 'w4',
-  CarInsurance = 'carInsurance',
-  DriversLicense = 'driversLicense',
-  LicensePlate = 'licensePlate',
-  CarRegistration = 'carRegistration'
-}
-
-export type DocumentsRevision = {
-   __typename?: 'DocumentsRevision',
-  id: Scalars['String'],
-  comment: Scalars['String'],
-  status: DocumentsRevisionStatus,
-};
-
-export enum DocumentsRevisionStatus {
-  New = 'New',
-  VerificationRequested = 'VerificationRequested',
-  ChangesRequested = 'ChangesRequested',
-  Approved = 'Approved',
-  Rejected = 'Rejected'
-}
-
-export enum EvaluateDocumentsRevisionType {
-  Approve = 'Approve',
-  RequestChanges = 'RequestChanges',
-  Reject = 'Reject'
-}
 
 export type InformationPage = {
    __typename?: 'InformationPage',
@@ -142,8 +104,6 @@ export type Mutation = {
   removeTheCurrentCourier: Scalars['Boolean'],
   addDocument: Document,
   deleteDocument: Scalars['Boolean'],
-  requestDocumentsRevisionVerification: Scalars['Boolean'],
-  evaluateDocumentsRevision: Scalars['Boolean'],
   updateLocation: Scalars['Boolean'],
   updateClientInformation: Scalars['Boolean'],
   createOrUpdateInformationPage: InformationPage,
@@ -181,11 +141,11 @@ export type MutationCreateRestaurantArgs = {
 
 
 export type MutationUpdateRestaurantInformationArgs = {
-
   lng: Scalars['Float'],
   lat: Scalars['Float'],
   addressDescription: Scalars['String'],
-  id: Scalars['ID']
+  id: Scalars['ID'],
+  description: Scalars['String'],
 };
 
 
@@ -275,35 +235,20 @@ export type MutationRemoveTheCurrentCourierArgs = {
 };
 
 
-export type MutationAddDocumentArgs = {
-  group: DocumentGroup,
-  fileId: Scalars['ID']
-};
-
-
-export type MutationDeleteDocumentArgs = {
-  documentId: Scalars['ID']
-};
-
-
-export type MutationRequestDocumentsRevisionVerificationArgs = {
-  revisionId: Scalars['ID']
-};
-
-
-export type MutationEvaluateDocumentsRevisionArgs = {
-  comment: Scalars['String'],
-  type: EvaluateDocumentsRevisionType,
-  courierId: Scalars['ID']
-};
-
-
 export type MutationUpdateLocationArgs = {
   latLng: LatLngInput
 };
 
 
 export type MutationUpdateClientInformationArgs = {
+  phoneNumber: Scalars['String'],
+  email: Scalars['String'],
+  name: Scalars['String'],
+  id: Scalars['ID']
+};
+
+
+export type MutationUpdateCourierInformationArgs = {
   phoneNumber: Scalars['String'],
   email: Scalars['String'],
   name: Scalars['String'],
@@ -332,6 +277,7 @@ export type Order = {
   id: Scalars['String'];
   client: User;
   restaurant: Restaurant;
+  cart: Cart;
   bag: Maybe<Bag>;
   set: Set;
   number: Scalars['Float'];
@@ -357,6 +303,12 @@ export enum OrderPlacement {
   Client = 'Client',
   Restaurant = 'Restaurant'
 }
+
+export type Cart = {
+  __typename?: 'Cart';
+  id: Scalars['ID'];
+  userId: Scalars['String'];
+};
 
 export type Ingredient = {
   __typename?: 'Ingredient';
@@ -423,8 +375,6 @@ export type Query = {
   currentOrder?: Maybe<Order>,
   bagByCode: Bag,
   bagsByOrderId: Array<Bag>,
-  currentRevision?: Maybe<DocumentsRevision>,
-  documents: Array<Document>,
   distanceToRestaurant: Scalars['Float'],
   userLocation: LatLng,
   couriers: Array<Courier>,
@@ -465,11 +415,6 @@ export type QueryBagByCodeArgs = {
 
 export type QueryBagsByOrderIdArgs = {
   id: Scalars['String']
-};
-
-
-export type QueryDocumentsArgs = {
-  revisionId: Scalars['ID']
 };
 
 

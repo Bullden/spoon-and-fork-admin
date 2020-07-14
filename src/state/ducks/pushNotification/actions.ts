@@ -6,5 +6,4 @@ export type MessageReceived = {data?: any};
 
 export default {
   updateToken: createAction(types.UPDATE_TOKEN),
-  messageReceived: createAction<MessageReceived>(types.MESSAGE_RECEIVED),
 };

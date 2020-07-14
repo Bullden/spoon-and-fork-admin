@@ -10,12 +10,13 @@ import OrderDetails from './orders/details/OrderDetails';
 import Clients from './clients/Clients';
 import ClientDetails from './clients/details/ClientDetails';
 import Couriers from './couriers/Couriers';
-import CourierDetails from './couriers/details/CourierDetails';
+import CourierDetails from 'routes/couriers/details/CourierDetails';
 import Restaurants from './restaurants/Restaurants';
 import RestaurantDetails from './restaurants/details/RestaurantDetails';
 import InformationPages from 'routes/informationPages/InformationPages';
 import {useAuthActions} from 'state/hooks/UseActions';
 import Settings from 'routes/settings/Settings';
+import Payments from './payments/Payments';
 
 const Logout = () => {
   const actions = useAuthActions();
@@ -47,6 +48,9 @@ const Routes: React.FC = () => {
           </Route>
           <Route exact path="/main">
             <Redirect to="/restaurants" />
+          </Route>
+          <Route exact path="/main">
+            <Redirect to="/payments" />
           </Route>
           <Route exact path="/main">
             <Redirect to="/informationPages" />
@@ -111,7 +115,7 @@ const Routes: React.FC = () => {
           />
           <AppRoute
             exact
-            path="/couriers/:courierId/documents"
+            path="/couriers/:courierId/editProfile"
             component={CourierDetails}
             layout={Layout.AdminLayout}
           />
@@ -135,6 +139,12 @@ const Routes: React.FC = () => {
           />
           <AppRoute
             exact
+            path="/payments/:userType"
+            component={Payments}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
             path="/settings"
             component={Settings}
             layout={Layout.AdminLayout}
@@ -148,6 +158,18 @@ const Routes: React.FC = () => {
           <AppRoute
             exact
             path="/restaurants/:restaurantId/editProfile"
+            component={RestaurantDetails}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
+            path="/payments/:paymentId"
+            component={RestaurantDetails}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
+            path="/payments/:paymentId/editData"
             component={RestaurantDetails}
             layout={Layout.AdminLayout}
           />

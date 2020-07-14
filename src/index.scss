@@ -14,11 +14,11 @@ code {
   input {
     width: 100%;
     box-sizing: border-box;
-    color: #4065E0;
+    color: rgb(252, 112, 54);
     font-family: Roboto,sans-serif;
-    background: #F4F7FF;
+    background: rgba(252, 112, 54, 0.04);
     border: none;
-    border-bottom: 2px solid #4065E0;
+    border-bottom: 2px solid rgb(252, 112, 54);
     font-weight: bold;
     font-size: 16px;
     line-height: 21px;
@@ -29,7 +29,7 @@ code {
     width: 100%;
     margin-top: 10px;
     box-sizing: border-box;
-    color: #4065E0;
+    color: rgb(252, 112, 54);
     font-family: Roboto,sans-serif;
     font-size: 14px;
   }

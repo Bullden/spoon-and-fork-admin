@@ -1,12 +1,12 @@
 import IInitializeService from 'services/core/IInitializeService';
 import IFirebaseMessagingService from './IFirebaseMessagingService';
 import firebase from 'firebase';
-import {AnyAction} from 'redux';
-import {getDispatch} from 'state';
-import {pushNotificationActions} from 'state/ducks/pushNotification';
+// import {AnyAction} from 'redux';
+// import {getDispatch} from 'state';
+// import {pushNotificationActions} from 'state/ducks/pushNotification';
 
 // region Helpers
-const dispatch = (action: AnyAction) => getDispatch()(action);
+// const dispatch = (action: AnyAction) => getDispatch()(action);
 // endregion
 
 export default class FirebaseMessagingService
@@ -27,9 +27,9 @@ export default class FirebaseMessagingService
 
       firebase.initializeApp(firebaseConfig);
 
-      const messaging = firebase.messaging();
-
-      messaging.onMessage(FirebaseMessagingService.onMessage);
+      // const messaging = firebase.messaging();
+      //
+      // messaging.onMessage(FirebaseMessagingService.onMessage);
 
       return true;
     } catch (e) {
@@ -43,11 +43,11 @@ export default class FirebaseMessagingService
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private static onMessage(message: any) {
-    dispatch(
-      pushNotificationActions.messageReceived({
-        data: message.data,
-      }),
-    );
-  }
+  // private static onMessage(message: any) {
+  //   dispatch(
+  //     pushNotificationActions.messageReceived({
+  //       data: message.data,
+  //     }),
+  //   );
+  // }
 }

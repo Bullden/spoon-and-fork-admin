@@ -9,6 +9,7 @@ import {
   SelectCourier,
   SelectRestaurant,
   CreateOrUpdateInformationPage,
+  SelectPayment,
 } from './actions';
 import {actions as sessionActions} from '../session';
 import {Action} from 'redux-actions';
@@ -64,6 +65,10 @@ function navigateToRestaurantDetails({payload}: Action<SelectRestaurant>) {
   payload.history.push(`/restaurants/${payload.restaurantId}`);
 }
 
+function navigateToPaymentDetails({payload}: Action<SelectPayment>) {
+  payload.history.push(`/payments/${payload.paymentId}`);
+}
+
 function navigateToCreateOrUpdatePage({payload}: Action<CreateOrUpdateInformationPage>) {
   payload.history.push('/informationPages/create');
 }
@@ -81,6 +86,7 @@ export default function* () {
     takeEvery(types.NAVIGATE_TO_CLIENT_DETAILS, navigateToClientDetails),
     takeEvery(types.NAVIGATE_TO_COURIER_DETAILS, navigateToCourierDetails),
     takeEvery(types.NAVIGATE_TO_RESTAURANT_DETAILS, navigateToRestaurantDetails),
+    takeEvery(types.NAVIGATE_TO_PAYMENT_DETAILS, navigateToPaymentDetails),
     takeEvery(types.NAVIGATE_TO_CREATE_OR_UPDATE_PAGE, navigateToCreateOrUpdatePage),
   ]);
 }

@@ -3,4 +3,5 @@ export default interface UpdateRestaurantInformationRequest {
   addressDescription: string;
   lat: number;
   lng: number;
+  description: string;
 }

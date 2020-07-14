@@ -2,7 +2,7 @@ import {createAction} from 'redux-actions';
 import types from './types';
 import {ID} from 'entities/Common';
 import Client from 'entities/Client';
-import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
+import UpdateClientInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import {NavigationPayload} from 'state/ducks/router/actions';
 
 export type FetchDetailsCompleted = {

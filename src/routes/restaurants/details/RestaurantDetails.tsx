@@ -15,7 +15,7 @@ import GooglePlacesAutocomplete, {
   getLatLng,
 } from 'react-google-places-autocomplete';
 
-const editProfileIcon = require('./assets/editProfile.png');
+const editProfileIcon = require('./assets/editProfile.svg');
 
 const RestaurantDetails: React.FC = () => {
   const {t} = useTranslation('restaurantDetails');
@@ -30,12 +30,14 @@ const RestaurantDetails: React.FC = () => {
   const [addressDescription, setAddressDescription] = useState<string>('');
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
+  const [description, setDescription] = useState<string>('');
 
   const openEditUserInformationPage = (restaurant: Restaurant) => {
     setEdit(true);
     setAddressDescription(restaurant.address ? restaurant.address.description : '');
     setLat(restaurant.address ? restaurant.address.latLng.lat : 0);
     setLng(restaurant.address ? restaurant.address.latLng.lng : 0);
+    setDescription(restaurant.description ? restaurant.description : '');
     history.push(`/restaurants/${restaurantId}/editProfile`);
   };
 
@@ -51,6 +53,7 @@ const RestaurantDetails: React.FC = () => {
       addressDescription,
       lat,
       lng,
+      description,
     });
     history.push(`/restaurants/${restaurantId}`);
   };
@@ -75,7 +78,7 @@ const RestaurantDetails: React.FC = () => {
     };
 
     const countPrice = (order: Order) => {
-      const courierPrice = order.courierId ? order.orderInfo.priceCents / 100 : 0;
+      const courierPrice = order.orderInfo.priceCents / 100;
 
       return courierPrice.toFixed(2);
     };
@@ -95,7 +98,6 @@ const RestaurantDetails: React.FC = () => {
             onClick={() => selectOrder(order)}
           >
             <p>{format(new Date(order.created), 'MM.dd.yyyy')}</p>
-            <p>{`${order.orderInfo.weight} lbs`}</p>
             <p>{`$${countPrice(order)}`}</p>
           </li>
         ))}
@@ -185,6 +187,23 @@ const RestaurantDetails: React.FC = () => {
               <p className={styles.extraInfo__field__value}>
                 {restaurant.address.description}
               </p>
+            )}
+          </div>
+        </div>
+        <div className={styles.extraInfo__fieldRow}>
+          <div className={styles.extraInfo__fullField}>
+            <p className={styles.extraInfo__field__name}>Description:</p>
+            {isEditing ? (
+              <input
+                className={styles.extraInfo__input}
+                type="text"
+                value={description}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setDescription(e.target.value)
+                }
+              />
+            ) : (
+              <p className={styles.extraInfo__field__value}>{restaurant.description}</p>
             )}
           </div>
         </div>

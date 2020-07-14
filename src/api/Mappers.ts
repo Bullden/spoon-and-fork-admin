@@ -9,13 +9,13 @@ import ApiConfiguration from '@spryrocks/react-api/ApiConfiguration';
 import {
   Account as GQLAccount,
   Address as GQLAddress,
+  Cart as GQLCart,
   Set as GQLSet,
   Dish as GQLDish,
   Ingredient as GQLIngredient,
   Status as GQLStatus,
   OrderState as GQLOrderState,
   Bag as GQLBag,
-  WashingInfo as GQLWashingInfo,
   User as GQLUser,
   Order as GQLOrder,
   OrderInfo as GQLOrderInfo,
@@ -23,10 +23,6 @@ import {
   Courier as GQLCourier,
   Restaurant as GQLRestaurant,
   InformationPage as GQLInformationPage,
-  Document as GQLDocument,
-  DocumentGroup as GQLDocumentGroup,
-  DocumentsRevisionStatus as GQLDocumentsRevisionStatus,
-  DocumentsRevision as GQLDocumentsRevision,
 } from './graphql/types';
 import Client from 'entities/Client';
 import Courier from 'entities/Courier';
@@ -37,19 +33,12 @@ import Dish from 'entities/Dish';
 import Ingredient from 'entities/Ingredient';
 import Status from 'entities/Status';
 import Order, {OrderState} from 'entities/Order';
-import {
-  Document,
-  DocumentsRevision,
-  DocumentsRevisionStatus,
-  DocumentsGroups,
-} from 'entities/Documents';
-import * as R from 'ramda';
 import {Bag} from 'entities/Bag';
 import Address from 'entities/Address';
-import {WashingInfo} from 'entities/WashingInfo';
+import Cart from 'entities/Cart';
 import OrderInfo from '../entities/OrderInfo';
 import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
-import UpdateClientInformationRequest from 'api/entities/UpdateClientInformationRequest';
+import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 
 export const mapRegisterRequestToApi = (
@@ -70,12 +59,21 @@ export const mapCreateOrUpdateInformationPageRequestToGQL = (
 });
 
 export const mapUpdateClientInformationRequestToGQL = (
-  updateClientInformationRequest: UpdateClientInformationRequest,
-): UpdateClientInformationRequest => ({
+  updateClientInformationRequest: UpdateUserInformationRequest,
+): UpdateUserInformationRequest => ({
   id: updateClientInformationRequest.id,
   name: updateClientInformationRequest.name,
   email: updateClientInformationRequest.email,
   phoneNumber: updateClientInformationRequest.phoneNumber,
+});
+
+export const mapUpdateCourierInformationRequestToGQL = (
+  updateCourierInformationRequest: UpdateUserInformationRequest,
+): UpdateUserInformationRequest => ({
+  id: updateCourierInformationRequest.id,
+  name: updateCourierInformationRequest.name,
+  email: updateCourierInformationRequest.email,
+  phoneNumber: updateCourierInformationRequest.phoneNumber,
 });
 
 export const mapLoginRequestToApi = (loginRequest: LoginRequest): ApiLoginRequest => ({
@@ -110,53 +108,6 @@ export const mapMyAccountFromGQL = (account: GQLAccount): Account => ({
   user: mapUserFromGQL(account.user),
 });
 
-export const mapDocumentsRevisionStatusFromGQL = (
-  status: GQLDocumentsRevisionStatus,
-): DocumentsRevisionStatus => {
-  switch (status) {
-    case GQLDocumentsRevisionStatus.New:
-      return DocumentsRevisionStatus.New;
-    case GQLDocumentsRevisionStatus.VerificationRequested:
-      return DocumentsRevisionStatus.VerificationRequested;
-    case GQLDocumentsRevisionStatus.ChangesRequested:
-      return DocumentsRevisionStatus.ChangesRequested;
-    case GQLDocumentsRevisionStatus.Approved:
-      return DocumentsRevisionStatus.Approved;
-    case GQLDocumentsRevisionStatus.Rejected:
-      return DocumentsRevisionStatus.Rejected;
-  }
-};
-
-export const mapDocumentFromGQL = (
-  configuration: ApiConfiguration,
-  document: GQLDocument,
-): Document => ({
-  id: document.id,
-  image: mapImageFromGQL(configuration, document.fileId),
-});
-
-export const mapDocumentsFromGQL = (
-  configuration: ApiConfiguration,
-  documents: GQLDocument[],
-): Document[] => documents.map((d) => mapDocumentFromGQL(configuration, d));
-
-export const mapDocumentsRevisionFromGQL = (
-  configuration: ApiConfiguration,
-  revision: GQLDocumentsRevision,
-): DocumentsRevision => {
-  return {
-    id: revision.id,
-    status: mapDocumentsRevisionStatusFromGQL(revision.status),
-    comment: revision.comment,
-  };
-};
-
-export const mapWashingInfoFromGQL = (washingInfo: GQLWashingInfo): WashingInfo => ({
-  weight: washingInfo.weight,
-  price: washingInfo.price,
-  washingFinish: washingInfo.washingFinish,
-});
-
 export const mapAddressFromGQL = (location: GQLAddress): Address => ({
   id: location.id,
   palaceId: location.placeId || undefined,
@@ -166,7 +117,6 @@ export const mapAddressFromGQL = (location: GQLAddress): Address => ({
 
 export const mapOrderInfoFromGQL = (orderInfo: GQLOrderInfo): OrderInfo => ({
   id: orderInfo.id,
-  weight: orderInfo.weight,
   priceCents: orderInfo.priceCents,
   distanceMiles: orderInfo.distanceMiles,
   clientAddress: mapAddressFromGQL(orderInfo.clientAddress),
@@ -200,6 +150,7 @@ export const mapUpdateRestaurantInformationRequestToGQL = (
   addressDescription: updateRestaurantInformationRequest.addressDescription,
   lat: updateRestaurantInformationRequest.lat,
   lng: updateRestaurantInformationRequest.lng,
+  description: updateRestaurantInformationRequest.description,
 });
 
 export const mapInformationPageFromGQL = (
@@ -219,6 +170,11 @@ export const mapBagFromGQL = (bag: GQLBag): Bag => ({
 
 export const mapBagsFromGQL = (bags: GQLBag[]): Bag[] =>
   bags.map((bag) => mapBagFromGQL(bag));
+
+export const mapCartFromGQL = (cart: GQLCart): Cart => ({
+  id: cart.id,
+  userId: cart.userId,
+});
 
 export const mapIngredientFromGQL = (ingredient: GQLIngredient): Ingredient => ({
   id: ingredient.id,
@@ -296,12 +252,13 @@ export const mapOrderFromGQL = (
   order: GQLOrder,
 ): Order => ({
   id: order.id,
-  client: mapUserFromGQL(order.client),
   restaurant: mapRestaurantFromGQL(order.restaurant),
+  client: mapUserFromGQL(order.client),
+  cart: mapCartFromGQL(order.cart),
   bag: order.bag ? mapBagFromGQL(order.bag) : undefined,
   set: mapSetFromGQL(configuration, order.set),
-  number: order.number,
   orderInfo: mapOrderInfoFromGQL(order.orderInfo),
+  number: order.number,
   created: order.created,
   placement: order.placement,
   state: mapOrderStateFromGQL(order.state),
@@ -309,31 +266,6 @@ export const mapOrderFromGQL = (
   courier: order.courier ? mapCourierFromGQL(order.courier) : undefined,
   rating: order.rating ? order.rating : undefined,
 });
-
-export const groupDocumentFromGQL = (
-  configuration: ApiConfiguration,
-  documents: GQLDocument[],
-): DocumentsGroups => {
-  const groupSelector = ({group}: GQLDocument) => group;
-  const groups = R.groupBy(groupSelector)(documents);
-  return {
-    w4: groups[GQLDocumentGroup.W4]
-      ? mapDocumentsFromGQL(configuration, groups[GQLDocumentGroup.W4])
-      : [],
-    licensePlate: groups[GQLDocumentGroup.LicensePlate]
-      ? mapDocumentsFromGQL(configuration, groups[GQLDocumentGroup.LicensePlate])
-      : [],
-    driversLicense: groups[GQLDocumentGroup.DriversLicense]
-      ? mapDocumentsFromGQL(configuration, groups[GQLDocumentGroup.DriversLicense])
-      : [],
-    carRegistration: groups[GQLDocumentGroup.CarRegistration]
-      ? mapDocumentsFromGQL(configuration, groups[GQLDocumentGroup.CarRegistration])
-      : [],
-    carInsurance: groups[GQLDocumentGroup.CarInsurance]
-      ? mapDocumentsFromGQL(configuration, groups[GQLDocumentGroup.CarInsurance])
-      : [],
-  };
-};
 
 export const mapOrdersFromGQL = (
   configuration: ApiConfiguration,

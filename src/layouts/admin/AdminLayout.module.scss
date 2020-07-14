@@ -1,6 +1,12 @@
+@import "src/fonts/fonts";
+
 %aside__drawer {
   width: 190px;
   flex-shrink: 0;
+}
+
+.menuItemIcon {
+  width: 13px;
 }
 
 
@@ -13,8 +19,14 @@
       @extend %aside__drawer;
       height: 100%;
       &__logo{
-      margin-top: 30px;
-        align-self: center;
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 170px;
+        }
       }
 
       &__list {
@@ -22,6 +34,7 @@
         flex: 1;
         flex-direction: column;
         margin-top: 100px!important;
+        outline: none;
         &__item {
           margin: 10px 0 0 10px!important;
           border-radius: 10px 0 0 8px!important;
@@ -32,7 +45,7 @@
             font-weight: 500;
             font-size: 14px;
             line-height: 16px;
-            color: #9FB1EC;
+            color: #fff;
             margin-left: 12px;
           }
           &:last-child {
@@ -44,5 +57,5 @@
   }
 }
 .activeLink {
-  color: #4065E0;
+  color: #EE5B30;
 }

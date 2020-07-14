@@ -30,6 +30,7 @@ export type SelectOrder = {id: string} & NavigationPayload;
 export type SelectClient = {clientId: string} & NavigationPayload;
 export type SelectCourier = {courierId: string} & NavigationPayload;
 export type SelectRestaurant = {restaurantId: string} & NavigationPayload;
+export type SelectPayment = {paymentId: string} & NavigationPayload;
 export type CreateOrUpdateInformationPage = NavigationPayload;
 
 export default {
@@ -54,6 +55,9 @@ export default {
   ),
   navigateToRestaurantDetails: createAction<SelectRestaurant>(
     types.NAVIGATE_TO_RESTAURANT_DETAILS,
+  ),
+  navigateToPaymentDetails: createAction<SelectPayment>(
+    types.NAVIGATE_TO_PAYMENT_DETAILS,
   ),
   navigateToCreateOrUpdatePage: createAction<CreateOrUpdateInformationPage>(
     types.NAVIGATE_TO_CREATE_OR_UPDATE_PAGE,
