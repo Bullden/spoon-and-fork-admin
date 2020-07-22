@@ -99,7 +99,8 @@
     "husky": "^4.2.5",
     "react-app-rewired": "^2.1.5",
     "ts-node": "^8.9.1",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "customize-cra": "^1.0.0"
   },
   "husky": {
     "hooks": {

@@ -9,12 +9,3 @@ services:
         buildPath:
     ports:
       - 80:80
-  webapp-staging:
-    image: admin-staging
-    build:
-      context: .
-      args:
-        buildEnv: staging
-        buildPath: /staging
-    ports:
-      - 801:80

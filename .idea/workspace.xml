@@ -20,280 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9768f2f9-2578-4f42-8df2-745fceb34508" name="Default Changelist" comment="initialize Admin Panel + Auth">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.env.development" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.env.production" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.env.staging" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/LocalizationUtilConfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/etc-production/nginx/conf.d/default.conf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/etc-staging/nginx/conf.d/default.conf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/ApiConfiguration.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/ISpoonAndForkApi.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/ISpoonAndForkApiTokenHolders.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/Mappers.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/SpoonAndForkApi.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/SpoonAndForkApiUtils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/ChangePasswordRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/CreateAddressRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/CreateOrUpdateInformationPageRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/CreateOrderRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/ForgotPasswordRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/LoginRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/RefreshRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/RegisterRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/UpdateClientInformationRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/UpdateFirebaseTokenRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/UpdateInformationPageRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/entities/UpdateLaundryInformationRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/graphql/SpoonAndForkGraphqlApi.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/graphql/SpoonAndForkGraphqlQueryBuilder.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/graphql/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/rest/RestApi.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/App.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/AppInitializer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/AppLoading.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/AppType.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/Config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/localization/Localization.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/CourierActiveLogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/CourierIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/CustomerIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/LaundryIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/Logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/LogoutIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/OrderDisableLogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/OrderIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/PagesActiveIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/PagesIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/PanelLogo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/SettingsIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/successIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/auth/LoginRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/auth/RegisterRequest.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/auth/Session.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/auth/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Avatar/Avatar.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Avatar/Avatar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/DatePicker/DatePicker.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/InfoSummary/InfoSummary.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/InfoSummary/InfoSummary.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Loader/Loader.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Loader/Loader.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SnackBar/SnackBar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Table/Table.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Table/Table.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TextField/TextField.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Account.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/AdditionalUserInfo.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Address.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Bag.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/BuildType.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/ChangePassword.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Client.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Common.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Courier.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Documents.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/InformationPage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/LatLng.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Laundry.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/LaundryOrder.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Order.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/OrderContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/OrderInfo.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Platform.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Preferences.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/Session.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/User.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entities/WashingInfo.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/admin/AdminLayout.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/admin/AdminLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/auth/AuthLayout.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/auth/AuthLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/main/MainLayout.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/main/MainLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/Translations.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/env.tmp.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/AppRoute.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/Routes.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/common/AuthLayout/AuthLayout.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/common/AuthLayout/AuthLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/forgotPassword/ForgotPassword.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/forgotPassword/ForgotPassword.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/signUp/SignUp.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/signUp/signUp.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/utils/validationSchema/ForgotPasswordSchema.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/utils/validationSchema/LoginSchema.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/utils/validationSchema/SignUpSchema.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/utils/validationSchema/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/welcome/Welcome.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/auth/welcome/Welcome.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/clients/Clients.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/clients/Clients.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/clients/details/ClientDetails.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/clients/details/ClientDetails.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/clients/details/assets/editProfile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/couriers/Couriers.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/couriers/Couriers.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/couriers/details/CourierDetails.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/couriers/details/CourierDetails.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/couriers/details/assets/approvedStatusIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/couriers/details/assets/newStatusIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/couriers/details/assets/rejectedStatusIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/couriers/details/assets/verificationRequestedStatusIcon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/informationPages/InformationPages.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/informationPages/InformationPages.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/informationPages/assets/PhoneHeader.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/laundries/Laundries.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/laundries/Laundries.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/laundries/details/LaundryDetails.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/laundries/details/LaundryDetails.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/laundries/details/assets/editProfile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/orders/Orders.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/orders/Orders.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/orders/details/OrderDetails.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/orders/details/OrderDetails.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/settings/Settings.module.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/settings/Settings.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/FirebaseMessagingService.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/IFirebaseMessagingService.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/config/ConfigService.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/config/ConfigUtils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/config/IConfigService.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/core/IInitializeService.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/StateInitializer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/alert/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/alert/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/alert/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/alert/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/auth/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/auth/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/auth/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/auth/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/auth/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/changePassword/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/changePassword/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/changePassword/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/changePassword/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/changePassword/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/client/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/client/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/client/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/client/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/client/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/clientDetails/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/clientDetails/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/clientDetails/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/clientDetails/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/clientDetails/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courier/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courier/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courier/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courier/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courier/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courierDetails/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courierDetails/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courierDetails/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courierDetails/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/courierDetails/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/imagePicker/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/imagePicker/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/imagePicker/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/imagePicker/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPage/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPage/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPage/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPage/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPage/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPageDetails/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPageDetails/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPageDetails/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPageDetails/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/informationPageDetails/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundry/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundry/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundry/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundry/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundry/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundryDetails/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundryDetails/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundryDetails/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundryDetails/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/laundryDetails/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/order/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/order/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/order/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/order/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/order/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/orderDetails/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/orderDetails/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/orderDetails/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/orderDetails/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/orderDetails/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/pushNotification/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/pushNotification/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/pushNotification/model.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/pushNotification/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/pushNotification/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/router/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/router/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/router/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/router/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/session/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/session/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/session/models.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/session/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/session/saga.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/session/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/snackBar/actions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/snackBar/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/snackBar/reducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/ducks/snackBar/types.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/Auth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/ClientDetailsContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/ClientsContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/CourierDetailsContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/CouriersContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/InformationPageDetailsContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/InformationPagesContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/LaundriesContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/LaundryDetailsContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/LoadableContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/OrderDetailsContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/OrdersContainer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/Scanner.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/Session.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/SnackBar.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/entities/State.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/hooks/Common.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/hooks/UseActions.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/hooks/UseSelector.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/hooks/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/Logger.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/ValidationUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-overrides.js" beforeDir="false" afterPath="$PROJECT_DIR$/config-overrides.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/etc-production/nginx/conf.d/default.conf" beforeDir="false" afterPath="$PROJECT_DIR$/config/etc-production/nginx/conf.d/default.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/etc-staging/nginx/conf.d/default.conf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/serviceWorker.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/serviceWorker.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -304,6 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectId" id="1f26761BAdmMsmkapJivRo2i6NI" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -314,8 +47,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -323,7 +59,8 @@
     <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
@@ -334,11 +71,58 @@
       <recent name="$PROJECT_DIR$/src/app" />
     </key>
   </component>
+  <component name="RunManager" selected="npm.docker:start">
+    <configuration name="docker:build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="docker:build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="docker:start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="docker:start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.docker:start" />
+        <item itemvalue="npm.docker:build" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="initialize Admin Panel + Auth">
+      <created>1594374264930</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1594374264930</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9768f2f9-2578-4f42-8df2-745fceb34508" name="Default Changelist" comment="initialize Admin Panel + Auth" />
+      <created>1595403669447</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1595403669447</updated>
+      <workItem from="1595403671354" duration="2966000" />
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -357,27 +141,39 @@
     <option name="LAST_COMMIT_MESSAGE" value="initialize Admin Panel + Auth" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1878" height="300" key="GridCell.Tab.0.bottom" timestamp="1594311570098">
+    <state x="824" y="442" key="#ESLint" timestamp="1594373960344">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="824" y="442" key="#ESLint/0.23.1920.1057@0.23.1920.1057" timestamp="1594373960344" />
+    <state width="1878" height="510" key="GridCell.Tab.0.bottom" timestamp="1595406801261">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="300" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1594311570098" />
-    <state width="1878" height="300" key="GridCell.Tab.0.center" timestamp="1594311570097">
+    <state width="1878" height="510" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1595406801261" />
+    <state width="1878" height="510" key="GridCell.Tab.0.center" timestamp="1595406801258">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="300" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1594311570097" />
-    <state width="1878" height="300" key="GridCell.Tab.0.left" timestamp="1594311570096">
+    <state width="1878" height="510" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1595406801258" />
+    <state width="1878" height="510" key="GridCell.Tab.0.left" timestamp="1595406801257">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="300" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1594311570096" />
-    <state width="1878" height="300" key="GridCell.Tab.0.right" timestamp="1594311570097">
+    <state width="1878" height="510" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1595406801257" />
+    <state width="1878" height="510" key="GridCell.Tab.0.right" timestamp="1595406801258">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="300" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1594311570097" />
-    <state x="469" y="198" key="SettingsEditor" timestamp="1594372880822">
+    <state width="1878" height="510" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1595406801258" />
+    <state x="469" y="198" key="SettingsEditor" timestamp="1594373344994">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
     <state x="469" y="179" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1594311887027" />
-    <state x="469" y="198" key="SettingsEditor/0.23.1920.1057@0.23.1920.1057" timestamp="1594372880822" />
+    <state x="469" y="198" key="SettingsEditor/0.23.1920.1057@0.23.1920.1057" timestamp="1594373344994" />
+    <state x="217" y="273" key="Vcs.Push.Dialog.v2" timestamp="1594374286217">
+      <screen x="0" y="23" width="1920" height="1057" />
+    </state>
+    <state x="217" y="273" key="Vcs.Push.Dialog.v2/0.23.1920.1057@0.23.1920.1057" timestamp="1594374286217" />
+    <state x="761" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595403782480">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="761" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1080@0.0.1920.1080" timestamp="1595403782480" />
     <state x="668" y="279" width="584" height="522" key="find.popup" timestamp="1594307537494">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
