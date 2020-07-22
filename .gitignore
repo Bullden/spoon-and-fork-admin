@@ -25,3 +25,5 @@ yarn-error.log*
 .firebase
 
 .DS_Store
+
+src/resources/env.tmp.json

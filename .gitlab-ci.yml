@@ -15,7 +15,6 @@ build-version:
   image: docker:19.03.11
   stage: build
   variables:
-    CONTAINER_CACHE_BUILD_DEPS_IMAGE: $CI_REGISTRY_IMAGE/cache:build-deps
     CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE: $CI_REGISTRY_IMAGE/cache:production-build
     CONTAINER_CACHE_PRODUCTION_IMAGE: $CI_REGISTRY_IMAGE/cache:production
     CONTAINER_PRODUCTION_IMAGE: $CI_REGISTRY_IMAGE/production:$CI_BUILD_TAG
@@ -25,13 +24,10 @@ build-version:
     - docker:19.03.8-dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $CONTAINER_CACHE_BUILD_DEPS_IMAGE || true
     - docker pull $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE || true
     - docker pull $CONTAINER_CACHE_PRODUCTION_IMAGE || true
   script:
-    - docker build --target build-deps --cache-from=$CONTAINER_CACHE_BUILD_DEPS_IMAGE --tag $CONTAINER_CACHE_BUILD_DEPS_IMAGE .
-    - docker push $CONTAINER_CACHE_BUILD_DEPS_IMAGE
-    - docker build --target build --cache-from=$CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --cache-from=$CONTAINER_CACHE_BUILD_DEPS_IMAGE --tag $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --build-arg buildEnv=production --build-arg buildPath= .
+    - docker build --target build --cache-from=$CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --tag $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --build-arg buildEnv=production --build-arg buildPath= .
     - docker push $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE
     - docker build --cache-from $CONTAINER_CACHE_PRODUCTION_IMAGE --cache-from $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --tag $CONTAINER_PRODUCTION_IMAGE --tag $CONTAINER_CACHE_PRODUCTION_IMAGE --build-arg buildEnv=production --build-arg buildPath= .
     - docker push $CONTAINER_CACHE_PRODUCTION_IMAGE
@@ -40,7 +36,6 @@ build-branch:
   image: docker:19.03.11
   stage: build
   variables:
-    CONTAINER_CACHE_BUILD_DEPS_IMAGE: $CI_REGISTRY_IMAGE/cache:build-deps
     CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE: $CI_REGISTRY_IMAGE/cache:production-build
     CONTAINER_CACHE_PRODUCTION_IMAGE: $CI_REGISTRY_IMAGE/cache:production
   only:
@@ -51,13 +46,10 @@ build-branch:
     - export RELEASE_TIME=$(date +%s)
     - export CONTAINER_PRODUCTION_IMAGE=$CI_REGISTRY_IMAGE/production:$CI_COMMIT_BRANCH-$RELEASE_TIME-$CI_COMMIT_SHORT_SHA
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $CONTAINER_CACHE_BUILD_DEPS_IMAGE || true
     - docker pull $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE || true
     - docker pull $CONTAINER_CACHE_PRODUCTION_IMAGE || true
   script:
-    - docker build --target build-deps --cache-from=$CONTAINER_CACHE_BUILD_DEPS_IMAGE --tag $CONTAINER_CACHE_BUILD_DEPS_IMAGE .
-    - docker push $CONTAINER_CACHE_BUILD_DEPS_IMAGE
-    - docker build --target build --cache-from=$CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --cache-from=$CONTAINER_CACHE_BUILD_DEPS_IMAGE --tag $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --build-arg buildEnv=production --build-arg buildPath= .
+    - docker build --target build --cache-from=$CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --tag $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --build-arg buildEnv=production --build-arg buildPath= .
     - docker push $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE
     - docker build --cache-from $CONTAINER_CACHE_PRODUCTION_IMAGE --cache-from $CONTAINER_CACHE_BUILD_PRODUCTION_IMAGE --tag $CONTAINER_PRODUCTION_IMAGE --tag $CONTAINER_CACHE_PRODUCTION_IMAGE --build-arg buildEnv=production --build-arg buildPath= .
     - docker push $CONTAINER_CACHE_PRODUCTION_IMAGE

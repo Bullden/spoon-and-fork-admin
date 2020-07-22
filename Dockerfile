@@ -1,5 +1,5 @@
 # build environment
-FROM node:14.0.0-alpine3.11 as build-deps
+FROM node:14.0.0-alpine3.11 as build
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
@@ -7,8 +7,6 @@ COPY src src
 COPY public public
 COPY config-overrides.js tsconfig.json ./
 COPY .env* ./
-
-FROM build-deps as build
 ARG buildEnv
 RUN yarn build:$buildEnv
 
