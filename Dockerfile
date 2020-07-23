@@ -5,6 +5,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 COPY src src
 COPY public public
+COPY scripts scripts
 COPY config-overrides.js tsconfig.json ./
 COPY .env* ./
 ARG buildEnv
