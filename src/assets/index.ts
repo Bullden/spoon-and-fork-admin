@@ -2,6 +2,8 @@ import CourierIcon from 'assets/CourierIcon.svg';
 import CourierIconActive from './CourierIconActive.svg';
 import CustomerIcon from './CustomerIcon.svg';
 import CustomerIconActive from './CustomerIconActive.svg';
+import DishesIcon from './DishesIcon.svg';
+import DishesIconActive from './DishesIconActive.svg';
 import Logo from './Logo.png';
 import LogoutIcon from './LogoutIcon.svg';
 import OrderIcon from './OrderIcon.svg';
@@ -22,6 +24,8 @@ export {
   CourierIconActive,
   CustomerIcon,
   CustomerIconActive,
+  DishesIcon,
+  DishesIconActive,
   Logo,
   LogoutIcon,
   OrderIcon,

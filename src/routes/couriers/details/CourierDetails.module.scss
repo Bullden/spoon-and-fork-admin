@@ -18,6 +18,41 @@
   align-items: center;
 }
 
+.courierDocument {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+  }
+
+  button {
+    margin-bottom: 50px;
+    padding: 6px 24px;
+    border: 2px solid rgb(252, 112, 54);
+    border-radius: 10px;
+    background-color: rgb(252, 112, 54);
+    color: #fff;
+    transition: all 0.3s;
+    outline: none;
+
+    &:hover {
+      box-shadow: 1px 1px 15px rgba(252, 112, 54, 0.6);
+      transition: all 0.3s;
+    }
+
+    &:first-child {
+      background-color: #fff;
+      color: rgb(252, 112, 54);
+      margin-right: 30px;
+    }
+  }
+}
+
 .datePicker {
   justify-content: space-between !important;
 
@@ -160,12 +195,39 @@ p {
   border-bottom: 1px solid rgb(252, 112, 54);
   width: 100%;
 
+  &__nameAndStatus {
+    display: flex;
+  }
+
   &__name {
     font-weight: bold;
     font-size: 24px;
     line-height: 28px;
     color: rgb(252, 112, 54);
     margin-bottom: 5px;
+    margin-right: 10px;
+  }
+
+  &__statusIcon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  &__statusNew {
+    background-color: #00b0e8aa;
+  }
+
+  &__statusApproved {
+    background-color: rgb(0, 160, 69);
   }
 
   &__position {
@@ -173,6 +235,25 @@ p {
     line-height: 19px;
     color: rgb(252, 112, 54);
     margin-bottom: 30px;
+  }
+
+  &__status {
+    font-size: 16px;
+    line-height: 19px;
+    margin-bottom: 30px;
+    color: #555;
+
+    span {
+      font-weight: bold;
+    }
+  }
+
+  &__statusTextNew {
+    color: #00b0e8aa;
+  }
+
+  &__statusTextApproved {
+    color: rgb(0, 160, 69);
   }
 }
 

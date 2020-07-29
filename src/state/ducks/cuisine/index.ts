@@ -1,4 +1,4 @@
-export {default as actions, default as informationPageActions} from './actions';
+export {default as actions, default as cuisineActions} from './actions';
 
 export {default as saga} from './saga';
 

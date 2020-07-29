@@ -83,6 +83,15 @@ export type Restaurant = {
   address: Address;
 };
 
+export type Cuisine = {
+  __typename?: 'Cuisine';
+  id: Scalars['ID'];
+  imageId: Scalars['String'];
+  nationality: Scalars['String'];
+  count: Scalars['String'];
+  rating: Scalars['String'];
+};
+
 export type Mutation = {
    __typename?: 'Mutation',
   updateMyAccount: Account,
@@ -256,10 +265,12 @@ export type MutationUpdateCourierInformationArgs = {
 };
 
 
-export type MutationCreateOrUpdateInformationPageArgs = {
-  body: Scalars['String'],
-  title: Scalars['String'],
-  key: Scalars['String']
+export type MutationUpdateCuisineArgs = {
+  id: Scalars['String'],
+  image: Scalars['String'],
+  nationality: Scalars['String'],
+  count: Scalars['String'],
+  rating: Scalars['String']
 };
 
 
@@ -444,8 +455,8 @@ export type QueryInformationPageByIdArgs = {
 };
 
 
-export type QueryInformationPageByKeyArgs = {
-  key: Scalars['String']
+export type QueryCuisineByIdArgs = {
+  id: Scalars['String']
 };
 
 export type RequestedPayment = {

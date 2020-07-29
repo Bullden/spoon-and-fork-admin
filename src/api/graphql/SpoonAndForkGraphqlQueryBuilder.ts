@@ -1,37 +1,28 @@
 import {
-  createQuery,
   createMutationWithVariables,
+  createQuery,
   createQueryWithVariables,
 } from '@spryrocks/react-api/graphql/Query';
 import {gql} from 'apollo-boost';
 import {
   Account,
-  Order,
   Client,
   Courier,
-  Restaurant,
-  InformationPage,
-  QueryOrderByIdArgs,
-  QueryClientByIdArgs,
-  QueryCourierByIdArgs,
-  QueryRestaurantByIdArgs,
-  QueryInformationPageByIdArgs,
-  MutationCreateOrUpdateInformationPageArgs,
-  MutationUpdateClientInformationArgs,
-  MutationUpdateRestaurantInformationArgs,
+  Cuisine,
   MutationDeleteOrderArgs,
   MutationRemoveTheCurrentCourierArgs,
+  MutationUpdateClientInformationArgs,
   MutationUpdateCourierInformationArgs,
+  MutationUpdateCuisineArgs,
+  MutationUpdateRestaurantInformationArgs,
+  Order,
+  QueryClientByIdArgs,
+  QueryCourierByIdArgs,
+  QueryCuisineByIdArgs,
+  QueryOrderByIdArgs,
+  QueryRestaurantByIdArgs,
+  Restaurant,
 } from './types';
-
-const InformationPageFragment = () => gql`
-  fragment InformationPage on InformationPage {
-    id
-    key
-    title
-    body
-  }
-`;
 
 const AddressFragment = () => gql`
   fragment Address on Address {
@@ -182,6 +173,16 @@ export const OrderFragment = () => gql`
   }
 `;
 
+const CuisineFragment = () => gql`
+  fragment Cuisine on Cuisine {
+    id
+    imageId
+    nationality
+    count
+    rating
+  }
+`;
+
 export const myAccountQuery = createQuery<{myAccount: Account}, Account>(
   gql`
     query myAccount {
@@ -229,24 +230,32 @@ export const ordersQuery = createQuery<{orders: Order[]}, Order[]>(
   ({orders}) => orders,
 );
 
-export const mutationCreateOrUpdateInformationPage = createMutationWithVariables<
-  MutationCreateOrUpdateInformationPageArgs,
-  {createOrUpdateInformationPage: InformationPage},
-  InformationPage
+export const mutationUpdateCuisine = createMutationWithVariables<
+  MutationUpdateCuisineArgs,
+  {updateCuisine: Cuisine},
+  Cuisine
 >(
   gql`
-    ${InformationPageFragment()}
-    mutation createOrUpdateInformationPage(
-      $key: String!
-      $title: String!
-      $body: String!
+    ${CuisineFragment()}
+    mutation updateCuisine(
+      $id: String!
+      $image: String!
+      $nationality: String!
+      $count: String!
+      $rating: String!
     ) {
-      createOrUpdateInformationPage(key: $key, title: $title, body: $body) {
-        ...InformationPage
+      updateCuisine(
+        id: $id
+        imageId: $image
+        nationality: $nationality
+        count: $count
+        rating: $rating
+      ) {
+        ...Cuisine
       }
     }
   `,
-  ({createOrUpdateInformationPage}) => createOrUpdateInformationPage,
+  ({updateCuisine}) => updateCuisine,
 );
 
 export const orderByIdQuery = createQueryWithVariables<
@@ -440,35 +449,32 @@ export const mutationUpdateRestaurantInformation = createMutationWithVariables<
   () => undefined,
 );
 
-export const informationPagesQuery = createQuery<
-  {informationPages: InformationPage[]},
-  InformationPage[]
->(
+export const cuisinesQuery = createQuery<{cuisines: Cuisine[]}, Cuisine[]>(
   gql`
-    ${InformationPageFragment()}
+    ${CuisineFragment()}
     query {
-      informationPages {
-        ...InformationPage
+      cuisines {
+        ...Cuisine
       }
     }
   `,
-  ({informationPages}) => informationPages,
+  ({cuisines}) => cuisines,
 );
 
-export const informationPageByIdQuery = createQueryWithVariables<
-  QueryInformationPageByIdArgs,
-  {informationPageById: InformationPage},
-  InformationPage
+export const cuisineByIdQuery = createQueryWithVariables<
+  QueryCuisineByIdArgs,
+  {cuisineById: Cuisine},
+  Cuisine
 >(
   gql`
-    ${InformationPageFragment()}
-    query($informationPageId: ID!) {
-      informationPageById(informationPageId: $informationPageId) {
-        ...InformationPage
+    ${CuisineFragment()}
+    query($id: String!) {
+      cuisineById(id: $id) {
+        ...Cuisine
       }
     }
   `,
-  ({informationPageById}) => informationPageById,
+  ({cuisineById}) => cuisineById,
 );
 
 export const deleteOrderMutation = createMutationWithVariables<

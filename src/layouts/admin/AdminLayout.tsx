@@ -7,6 +7,8 @@ import {
   CourierIconActive,
   CustomerIcon,
   CustomerIconActive,
+  DishesIcon,
+  DishesIconActive,
   LogoutIcon,
   OrderIcon,
   OrderIconActive,
@@ -81,6 +83,18 @@ const AdminLayout: React.FC = ({children}) => {
       path: 'payments/couriers',
       icon: PaymentsIcon,
       activeIcon: PaymentsIconActive,
+    },
+    {
+      label: t('cuisines'),
+      path: 'cuisines',
+      icon: DishesIcon,
+      activeIcon: DishesIconActive,
+    },
+    {
+      label: t('dishes'),
+      path: 'dishes',
+      icon: DishesIcon,
+      activeIcon: DishesIconActive,
     },
     {
       label: t('settings'),

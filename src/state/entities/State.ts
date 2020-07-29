@@ -10,8 +10,8 @@ import CouriersContainer from 'state/entities/CouriersContainer';
 import {CourierDetailsContainer} from 'state/entities/CourierDetailsContainer';
 import RestaurantsContainer from 'state/entities/RestaurantsContainer';
 import {RestaurantDetailsContainer} from 'state/entities/RestaurantDetailsContainer';
-import InformationPagesContainer from 'state/entities/InformationPagesContainer';
-import {InformationPageDetailsContainer} from 'state/entities/InformationPageDetailsContainer';
+import CuisinesContainer from 'state/entities/CuisinesContainer';
+import {CuisineDetailsContainer} from 'state/entities/CuisineDetailsContainer';
 
 export default interface State {
   session: SessionContainer;
@@ -24,7 +24,7 @@ export default interface State {
   courierDetails: CourierDetailsContainer;
   restaurants: LoadableContainer<RestaurantsContainer>;
   restaurantDetails: RestaurantDetailsContainer;
-  informationPages: LoadableContainer<InformationPagesContainer>;
-  informationPageDetails: InformationPageDetailsContainer;
+  cuisines: LoadableContainer<CuisinesContainer>;
+  cuisineDetails: CuisineDetailsContainer;
   snackBar: SnackBar;
 }

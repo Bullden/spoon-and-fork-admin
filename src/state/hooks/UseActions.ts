@@ -12,13 +12,13 @@ import {orderActions} from '../ducks/order';
 import {clientActions} from '../ducks/client';
 import {courierActions} from '../ducks/courier';
 import {restaurantActions} from '../ducks/restaurant';
-import {informationPageActions} from '../ducks/informationPage';
+import {cuisineActions} from '../ducks/cuisine';
 import {orderDetailsActions} from '../ducks/orderDetails';
 import {clientDetailsActions} from '../ducks/clientDetails';
 import {courierDetailsActions} from '../ducks/courierDetails';
 import {restaurantDetailsActions} from '../ducks/restaurantDetails';
-import {informationPageDetailsActions} from '../ducks/informationPageDetails';
-import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
+import {cuisineDetailsActions} from '../ducks/cuisineDetails';
+import UpdateCuisineRequest from 'state/entities/UpdateCuisineRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from 'api/entities/UpdateRestaurantInformationRequest';
 
@@ -170,28 +170,26 @@ export function useRestaurantDetailsActions() {
   };
 }
 
-export function useInformationPageActions() {
+export function useCuisineActions() {
   const dispatch = useDispatch();
 
   return {
-    fetchInformationPages: () => dispatch(informationPageActions.fetchInformationPages()),
+    fetchCuisines: () => dispatch(cuisineActions.fetchCuisines()),
   };
 }
 
-export function useInformationPageDetailsActions() {
+export function useCuisineDetailsActions() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   return {
-    fetchInformationPageDetails: (informationPageKey: string) => {
-      dispatch(informationPageDetailsActions.fetchDetails(informationPageKey));
+    fetchCuisineDetails: (cuisineId: string) => {
+      dispatch(cuisineDetailsActions.fetchDetails(cuisineId));
     },
-    createOrUpdateInformationPage: (
-      createOrUpdateInformationPageRequest: CreateOrUpdateInformationPageRequest,
-    ) => {
+    updateCuisine: (updateCuisineRequest: UpdateCuisineRequest) => {
       dispatch(
-        informationPageDetailsActions.createOrUpdateInformationPageRequest({
-          request: createOrUpdateInformationPageRequest,
+        cuisineDetailsActions.updateCuisineRequest({
+          request: updateCuisineRequest,
           history,
         }),
       );

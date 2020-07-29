@@ -7,12 +7,12 @@ import Order from 'entities/Order';
 import Client from 'entities/Client';
 import Courier from 'entities/Courier';
 import Restaurant from 'entities/Restaurant';
-import InformationPage from 'entities/InformationPage';
+import Cuisine from 'entities/Cuisine';
 import {ID} from 'entities/Common';
 import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest';
-import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
+import UpdateCuisineRequest from 'api/entities/UpdateCuisineRequest';
 
 export interface ISpoonAndForkApi {
   register(request: RegisterRequest): Promise<Session>;
@@ -42,11 +42,9 @@ export interface ISpoonAndForkApi {
     request: UpdateRestaurantInformationRequest,
   ): Promise<void>;
 
-  getInformationPages(): Promise<InformationPage[]>;
-  getInformationPageById(id: ID): Promise<InformationPage>;
-  createOrUpdateInformationPageRequest(
-    request: CreateOrUpdateInformationPageRequest,
-  ): Promise<InformationPage>;
+  getCuisines(): Promise<Cuisine[]>;
+  getCuisineById(id: string): Promise<Cuisine>;
+  updateCuisineRequest(request: UpdateCuisineRequest): Promise<Cuisine>;
 
   updateFirebaseToken(request: UpdateFirebaseTokenRequest): Promise<void>;
 

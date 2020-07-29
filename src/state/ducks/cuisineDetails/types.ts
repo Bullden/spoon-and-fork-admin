@@ -1,0 +1,10 @@
+const prefix = 'CUISINE_';
+
+export default {
+  FETCH_DETAILS: `${prefix}FETCH_DETAILS`,
+  FETCH_DETAILS_COMPLETED: `${prefix}FETCH_DETAILS_COMPLETED`,
+  UPDATE_CUISINE: `${prefix}UPDATE_CUISINE`,
+  UPDATE_CUISINE_COMPLETED: `${prefix}UPDATE_CUISINE_COMPLETED`,
+  CLEAR: `${prefix}CLEAR`,
+  SUBMIT: `${prefix}SUBMIT`,
+};

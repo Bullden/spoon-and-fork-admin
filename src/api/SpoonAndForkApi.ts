@@ -5,18 +5,17 @@ import RestApi from 'api/rest/RestApi';
 import ApiConfiguration from '@spryrocks/react-api/ApiConfiguration';
 import SpoonAndForkGraphqlApi from 'api/graphql/SpoonAndForkGraphqlApi';
 import {
-  mapOrderFromGQL,
-  mapOrdersFromGQL,
   mapClientFromGQL,
   mapClientsFromGQL,
   mapCourierFromGQL,
   mapCouriersFromGQL,
+  mapCuisineFromGQL,
+  mapCuisinesFromGQL,
+  mapMyAccountFromGQL,
+  mapOrderFromGQL,
+  mapOrdersFromGQL,
   mapRestaurantFromGQL,
   mapRestaurantsFromGQL,
-  mapMyAccountFromGQL,
-  mapInformationPagesFromGQL,
-  mapInformationPageFromGQL,
-  mapCreateOrUpdateInformationPageRequestToGQL,
   mapUpdateClientInformationRequestToGQL,
   mapUpdateCourierInformationRequestToGQL,
 } from 'api/Mappers';
@@ -31,10 +30,10 @@ import ApiBase from '@spryrocks/react-api/ApiBase';
 import IApiTokenHolder from '@spryrocks/react-api/IApiTokenHolder';
 import {ID} from 'entities/Common';
 import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest';
-import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
-import InformationPage from 'entities/InformationPage';
+import UpdateCuisineRequest from 'api/entities/UpdateCuisineRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
+import Cuisine from 'entities/Cuisine';
 
 export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi {
   // private refreshQueue = new Queue(1, Infinity);
@@ -198,32 +197,20 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
     );
   }
 
-  public async getInformationPages() {
+  public async getCuisines() {
     return this.wrapApiCall(async () =>
-      mapInformationPagesFromGQL(
-        this.configuration,
-        await this.graphqlApi.queryInformationPages(),
-      ),
+      mapCuisinesFromGQL(await this.graphqlApi.queryCuisines()),
     );
   }
 
-  public async getInformationPageById(id: string) {
+  public async getCuisineById(id: string) {
     return this.wrapApiCall(async () =>
-      mapInformationPageFromGQL(
-        this.configuration,
-        await this.graphqlApi.queryInformationPageById(id),
-      ),
+      mapCuisineFromGQL(await this.graphqlApi.queryCuisineById(id)),
     );
   }
 
-  public async createOrUpdateInformationPageRequest(
-    request: CreateOrUpdateInformationPageRequest,
-  ): Promise<InformationPage> {
-    return this.wrapApiCall(async () =>
-      this.graphqlApi.mutationCreateOrUpdateInformationPage(
-        mapCreateOrUpdateInformationPageRequestToGQL(request),
-      ),
-    );
+  public async updateCuisineRequest(request: UpdateCuisineRequest): Promise<Cuisine> {
+    return this.wrapApiCall(async () => this.graphqlApi.mutationUpdateCuisine(request));
   }
 
   public async updateFirebaseToken(request: UpdateFirebaseTokenRequest) {

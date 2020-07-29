@@ -9,8 +9,12 @@ import {format} from 'date-fns';
 import Courier from 'entities/Courier';
 import {useTranslation} from 'react-i18next';
 import Order from 'entities/Order';
+import classNames from 'classnames';
 
 const editProfileIcon = require('./assets/editProfile.svg');
+const NewStatusIcon = require('./assets/newStatusIcon.png');
+const ApprovedStatusIcon = require('./assets/approvedStatusIcon.png');
+const Passport = require('./assets/passport.jpg');
 
 const CourierDetails: React.FC = () => {
   const {t} = useTranslation('courierDetails');
@@ -24,6 +28,7 @@ const CourierDetails: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [isNew, setIsNew] = useState<boolean>(true);
 
   const openEditUserInformationPage = (courier: Courier) => {
     setEdit(true);
@@ -53,7 +58,7 @@ const CourierDetails: React.FC = () => {
 
   useEffect(() => {
     actions.fetchCourierDetails(courierId);
-  }, []);
+  }, [isNew]);
 
   const orderActions = useOrderActions();
 
@@ -101,8 +106,33 @@ const CourierDetails: React.FC = () => {
   const renderMainInfo = (courier: Courier) => (
     <Grid className={styles.mainInfoContainer}>
       <Grid className={styles.user} item>
-        <p className={styles.user__name}>{courier.user.name}</p>
+        <div className={styles.user__nameAndStatus}>
+          <p className={styles.user__name}>{courier.user.name}</p>
+          <div
+            className={
+              isNew
+                ? classNames(styles.user__statusIcon, styles.user__statusNew)
+                : classNames(styles.user__statusIcon, styles.user__statusApproved)
+            }
+          >
+            {isNew ? (
+              <img src={NewStatusIcon} alt="" />
+            ) : (
+              <img src={ApprovedStatusIcon} alt="" />
+            )}
+          </div>
+        </div>
         <p className={styles.user__position}>{t('courier')}</p>
+        <p className={styles.user__status}>
+          Status:{' '}
+          <span
+            className={
+              isNew ? styles.user__statusTextNew : styles.user__statusTextApproved
+            }
+          >
+            {isNew ? 'New' : 'Approved'}
+          </span>
+        </p>
       </Grid>
     </Grid>
   );
@@ -208,11 +238,27 @@ const CourierDetails: React.FC = () => {
     </div>
   );
 
+  const renderDocument = () => {
+    return (
+      <div className={styles.courierDocument}>
+        <p className={styles.orders__title}>Courier document</p>
+        <img src={Passport} alt="" />
+        <div>
+          <button type="button" onClick={() => setIsNew(false)}>
+            Approve
+          </button>
+          <button type="button">Decline</button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className={styles.detailsContainer}>
       <div className={styles.infoContainer}>
         {courier.isSuccess ? renderMainInfo(courier) : <Loader />}
         {courier.isSuccess ? renderExtraInfo(courier) : <Loader />}
+        {courier.isSuccess ? renderDocument() : <Loader />}
       </div>
       <div className={styles.infoContainer}>
         {courier.isSuccess ? renderOrders() : <Loader />}

@@ -2,11 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type LatLng {
-  lat: Float!
-  lng: Float!
-}
-
 type AdditionalUserInfo {
   phoneNumber: String!
   email: String!
@@ -16,7 +11,8 @@ type User {
   id: ID!
   name: String!
   preferencesId: String!
-  latLng: LatLng
+  lat: Float!
+  lng: Float!
   additionalUserInfo: AdditionalUserInfo
 }
 
@@ -46,7 +42,8 @@ type Courier {
 type Address {
   id: ID!
   placeId: String
-  latLng: LatLng!
+  lat: Float!
+  lng: Float!
   description: String!
   entrance: String
   floor: String
@@ -208,14 +205,19 @@ type Query {
   ordersForDelivery: [Order!]!
   orderHistory: [Order!]!
   currentOrder: Order
+  ordersByUserId: [Order!]!
+  ordersByCartId(id: String!): [Order!]!
+  ordersByCourierId: [Order!]!
   preferences: Preferences!
   couriers: [Courier!]!
   courierById(courierId: ID!): Courier!
   clients: [Client!]!
   clientById(clientId: ID!): Client!
+  clientOrdersAddresses: [Address!]!
 }
 
 type Mutation {
+  updateCuisine(rating: String!, count: String!, nationality: String!, imageId: String!, id: String!): Cuisine!
   createOrder(restaurantId: String!, cartId: String!, setId: String!, clientAddress: CreateAddressRequest!): Order!
   evaluateOrder(rating: Float!, id: String!): Boolean!
   acceptOrder(id: String!): Boolean!
@@ -225,7 +227,7 @@ type Mutation {
   updatePreferences(allowSmsNotifications: Boolean, allowEmailNotifications: Boolean, allowPushNotifications: Boolean): Preferences!
   updateClientInformation(phoneNumber: String!, email: String!, name: String!, id: ID!): Boolean!
   updateCourierInformation(phoneNumber: String!, email: String!, name: String!, id: ID!): Boolean!
-  createCartAndDistributeOrders(selectedSetsInfo: [SelectedSetInfo!]!, clientAddress: CreateAddressRequest!): Boolean!
+  createCartAndDistributeOrders(selectedSetsInfo: [SelectedSetInfo!]!, clientAddress: CreateAddressRequest!): Cart!
   createAddress(location: CreateAddressRequest!): Boolean!
 }
 

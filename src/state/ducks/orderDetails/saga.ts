@@ -36,6 +36,7 @@ function* leaveCourier({payload}: Action<ID>) {
     yield SpoonAndForkApi.removeTheCurrentCourier(payload);
     yield put(actions.fetchDetails(payload));
   } catch (e) {
+    // eslint-disable-next-line no-alert
     alert(e);
   }
 }
@@ -45,6 +46,7 @@ function* closeOrder({payload}: Action<{orderId: ID; history: H.History}>) {
     yield SpoonAndForkApi.deleteOrder(payload.orderId);
     yield put(sharedRouterActions.goBack(payload));
   } catch (e) {
+    // eslint-disable-next-line no-alert
     alert(e);
   }
 }

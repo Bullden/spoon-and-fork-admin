@@ -1,29 +1,29 @@
 import GraphqlApiBase from '@spryrocks/react-api/graphql/ApiBase';
 import {
-  orderByIdQuery,
-  ordersQuery,
   clientByIdQuery,
   clientsQuery,
   courierByIdQuery,
   couriersQuery,
-  restaurantsQuery,
-  restaurantByIdQuery,
-  informationPagesQuery,
-  informationPageByIdQuery,
-  mutationUpdateMyAccountImage,
-  mutationCreateOrUpdateInformationPage,
+  cuisineByIdQuery,
+  cuisinesQuery,
+  deleteOrderMutation,
   mutationUpdateClientInformation,
   mutationUpdateCourierInformation,
+  mutationUpdateCuisine,
+  mutationUpdateMyAccountImage,
   mutationUpdateRestaurantInformation,
   myAccountQuery,
-  deleteOrderMutation,
+  orderByIdQuery,
+  ordersQuery,
   removeTheCurrentCourierMutation,
+  restaurantByIdQuery,
+  restaurantsQuery,
 } from './SpoonAndForkGraphqlQueryBuilder';
 import {ID} from 'entities/Common';
 import {
-  MutationCreateOrUpdateInformationPageArgs,
   MutationUpdateClientInformationArgs,
   MutationUpdateCourierInformationArgs,
+  MutationUpdateCuisineArgs,
   MutationUpdateRestaurantInformationArgs,
 } from 'api/graphql/types';
 
@@ -40,10 +40,8 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
     );
   }
 
-  public mutationCreateOrUpdateInformationPage(
-    request: MutationCreateOrUpdateInformationPageArgs,
-  ) {
-    return this.mutation(mutationCreateOrUpdateInformationPage(request));
+  public mutationUpdateCuisine(request: MutationUpdateCuisineArgs) {
+    return this.mutation(mutationUpdateCuisine(request));
   }
 
   public mutationUpdateClientInformation(request: MutationUpdateClientInformationArgs) {
@@ -92,12 +90,12 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
     return this.mutation(mutationUpdateRestaurantInformation(request));
   }
 
-  public async queryInformationPages() {
-    return this.query(informationPagesQuery());
+  public async queryCuisines() {
+    return this.query(cuisinesQuery());
   }
 
-  public async queryInformationPageById(informationPageId: string) {
-    return this.query(informationPageByIdQuery({informationPageId}));
+  public async queryCuisineById(id: string) {
+    return this.query(cuisineByIdQuery({id}));
   }
 
   public async queryDeleteOrder(orderId: string) {

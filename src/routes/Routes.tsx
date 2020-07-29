@@ -1,5 +1,5 @@
 import React, {Suspense, useEffect} from 'react';
-import {Switch, Route, BrowserRouter, Redirect} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import Auth from './auth';
 import Loader from '../components/Loader/Loader';
 import Config from 'app/Config';
@@ -13,10 +13,10 @@ import Couriers from './couriers/Couriers';
 import CourierDetails from 'routes/couriers/details/CourierDetails';
 import Restaurants from './restaurants/Restaurants';
 import RestaurantDetails from './restaurants/details/RestaurantDetails';
-import InformationPages from 'routes/informationPages/InformationPages';
 import {useAuthActions} from 'state/hooks/UseActions';
 import Settings from 'routes/settings/Settings';
 import Payments from './payments/Payments';
+import Cuisines from 'routes/cuisines/Cuisines';
 
 const Logout = () => {
   const actions = useAuthActions();
@@ -67,22 +67,35 @@ const Routes: React.FC = () => {
           />
           <AppRoute
             exact
-            path="/informationPages"
-            component={InformationPages}
+            path="/cuisines"
+            component={Cuisines}
             layout={Layout.AdminLayout}
           />
           <AppRoute
             exact
-            path="/informationPages/create"
-            component={InformationPages}
+            path="/cuisines/create"
+            component={Cuisines}
             layout={Layout.AdminLayout}
           />
           <AppRoute
             exact
-            path="/informationPages/:id"
-            component={InformationPages}
+            path="/cuisines/:id"
+            component={Cuisines}
             layout={Layout.AdminLayout}
           />
+          {/* <AppRoute exact path="/dishes" component={Dishes} layout={Layout.AdminLayout} /> */}
+          {/* <AppRoute */}
+          {/*  exact */}
+          {/*  path="/dishes/create" */}
+          {/*  component={Dishes} */}
+          {/*  layout={Layout.AdminLayout} */}
+          {/* /> */}
+          {/* <AppRoute */}
+          {/*  exact */}
+          {/*  path="/dishes/:id" */}
+          {/*  component={Dishes} */}
+          {/*  layout={Layout.AdminLayout} */}
+          {/* /> */}
           <AppRoute
             exact
             path="/customers"

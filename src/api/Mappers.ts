@@ -22,12 +22,12 @@ import {
   Client as GQLClient,
   Courier as GQLCourier,
   Restaurant as GQLRestaurant,
-  InformationPage as GQLInformationPage,
+  Cuisine as GQLCuisine,
 } from './graphql/types';
 import Client from 'entities/Client';
 import Courier from 'entities/Courier';
 import Restaurant from 'entities/Restaurant';
-import InformationPage from 'entities/InformationPage';
+import Cuisine from 'entities/Cuisine';
 import Set from 'entities/Set';
 import Dish from 'entities/Dish';
 import Ingredient from 'entities/Ingredient';
@@ -37,7 +37,8 @@ import {Bag} from 'entities/Bag';
 import Address from 'entities/Address';
 import Cart from 'entities/Cart';
 import OrderInfo from '../entities/OrderInfo';
-import CreateOrUpdateInformationPageRequest from 'api/entities/CreateOrUpdateInformationPageRequest';
+import UpdateCuisineRequest from 'state/entities/UpdateCuisineRequest';
+import ApiUpdateCuisineRequest from 'api/entities/UpdateCuisineRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 
@@ -50,12 +51,15 @@ export const mapRegisterRequestToApi = (
   password: registerRequest.password,
 });
 
-export const mapCreateOrUpdateInformationPageRequestToGQL = (
-  createOrUpdateInformationPageRequest: CreateOrUpdateInformationPageRequest,
-): CreateOrUpdateInformationPageRequest => ({
-  key: createOrUpdateInformationPageRequest.key,
-  title: createOrUpdateInformationPageRequest.title,
-  body: createOrUpdateInformationPageRequest.body,
+export const mapUpdateCuisineRequestToGQL = (
+  updateCuisineRequest: UpdateCuisineRequest,
+  uploadFileId: string,
+): ApiUpdateCuisineRequest => ({
+  id: updateCuisineRequest.id,
+  image: uploadFileId,
+  nationality: updateCuisineRequest.nationality,
+  count: updateCuisineRequest.count,
+  rating: updateCuisineRequest.rating,
 });
 
 export const mapUpdateClientInformationRequestToGQL = (
@@ -143,6 +147,17 @@ export const mapRestaurantFromGQL = (restaurant: GQLRestaurant): Restaurant => (
   address: mapAddressFromGQL(restaurant.address),
 });
 
+export const mapCuisineFromGQL = (cuisine: GQLCuisine): Cuisine => ({
+  id: cuisine.id,
+  image: cuisine.imageId,
+  nationality: cuisine.nationality,
+  count: cuisine.count,
+  rating: cuisine.rating,
+});
+
+export const mapCuisinesFromGQL = (cuisines: GQLCuisine[]): Cuisine[] =>
+  cuisines.map((cuisine) => mapCuisineFromGQL(cuisine));
+
 export const mapUpdateRestaurantInformationRequestToGQL = (
   updateRestaurantInformationRequest: UpdateRestaurantInformationRequest,
 ): UpdateRestaurantInformationRequest => ({
@@ -151,16 +166,6 @@ export const mapUpdateRestaurantInformationRequestToGQL = (
   lat: updateRestaurantInformationRequest.lat,
   lng: updateRestaurantInformationRequest.lng,
   description: updateRestaurantInformationRequest.description,
-});
-
-export const mapInformationPageFromGQL = (
-  configuration: ApiConfiguration,
-  informationPage: GQLInformationPage,
-): InformationPage => ({
-  id: informationPage.id,
-  key: informationPage.key,
-  title: informationPage.title,
-  body: informationPage.body,
 });
 
 export const mapBagFromGQL = (bag: GQLBag): Bag => ({
@@ -286,11 +291,3 @@ export const mapRestaurantsFromGQL = (
   configuration: ApiConfiguration,
   restaurants: GQLRestaurant[],
 ): Restaurant[] => restaurants.map((restaurant) => mapRestaurantFromGQL(restaurant));
-
-export const mapInformationPagesFromGQL = (
-  configuration: ApiConfiguration,
-  informationPages: GQLInformationPage[],
-): InformationPage[] =>
-  informationPages.map((informationPage) =>
-    mapInformationPageFromGQL(configuration, informationPage),
-  );
