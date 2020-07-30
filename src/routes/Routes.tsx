@@ -17,6 +17,7 @@ import {useAuthActions} from 'state/hooks/UseActions';
 import Settings from 'routes/settings/Settings';
 import Payments from './payments/Payments';
 import Cuisines from 'routes/cuisines/Cuisines';
+import Dishes from 'routes/dishes/Dishes';
 
 const Logout = () => {
   const actions = useAuthActions();
@@ -53,7 +54,10 @@ const Routes: React.FC = () => {
             <Redirect to="/payments" />
           </Route>
           <Route exact path="/main">
-            <Redirect to="/informationPages" />
+            <Redirect to="/cuisines" />
+          </Route>
+          <Route exact path="/main">
+            <Redirect to="/dishes" />
           </Route>
           <Route exact path="/main">
             <Redirect to="/settings" />
@@ -83,19 +87,19 @@ const Routes: React.FC = () => {
             component={Cuisines}
             layout={Layout.AdminLayout}
           />
-          {/* <AppRoute exact path="/dishes" component={Dishes} layout={Layout.AdminLayout} /> */}
-          {/* <AppRoute */}
-          {/*  exact */}
-          {/*  path="/dishes/create" */}
-          {/*  component={Dishes} */}
-          {/*  layout={Layout.AdminLayout} */}
-          {/* /> */}
-          {/* <AppRoute */}
-          {/*  exact */}
-          {/*  path="/dishes/:id" */}
-          {/*  component={Dishes} */}
-          {/*  layout={Layout.AdminLayout} */}
-          {/* /> */}
+          <AppRoute exact path="/dishes" component={Dishes} layout={Layout.AdminLayout} />
+          <AppRoute
+            exact
+            path="/dishes/create"
+            component={Dishes}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
+            path="/dishes/:id"
+            component={Dishes}
+            layout={Layout.AdminLayout}
+          />
           <AppRoute
             exact
             path="/customers"

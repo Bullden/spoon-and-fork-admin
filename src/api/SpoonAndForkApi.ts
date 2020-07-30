@@ -11,6 +11,8 @@ import {
   mapCouriersFromGQL,
   mapCuisineFromGQL,
   mapCuisinesFromGQL,
+  mapDishFromGQL,
+  mapDishesFromGQL,
   mapMyAccountFromGQL,
   mapOrderFromGQL,
   mapOrdersFromGQL,
@@ -31,9 +33,13 @@ import IApiTokenHolder from '@spryrocks/react-api/IApiTokenHolder';
 import {ID} from 'entities/Common';
 import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest';
 import UpdateCuisineRequest from 'api/entities/UpdateCuisineRequest';
+import UpdateDishRequest from 'api/entities/UpdateDishRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 import Cuisine from 'entities/Cuisine';
+import Dish from 'entities/Dish';
+import CreateCuisineRequest from 'api/entities/CreateCuisineRequest';
+import CreateDishRequest from 'api/entities/CreateDishRequest';
 
 export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi {
   // private refreshQueue = new Queue(1, Infinity);
@@ -49,12 +55,15 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
   ) {
     super(configuration, delegate, tokenHolder);
 
+    if (!configuration.graphql) throw new Error('Please specify graphql configuration');
     this.graphqlApi = new SpoonAndForkGraphqlApi(
       this.baseUrl,
       this.wsBaseUrl,
       configuration.graphql,
       this.delegate,
     );
+
+    if (!configuration.rest) throw new Error('Please specify rest configuration');
     this.restApi = new RestApi(this.baseUrl, configuration.rest, this.delegate);
   }
 
@@ -66,8 +75,8 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
     return this.restApi.login(request);
   }
 
-  public async uploadFile(uri: string) {
-    return this.restApi.uploadFile(uri);
+  public async uploadFile(file: File) {
+    return this.restApi.uploadFile(file);
   }
 
   public async myAccount() {
@@ -199,18 +208,42 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
 
   public async getCuisines() {
     return this.wrapApiCall(async () =>
-      mapCuisinesFromGQL(await this.graphqlApi.queryCuisines()),
+      mapCuisinesFromGQL(this.configuration, await this.graphqlApi.queryCuisines()),
     );
   }
 
   public async getCuisineById(id: string) {
     return this.wrapApiCall(async () =>
-      mapCuisineFromGQL(await this.graphqlApi.queryCuisineById(id)),
+      mapCuisineFromGQL(this.configuration, await this.graphqlApi.queryCuisineById(id)),
     );
   }
 
   public async updateCuisineRequest(request: UpdateCuisineRequest): Promise<Cuisine> {
     return this.wrapApiCall(async () => this.graphqlApi.mutationUpdateCuisine(request));
+  }
+
+  public async createCuisineRequest(request: CreateCuisineRequest): Promise<void> {
+    return this.wrapApiCall(async () => this.graphqlApi.mutationCreateCuisine(request));
+  }
+
+  public async getDishes() {
+    return this.wrapApiCall(async () =>
+      mapDishesFromGQL(this.configuration, await this.graphqlApi.queryDishes()),
+    );
+  }
+
+  public async getDishById(id: string) {
+    return this.wrapApiCall(async () =>
+      mapDishFromGQL(this.configuration, await this.graphqlApi.queryDishById(id)),
+    );
+  }
+
+  public async updateDishRequest(request: UpdateDishRequest): Promise<Dish> {
+    return this.wrapApiCall(async () => this.graphqlApi.mutationUpdateDish(request));
+  }
+
+  public async createDishRequest(request: CreateDishRequest): Promise<void> {
+    return this.wrapApiCall(async () => this.graphqlApi.mutationCreateDish(request));
   }
 
   public async updateFirebaseToken(request: UpdateFirebaseTokenRequest) {

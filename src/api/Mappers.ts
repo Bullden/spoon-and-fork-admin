@@ -5,7 +5,6 @@ import ApiLoginRequest from 'api/entities/LoginRequest';
 import {Account} from 'entities/Account';
 import User from 'entities/User';
 import AdditionalUserInfo from 'entities/AdditionalUserInfo';
-import ApiConfiguration from '@spryrocks/react-api/ApiConfiguration';
 import {
   Account as GQLAccount,
   Address as GQLAddress,
@@ -39,8 +38,17 @@ import Cart from 'entities/Cart';
 import OrderInfo from '../entities/OrderInfo';
 import UpdateCuisineRequest from 'state/entities/UpdateCuisineRequest';
 import ApiUpdateCuisineRequest from 'api/entities/UpdateCuisineRequest';
+import CreateCuisineRequest from 'state/entities/CreateCuisineRequest';
+import ApiCreateCuisineRequest from 'api/entities/CreateCuisineRequest';
+import UpdateDishRequest from 'state/entities/UpdateDishRequest';
+import ApiUpdateDishRequest from 'api/entities/UpdateDishRequest';
+import CreateDishRequest from 'state/entities/CreateDishRequest';
+import ApiCreateDishRequest from 'api/entities/CreateDishRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
+import ApiConfiguration, {
+  getApiConnectionOptions,
+} from '@spryrocks/react-api/ApiConfiguration';
 
 export const mapRegisterRequestToApi = (
   registerRequest: RegisterRequest,
@@ -54,12 +62,47 @@ export const mapRegisterRequestToApi = (
 export const mapUpdateCuisineRequestToGQL = (
   updateCuisineRequest: UpdateCuisineRequest,
   uploadFileId: string,
-): ApiUpdateCuisineRequest => ({
-  id: updateCuisineRequest.id,
+): ApiUpdateCuisineRequest => {
+  return {
+    id: updateCuisineRequest.id,
+    image: uploadFileId,
+    nationality: updateCuisineRequest.nationality,
+    count: updateCuisineRequest.count,
+    rating: updateCuisineRequest.rating,
+  };
+};
+
+export const mapCreateCuisineRequestToGQL = (
+  createCuisineRequest: CreateCuisineRequest,
+  uploadFileId: string,
+): ApiCreateCuisineRequest => ({
   image: uploadFileId,
-  nationality: updateCuisineRequest.nationality,
-  count: updateCuisineRequest.count,
-  rating: updateCuisineRequest.rating,
+  nationality: createCuisineRequest.nationality,
+  count: createCuisineRequest.count,
+  rating: createCuisineRequest.rating,
+});
+
+export const mapUpdateDishRequestToGQL = (
+  updateDishRequest: UpdateDishRequest,
+  uploadFileId: string,
+): ApiUpdateDishRequest => ({
+  id: updateDishRequest.id,
+  image: uploadFileId,
+  name: updateDishRequest.name,
+  description: updateDishRequest.description,
+  weight: updateDishRequest.weight,
+  kal: updateDishRequest.kal,
+});
+
+export const mapCreateDishRequestToGQL = (
+  createDishRequest: CreateDishRequest,
+  uploadFileId: string,
+): ApiCreateDishRequest => ({
+  image: uploadFileId,
+  name: createDishRequest.name,
+  description: createDishRequest.description,
+  weight: createDishRequest.weight,
+  kal: createDishRequest.kal,
 });
 
 export const mapUpdateClientInformationRequestToGQL = (
@@ -96,7 +139,9 @@ export const mapImageFromGQL = (
   configuration: ApiConfiguration,
   imageId: string,
 ): string => {
-  return `${configuration.rest.path}/files/${imageId}`;
+  if (!configuration.rest) throw new Error('Rest config should be provided');
+  const {baseUrl} = getApiConnectionOptions(configuration);
+  return `${baseUrl}${configuration.rest.path}/files/${imageId}`;
 };
 
 export const mapUserFromGQL = (user: GQLUser): User => ({
@@ -147,16 +192,21 @@ export const mapRestaurantFromGQL = (restaurant: GQLRestaurant): Restaurant => (
   address: mapAddressFromGQL(restaurant.address),
 });
 
-export const mapCuisineFromGQL = (cuisine: GQLCuisine): Cuisine => ({
+export const mapCuisineFromGQL = (
+  configuration: ApiConfiguration,
+  cuisine: GQLCuisine,
+): Cuisine => ({
   id: cuisine.id,
-  image: cuisine.imageId,
+  image: mapImageFromGQL(configuration, cuisine.imageId),
   nationality: cuisine.nationality,
   count: cuisine.count,
   rating: cuisine.rating,
 });
 
-export const mapCuisinesFromGQL = (cuisines: GQLCuisine[]): Cuisine[] =>
-  cuisines.map((cuisine) => mapCuisineFromGQL(cuisine));
+export const mapCuisinesFromGQL = (
+  configuration: ApiConfiguration,
+  cuisines: GQLCuisine[],
+): Cuisine[] => cuisines.map((cuisine) => mapCuisineFromGQL(configuration, cuisine));
 
 export const mapUpdateRestaurantInformationRequestToGQL = (
   updateRestaurantInformationRequest: UpdateRestaurantInformationRequest,

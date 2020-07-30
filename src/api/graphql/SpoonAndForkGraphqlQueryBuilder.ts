@@ -9,16 +9,21 @@ import {
   Client,
   Courier,
   Cuisine,
+  Dish,
+  MutationCreateCuisineArgs,
+  MutationCreateDishArgs,
   MutationDeleteOrderArgs,
   MutationRemoveTheCurrentCourierArgs,
   MutationUpdateClientInformationArgs,
   MutationUpdateCourierInformationArgs,
   MutationUpdateCuisineArgs,
+  MutationUpdateDishArgs,
   MutationUpdateRestaurantInformationArgs,
   Order,
   QueryClientByIdArgs,
   QueryCourierByIdArgs,
   QueryCuisineByIdArgs,
+  QueryDishByIdArgs,
   QueryOrderByIdArgs,
   QueryRestaurantByIdArgs,
   Restaurant,
@@ -258,6 +263,84 @@ export const mutationUpdateCuisine = createMutationWithVariables<
   ({updateCuisine}) => updateCuisine,
 );
 
+export const mutationCreateCuisine = createMutationWithVariables<
+  MutationCreateCuisineArgs,
+  {createCuisine: Boolean},
+  void
+>(
+  gql`
+    mutation createCuisine(
+      $image: String!
+      $nationality: String!
+      $count: String!
+      $rating: String!
+    ) {
+      createCuisine(
+        imageId: $image
+        nationality: $nationality
+        count: $count
+        rating: $rating
+      )
+    }
+  `,
+  ({createCuisine}) => createCuisine,
+);
+
+export const mutationUpdateDish = createMutationWithVariables<
+  MutationUpdateDishArgs,
+  {updateDish: Dish},
+  Dish
+>(
+  gql`
+    ${DishFragment()}
+    mutation updateDish(
+      $id: String!
+      $name: String!
+      $description: String!
+      $image: String!
+      $weight: String!
+      $kal: String!
+    ) {
+      updateDish(
+        id: $id
+        name: $name
+        description: $description
+        imageId: $image
+        weight: $weight
+        kal: $kal
+      ) {
+        ...Dish
+      }
+    }
+  `,
+  ({updateDish}) => updateDish,
+);
+
+export const mutationCreateDish = createMutationWithVariables<
+  MutationCreateDishArgs,
+  {createDish: Boolean},
+  void
+>(
+  gql`
+    mutation createDish(
+      $name: String!
+      $description: String!
+      $image: String!
+      $weight: String!
+      $kal: String!
+    ) {
+      createDish(
+        name: $name
+        description: $description
+        imageId: $image
+        weight: $weight
+        kal: $kal
+      )
+    }
+  `,
+  ({createDish}) => createDish,
+);
+
 export const orderByIdQuery = createQueryWithVariables<
   QueryOrderByIdArgs,
   {orderById: Order},
@@ -475,6 +558,34 @@ export const cuisineByIdQuery = createQueryWithVariables<
     }
   `,
   ({cuisineById}) => cuisineById,
+);
+
+export const dishesQuery = createQuery<{dishes: Dish[]}, Dish[]>(
+  gql`
+    ${DishFragment()}
+    query {
+      dishes {
+        ...Dish
+      }
+    }
+  `,
+  ({dishes}) => dishes,
+);
+
+export const dishByIdQuery = createQueryWithVariables<
+  QueryDishByIdArgs,
+  {dishById: Dish},
+  Dish
+>(
+  gql`
+    ${DishFragment()}
+    query($id: String!) {
+      dishById(id: $id) {
+        ...Dish
+      }
+    }
+  `,
+  ({dishById}) => dishById,
 );
 
 export const deleteOrderMutation = createMutationWithVariables<

@@ -8,17 +8,21 @@ import Client from 'entities/Client';
 import Courier from 'entities/Courier';
 import Restaurant from 'entities/Restaurant';
 import Cuisine from 'entities/Cuisine';
+import Dish from 'entities/Dish';
 import {ID} from 'entities/Common';
 import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 import UpdateCuisineRequest from 'api/entities/UpdateCuisineRequest';
+import CreateCuisineRequest from 'api/entities/CreateCuisineRequest';
+import UpdateDishRequest from 'api/entities/UpdateDishRequest';
+import CreateDishRequest from 'api/entities/CreateDishRequest';
 
 export interface ISpoonAndForkApi {
   register(request: RegisterRequest): Promise<Session>;
   login(request: LoginRequest): Promise<Session>;
   myAccount(): Promise<Account>;
-  uploadFile(uri: string): Promise<void>;
+  uploadFile(file: File): Promise<void>;
 
   forgotPassword(request: ForgotPasswordRequest): Promise<void>;
 
@@ -45,6 +49,12 @@ export interface ISpoonAndForkApi {
   getCuisines(): Promise<Cuisine[]>;
   getCuisineById(id: string): Promise<Cuisine>;
   updateCuisineRequest(request: UpdateCuisineRequest): Promise<Cuisine>;
+  createCuisineRequest(request: CreateCuisineRequest): Promise<void>;
+
+  getDishes(): Promise<Dish[]>;
+  getDishById(id: string): Promise<Dish>;
+  updateDishRequest(request: UpdateDishRequest): Promise<Dish>;
+  createDishRequest(request: CreateDishRequest): Promise<void>;
 
   updateFirebaseToken(request: UpdateFirebaseTokenRequest): Promise<void>;
 

@@ -12,6 +12,8 @@ import RestaurantsContainer from 'state/entities/RestaurantsContainer';
 import {RestaurantDetailsContainer} from 'state/entities/RestaurantDetailsContainer';
 import CuisinesContainer from 'state/entities/CuisinesContainer';
 import {CuisineDetailsContainer} from 'state/entities/CuisineDetailsContainer';
+import DishesContainer from 'state/entities/DishesContainer';
+import {DishDetailsContainer} from 'state/entities/DishDetailsContainer';
 
 export default interface State {
   session: SessionContainer;
@@ -26,5 +28,7 @@ export default interface State {
   restaurantDetails: RestaurantDetailsContainer;
   cuisines: LoadableContainer<CuisinesContainer>;
   cuisineDetails: CuisineDetailsContainer;
+  dishes: LoadableContainer<DishesContainer>;
+  dishDetails: DishDetailsContainer;
   snackBar: SnackBar;
 }

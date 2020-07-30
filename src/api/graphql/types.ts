@@ -274,6 +274,33 @@ export type MutationUpdateCuisineArgs = {
 };
 
 
+export type MutationCreateCuisineArgs = {
+  image: Scalars['String'],
+  nationality: Scalars['String'],
+  count: Scalars['String'],
+  rating: Scalars['String']
+};
+
+
+export type MutationUpdateDishArgs = {
+  id: Scalars['String'],
+  name: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  weight: Scalars['String'];
+  kal: Scalars['String'];
+};
+
+
+export type MutationCreateDishArgs = {
+  name: Scalars['String'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  weight: Scalars['String'];
+  kal: Scalars['String'];
+};
+
+
 export type MutationGetPaidArgs = {
   amount: Scalars['Int']
 };
@@ -456,6 +483,11 @@ export type QueryInformationPageByIdArgs = {
 
 
 export type QueryCuisineByIdArgs = {
+  id: Scalars['String']
+};
+
+
+export type QueryDishByIdArgs = {
   id: Scalars['String']
 };
 

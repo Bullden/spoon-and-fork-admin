@@ -13,14 +13,19 @@ import {clientActions} from '../ducks/client';
 import {courierActions} from '../ducks/courier';
 import {restaurantActions} from '../ducks/restaurant';
 import {cuisineActions} from '../ducks/cuisine';
+import {dishActions} from '../ducks/dish';
 import {orderDetailsActions} from '../ducks/orderDetails';
 import {clientDetailsActions} from '../ducks/clientDetails';
 import {courierDetailsActions} from '../ducks/courierDetails';
 import {restaurantDetailsActions} from '../ducks/restaurantDetails';
 import {cuisineDetailsActions} from '../ducks/cuisineDetails';
+import {dishDetailsActions} from '../ducks/dishDetails';
 import UpdateCuisineRequest from 'state/entities/UpdateCuisineRequest';
+import UpdateDishRequest from 'state/entities/UpdateDishRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from 'api/entities/UpdateRestaurantInformationRequest';
+import CreateCuisineRequest from 'state/entities/CreateCuisineRequest';
+import CreateDishRequest from 'state/entities/CreateDishRequest';
 
 export function useAuthActions() {
   const dispatch = useDispatch();
@@ -190,6 +195,49 @@ export function useCuisineDetailsActions() {
       dispatch(
         cuisineDetailsActions.updateCuisineRequest({
           request: updateCuisineRequest,
+          history,
+        }),
+      );
+    },
+    createCuisine: (createCuisineRequest: CreateCuisineRequest) => {
+      dispatch(
+        cuisineDetailsActions.createCuisineRequest({
+          request: createCuisineRequest,
+          history,
+        }),
+      );
+    },
+  };
+}
+
+export function useDishActions() {
+  const dispatch = useDispatch();
+
+  return {
+    fetchDishes: () => dispatch(dishActions.fetchDishes()),
+  };
+}
+
+export function useDishDetailsActions() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  return {
+    fetchDishDetails: (dishId: string) => {
+      dispatch(dishDetailsActions.fetchDetails(dishId));
+    },
+    updateDish: (updateDishRequest: UpdateDishRequest) => {
+      dispatch(
+        dishDetailsActions.updateDishRequest({
+          request: updateDishRequest,
+          history,
+        }),
+      );
+    },
+    createDish: (createDishRequest: CreateDishRequest) => {
+      dispatch(
+        dishDetailsActions.createDishRequest({
+          request: createDishRequest,
           history,
         }),
       );

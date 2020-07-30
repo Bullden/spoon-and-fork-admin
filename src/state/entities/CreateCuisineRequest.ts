@@ -1,5 +1,4 @@
-export default interface UpdateCuisineRequest {
-  id: string;
+export default interface CreateCuisineRequest {
   uploadFile: File | string | undefined;
   nationality: string;
   count: string;

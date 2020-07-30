@@ -18,13 +18,15 @@ function* updateMyAccount() {
   }
 }
 
-function* updateProfileImage({payload}: Action<string>) {
+function* updateProfileImage({payload}: Action<File | string | undefined>) {
   try {
-    const imageId: string = yield Api.uploadFile(payload);
-    yield SpoonAndForkApi.updateUserProfileImage(imageId);
-    yield put(actions.updateProfileImageCompleted(imageId));
-    yield put(sessionActions.fetchSession());
-    yield put(sessionActions.setSessionExists(true));
+    if (payload && typeof payload !== 'string') {
+      const imageId: string = yield Api.uploadFile(payload);
+      yield SpoonAndForkApi.updateUserProfileImage(imageId);
+      yield put(actions.updateProfileImageCompleted(imageId));
+      yield put(sessionActions.fetchSession());
+      yield put(sessionActions.setSessionExists(true));
+    }
   } catch (e) {
     yield put(alertActions.showError(e));
   }

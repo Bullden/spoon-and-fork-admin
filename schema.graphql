@@ -194,6 +194,7 @@ type Query {
   setById(id: String!): Set!
   setsByCuisineId(id: String!): [Set!]!
   dishById(id: String!): Dish!
+  dishes: [Dish!]!
   dishesBySetId(id: String!): [Dish!]!
   ingredientById(id: String!): Ingredient!
   ingredientsByDishId(id: String!): [Ingredient!]!
@@ -218,6 +219,9 @@ type Query {
 
 type Mutation {
   updateCuisine(rating: String!, count: String!, nationality: String!, imageId: String!, id: String!): Cuisine!
+  createCuisine(rating: String!, count: String!, nationality: String!, imageId: String!): Boolean!
+  updateDish(kal: String!, weight: String!, description: String!, name: String!, imageId: String!, id: String!): Dish!
+  createDish(kal: String!, weight: String!, description: String!, name: String!, imageId: String!): Boolean!
   createOrder(restaurantId: String!, cartId: String!, setId: String!, clientAddress: CreateAddressRequest!): Order!
   evaluateOrder(rating: Float!, id: String!): Boolean!
   acceptOrder(id: String!): Boolean!

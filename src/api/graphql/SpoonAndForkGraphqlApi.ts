@@ -6,10 +6,15 @@ import {
   couriersQuery,
   cuisineByIdQuery,
   cuisinesQuery,
+  dishByIdQuery,
+  dishesQuery,
   deleteOrderMutation,
   mutationUpdateClientInformation,
   mutationUpdateCourierInformation,
   mutationUpdateCuisine,
+  mutationCreateCuisine,
+  mutationUpdateDish,
+  mutationCreateDish,
   mutationUpdateMyAccountImage,
   mutationUpdateRestaurantInformation,
   myAccountQuery,
@@ -21,9 +26,12 @@ import {
 } from './SpoonAndForkGraphqlQueryBuilder';
 import {ID} from 'entities/Common';
 import {
+  MutationCreateCuisineArgs,
+  MutationCreateDishArgs,
   MutationUpdateClientInformationArgs,
   MutationUpdateCourierInformationArgs,
   MutationUpdateCuisineArgs,
+  MutationUpdateDishArgs,
   MutationUpdateRestaurantInformationArgs,
 } from 'api/graphql/types';
 
@@ -42,6 +50,18 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public mutationUpdateCuisine(request: MutationUpdateCuisineArgs) {
     return this.mutation(mutationUpdateCuisine(request));
+  }
+
+  public mutationCreateCuisine(request: MutationCreateCuisineArgs) {
+    return this.mutation(mutationCreateCuisine(request));
+  }
+
+  public mutationUpdateDish(request: MutationUpdateDishArgs) {
+    return this.mutation(mutationUpdateDish(request));
+  }
+
+  public mutationCreateDish(request: MutationCreateDishArgs) {
+    return this.mutation(mutationCreateDish(request));
   }
 
   public mutationUpdateClientInformation(request: MutationUpdateClientInformationArgs) {
@@ -96,6 +116,14 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public async queryCuisineById(id: string) {
     return this.query(cuisineByIdQuery({id}));
+  }
+
+  public async queryDishes() {
+    return this.query(dishesQuery());
+  }
+
+  public async queryDishById(id: string) {
+    return this.query(dishByIdQuery({id}));
   }
 
   public async queryDeleteOrder(orderId: string) {

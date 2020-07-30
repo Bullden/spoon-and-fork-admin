@@ -12,8 +12,8 @@ export default class RestApi extends ApiBase {
     return this.post<Session>(`auth/register`, request);
   }
 
-  public async uploadFile(uri: string) {
-    return this.postFile(uri);
+  public async uploadFile(file: File) {
+    return this.postFile(file);
   }
 
   public async login(request: LoginRequest) {

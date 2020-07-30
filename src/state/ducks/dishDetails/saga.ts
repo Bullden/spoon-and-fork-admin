@@ -3,39 +3,39 @@ import {all, put, takeEvery} from 'redux-saga/effects';
 import {Action} from 'redux-actions';
 import {SpoonAndForkApi} from 'api/index';
 import actions, {
-  UpdateCuisineCompleted,
+  UpdateDishCompleted,
   FetchDetailsCompleted,
-  CreateCuisine,
-  CreateCuisineCompleted,
+  CreateDish,
+  CreateDishCompleted,
 } from './actions';
 import {snackBarActions} from '../snackBar';
 import {processError} from '../alert/saga';
-import Cuisine from 'entities/Cuisine';
-import {UpdateCuisine} from 'state/ducks/cuisineDetails/actions';
-import {mapCreateCuisineRequestToGQL, mapUpdateCuisineRequestToGQL} from 'api/Mappers';
-import cuisinesActions from 'state/ducks/cuisine/actions';
+import Dish from 'entities/Dish';
+import {UpdateDish} from 'state/ducks/dishDetails/actions';
+import {mapCreateDishRequestToGQL, mapUpdateDishRequestToGQL} from 'api/Mappers';
+import dishesActions from 'state/ducks/dish/actions';
 
-function* updateCuisine({payload: {request, history}}: Action<UpdateCuisine>) {
+function* updateDish({payload: {request, history}}: Action<UpdateDish>) {
   try {
     if (request.uploadFile && typeof request.uploadFile !== 'string') {
       const uploadFileId: string = yield SpoonAndForkApi.uploadFile(request.uploadFile);
-      const cuisine: Cuisine = yield SpoonAndForkApi.updateCuisineRequest(
-        mapUpdateCuisineRequestToGQL(request, uploadFileId),
+      const dish: Dish = yield SpoonAndForkApi.updateDishRequest(
+        mapUpdateDishRequestToGQL(request, uploadFileId),
       );
-      yield put(actions.updateCuisineRequestCompleted({cuisine, history}));
+      yield put(actions.updateDishRequestCompleted({dish, history}));
       yield put(
         snackBarActions.showSnackbar({
-          message: 'Cuisine success saved',
+          message: 'Dish success saved',
           type: 'success',
         }),
       );
     }
   } catch (e) {
-    yield put(actions.updateCuisineRequestCompleted(e));
+    yield put(actions.updateDishRequestCompleted(e));
   }
 }
 
-function* updateCuisineCompleted({payload, error}: Action<UpdateCuisineCompleted>) {
+function* updateDishCompleted({payload, error}: Action<UpdateDishCompleted>) {
   if (error) {
     yield put(
       snackBarActions.showSnackbar({
@@ -46,30 +46,30 @@ function* updateCuisineCompleted({payload, error}: Action<UpdateCuisineCompleted
     return;
   }
 
-  yield put(cuisinesActions.fetchCuisines());
+  yield put(dishesActions.fetchDishes());
 }
 
-function* createCuisine({payload: {request, history}}: Action<CreateCuisine>) {
+function* createDish({payload: {request, history}}: Action<CreateDish>) {
   try {
     if (request.uploadFile && typeof request.uploadFile !== 'string') {
       const uploadFileId: string = yield SpoonAndForkApi.uploadFile(request.uploadFile);
-      const cuisine: Cuisine = yield SpoonAndForkApi.createCuisineRequest(
-        mapCreateCuisineRequestToGQL(request, uploadFileId),
+      const dish: Dish = yield SpoonAndForkApi.createDishRequest(
+        mapCreateDishRequestToGQL(request, uploadFileId),
       );
-      yield put(actions.createCuisineRequestCompleted({cuisine, history}));
+      yield put(actions.createDishRequestCompleted({dish, history}));
       yield put(
         snackBarActions.showSnackbar({
-          message: 'Cuisine success saved',
+          message: 'Dish success saved',
           type: 'success',
         }),
       );
     }
   } catch (e) {
-    yield put(actions.createCuisineRequestCompleted(e));
+    yield put(actions.createDishRequestCompleted(e));
   }
 }
 
-function* createCuisineCompleted({payload, error}: Action<CreateCuisineCompleted>) {
+function* createDishCompleted({payload, error}: Action<CreateDishCompleted>) {
   if (error) {
     yield put(
       snackBarActions.showSnackbar({
@@ -80,14 +80,14 @@ function* createCuisineCompleted({payload, error}: Action<CreateCuisineCompleted
     return;
   }
 
-  yield put(cuisinesActions.fetchCuisines());
+  yield put(dishesActions.fetchDishes());
 }
 
 function* fetchDetails({payload}: Action<string>) {
   try {
-    const cuisine: Cuisine = yield SpoonAndForkApi.getCuisineById(payload);
+    const dish: Dish = yield SpoonAndForkApi.getDishById(payload);
 
-    yield put(actions.fetchDetailsCompleted({cuisine}));
+    yield put(actions.fetchDetailsCompleted({dish}));
   } catch (e) {
     yield put(actions.fetchDetailsCompleted(e));
   }
@@ -109,9 +109,9 @@ export default function* () {
     //
     takeEvery(types.FETCH_DETAILS, fetchDetails),
     takeEvery(types.FETCH_DETAILS_COMPLETED, fetchDetailsCompleted),
-    takeEvery(types.UPDATE_CUISINE, updateCuisine),
-    takeEvery(types.UPDATE_CUISINE_COMPLETED, updateCuisineCompleted),
-    takeEvery(types.CREATE_CUISINE, createCuisine),
-    takeEvery(types.CREATE_CUISINE_COMPLETED, createCuisineCompleted),
+    takeEvery(types.UPDATE_DISH, updateDish),
+    takeEvery(types.UPDATE_DISH_COMPLETED, updateDishCompleted),
+    takeEvery(types.CREATE_DISH, createDish),
+    takeEvery(types.CREATE_DISH_COMPLETED, createDishCompleted),
   ]);
 }

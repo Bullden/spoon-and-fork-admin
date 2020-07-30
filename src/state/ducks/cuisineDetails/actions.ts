@@ -3,6 +3,7 @@ import types from './types';
 import Cuisine from 'entities/Cuisine';
 import {NavigationPayload} from 'state/ducks/router/actions';
 import UpdateCuisineRequest from 'state/entities/UpdateCuisineRequest';
+import CreateCuisineRequest from 'state/entities/CreateCuisineRequest';
 
 export type FetchDetailsCompleted = {
   cuisine: Cuisine;
@@ -14,6 +15,12 @@ export type UpdateCuisine = {
 export type UpdateCuisineCompleted = {
   cuisine: Cuisine;
 } & NavigationPayload;
+export type CreateCuisine = {
+  request: CreateCuisineRequest;
+} & NavigationPayload;
+export type CreateCuisineCompleted = {
+  cuisine: Cuisine;
+} & NavigationPayload;
 
 export default {
   fetchDetails: createAction<string>(types.FETCH_DETAILS),
@@ -23,5 +30,9 @@ export default {
   updateCuisineRequest: createAction<UpdateCuisine>(types.UPDATE_CUISINE),
   updateCuisineRequestCompleted: createAction<UpdateCuisineCompleted>(
     types.UPDATE_CUISINE_COMPLETED,
+  ),
+  createCuisineRequest: createAction<CreateCuisine>(types.CREATE_CUISINE),
+  createCuisineRequestCompleted: createAction<CreateCuisineCompleted>(
+    types.CREATE_CUISINE_COMPLETED,
   ),
 };

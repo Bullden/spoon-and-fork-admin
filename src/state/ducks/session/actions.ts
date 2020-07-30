@@ -10,6 +10,6 @@ export default {
   fetchUserCompleted: createAction<Account>(types.FETCH_USER_COMPLETED),
   updateUserProfile: createAction<UpdateUserRequest>(types.UPDATE_USER_PROFILE),
   updateUserProfileCompleted: createAction<Account>(types.UPDATE_USER_PROFILE_COMPLETED),
-  updateProfileImage: createAction<string>(types.UPDATE_PROFILE_IMAGE),
+  updateProfileImage: createAction<File | string | undefined>(types.UPDATE_PROFILE_IMAGE),
   updateProfileImageCompleted: createAction(types.UPDATE_PROFILE_IMAGE_COMPLETED),
 };
