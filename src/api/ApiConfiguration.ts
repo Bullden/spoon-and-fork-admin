@@ -13,5 +13,5 @@ export const createConfiguration = (): ApiConfiguration => ({
   rest: {
     path: ConfigService.get('REACT_APP_API_REST_PATH'),
   },
-  secure: false,
+  secure: ConfigService.getBooleanOptional('REACT_APP_API_REST_SECURE'),
 });
