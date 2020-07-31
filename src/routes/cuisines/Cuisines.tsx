@@ -150,8 +150,12 @@ const Cuisines: React.FC = () => {
       setError(true);
     }
 
-    if (id && file && values.nationality && values.count && values.rating) {
-      return actions.updateCuisine({id, ...values, uploadFile: file});
+    if (id && values.nationality && values.count && values.rating && data.isSuccess) {
+      return actions.updateCuisine({
+        id,
+        ...values,
+        uploadFile: file || data.cuisines.filter((cuisine) => cuisine.id === id)[0].image,
+      });
     }
   };
 

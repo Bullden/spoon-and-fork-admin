@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDishActions, useDishDetailsActions} from 'state/hooks/UseActions';
 import styles from 'routes/dishes/Dishes.module.scss';
 import {useSelector} from 'state/hooks';
@@ -27,6 +27,7 @@ const Dishes: React.FC = () => {
   const {t} = useTranslation('dish');
 
   const [file, setFile] = useState<File>();
+  const [ingredients, setIngredients] = useState<string>('');
   const [isError, setError] = React.useState(false);
   const [isReady, setReady] = React.useState(true);
   const [isUniqueNationality, setUniqueNationality] = React.useState(true);
@@ -80,6 +81,7 @@ const Dishes: React.FC = () => {
 
   const openDish = (dish: Dish) => {
     setError(false);
+    setIngredients(dish.ingredients.map((ingredient) => ingredient.name).join(', '));
     history.push(`/dishes/${dish.id}`);
   };
 
@@ -133,9 +135,20 @@ const Dishes: React.FC = () => {
     setReady(true);
 
     if (id === undefined && data.isSuccess) {
-      if (file && values.name && values.description && values.weight && values.kal) {
+      if (
+        file &&
+        values.name &&
+        values.description &&
+        values.weight &&
+        values.kal &&
+        ingredients
+      ) {
         if (data.dishes.every((dish: Dish) => nameUniquenessCheck(dish, values.name))) {
-          return actions.createDish({...values, uploadFile: file});
+          return actions.createDish({
+            ...values,
+            uploadFile: file,
+            ingredients: ingredients.split(', '),
+          });
         }
       } else {
         setReady(false);
@@ -150,8 +163,21 @@ const Dishes: React.FC = () => {
       setError(true);
     }
 
-    if (id && file && values.name && values.description && values.weight && values.kal) {
-      return actions.updateDish({id, ...values, uploadFile: file});
+    if (
+      id &&
+      values.name &&
+      values.description &&
+      values.weight &&
+      values.kal &&
+      ingredients &&
+      data.isSuccess
+    ) {
+      return actions.updateDish({
+        id,
+        ...values,
+        uploadFile: file || data.dishes.filter((dish) => dish.id === id)[0].image,
+        ingredients: ingredients.split(', '),
+      });
     }
   };
 
@@ -242,6 +268,20 @@ const Dishes: React.FC = () => {
                 id="kal"
                 as={TextField}
                 className={styles.form__field}
+              />
+              <Field
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                name="ingredients"
+                label={t('ingredients')}
+                id="ingredients"
+                as={TextField}
+                className={styles.form__field}
+                onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                  setIngredients(event.target.value);
+                }}
+                value={ingredients}
               />
               <div className={styles.buttons}>
                 <button className={styles.saveButton} type="submit">

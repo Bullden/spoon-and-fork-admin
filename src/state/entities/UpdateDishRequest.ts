@@ -5,4 +5,5 @@ export default interface UpdateDishRequest {
   uploadFile: File | string | undefined;
   weight: string;
   kal: string;
+  ingredients: string[];
 }

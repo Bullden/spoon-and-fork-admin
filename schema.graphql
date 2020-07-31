@@ -153,6 +153,11 @@ enum OrderState {
   Completed
 }
 
+type LatLng {
+  lat: Float!
+  lng: Float!
+}
+
 input IngredientInput {
   id: ID!
   name: String!
@@ -209,19 +214,21 @@ type Query {
   ordersByUserId: [Order!]!
   ordersByCartId(id: String!): [Order!]!
   ordersByCourierId: [Order!]!
+  ordersByRestaurantId: [Order!]!
   preferences: Preferences!
   couriers: [Courier!]!
   courierById(courierId: ID!): Courier!
   clients: [Client!]!
   clientById(clientId: ID!): Client!
   clientOrdersAddresses: [Address!]!
+  userLocation(id: String!): LatLng
 }
 
 type Mutation {
   updateCuisine(rating: String!, count: String!, nationality: String!, imageId: String!, id: String!): Cuisine!
   createCuisine(rating: String!, count: String!, nationality: String!, imageId: String!): Boolean!
-  updateDish(kal: String!, weight: String!, description: String!, name: String!, imageId: String!, id: String!): Dish!
-  createDish(kal: String!, weight: String!, description: String!, name: String!, imageId: String!): Boolean!
+  updateDish(imageId: String!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, id: String!): Dish!
+  createDish(ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, imageId: String!): Boolean!
   createOrder(restaurantId: String!, cartId: String!, setId: String!, clientAddress: CreateAddressRequest!): Order!
   evaluateOrder(rating: Float!, id: String!): Boolean!
   acceptOrder(id: String!): Boolean!
@@ -233,6 +240,7 @@ type Mutation {
   updateCourierInformation(phoneNumber: String!, email: String!, name: String!, id: ID!): Boolean!
   createCartAndDistributeOrders(selectedSetsInfo: [SelectedSetInfo!]!, clientAddress: CreateAddressRequest!): Cart!
   createAddress(location: CreateAddressRequest!): Boolean!
+  updateLocation(latLng: LatLngInput!): Boolean!
 }
 
 input CreateAddressRequest {

@@ -4,4 +4,5 @@ export default interface CreateDishRequest {
   image: string;
   weight: string;
   kal: string;
+  ingredients: string[];
 }

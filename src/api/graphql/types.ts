@@ -289,6 +289,7 @@ export type MutationUpdateDishArgs = {
   image: Scalars['String'];
   weight: Scalars['String'];
   kal: Scalars['String'];
+  ingredients: Array<Scalars['String']>;
 };
 
 
@@ -298,6 +299,7 @@ export type MutationCreateDishArgs = {
   image: Scalars['String'];
   weight: Scalars['String'];
   kal: Scalars['String'];
+  ingredients: Array<Scalars['String']>;
 };
 
 

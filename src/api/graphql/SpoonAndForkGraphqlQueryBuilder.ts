@@ -300,6 +300,7 @@ export const mutationUpdateDish = createMutationWithVariables<
       $image: String!
       $weight: String!
       $kal: String!
+      $ingredients: [String!]!
     ) {
       updateDish(
         id: $id
@@ -308,6 +309,7 @@ export const mutationUpdateDish = createMutationWithVariables<
         imageId: $image
         weight: $weight
         kal: $kal
+        ingredients: $ingredients
       ) {
         ...Dish
       }
@@ -328,6 +330,7 @@ export const mutationCreateDish = createMutationWithVariables<
       $image: String!
       $weight: String!
       $kal: String!
+      $ingredients: [String!]!
     ) {
       createDish(
         name: $name
@@ -335,6 +338,7 @@ export const mutationCreateDish = createMutationWithVariables<
         imageId: $image
         weight: $weight
         kal: $kal
+        ingredients: $ingredients
       )
     }
   `,

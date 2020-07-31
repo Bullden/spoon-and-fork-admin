@@ -4,4 +4,5 @@ export default interface CreateDishRequest {
   uploadFile: File | string | undefined;
   weight: string;
   kal: string;
+  ingredients: string[];
 }

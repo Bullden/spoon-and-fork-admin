@@ -5,4 +5,5 @@ export default interface UpdateDishRequest {
   image: string;
   weight: string;
   kal: string;
+  ingredients: string[];
 }

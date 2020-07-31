@@ -17,8 +17,15 @@ import dishesActions from 'state/ducks/dish/actions';
 
 function* updateDish({payload: {request, history}}: Action<UpdateDish>) {
   try {
-    if (request.uploadFile && typeof request.uploadFile !== 'string') {
-      const uploadFileId: string = yield SpoonAndForkApi.uploadFile(request.uploadFile);
+    if (request.uploadFile) {
+      let uploadFileId: string;
+      if (typeof request.uploadFile === 'string') {
+        const urlParts = request.uploadFile.split('/');
+        uploadFileId = urlParts[urlParts.length - 1];
+      } else {
+        uploadFileId = yield SpoonAndForkApi.uploadFile(request.uploadFile);
+      }
+
       const dish: Dish = yield SpoonAndForkApi.updateDishRequest(
         mapUpdateDishRequestToGQL(request, uploadFileId),
       );

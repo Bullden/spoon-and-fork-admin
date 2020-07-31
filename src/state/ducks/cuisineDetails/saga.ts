@@ -17,8 +17,15 @@ import cuisinesActions from 'state/ducks/cuisine/actions';
 
 function* updateCuisine({payload: {request, history}}: Action<UpdateCuisine>) {
   try {
-    if (request.uploadFile && typeof request.uploadFile !== 'string') {
-      const uploadFileId: string = yield SpoonAndForkApi.uploadFile(request.uploadFile);
+    if (request.uploadFile) {
+      let uploadFileId: string;
+      if (typeof request.uploadFile === 'string') {
+        const urlParts = request.uploadFile.split('/');
+        uploadFileId = urlParts[urlParts.length - 1];
+      } else {
+        uploadFileId = yield SpoonAndForkApi.uploadFile(request.uploadFile);
+      }
+
       const cuisine: Cuisine = yield SpoonAndForkApi.updateCuisineRequest(
         mapUpdateCuisineRequestToGQL(request, uploadFileId),
       );
