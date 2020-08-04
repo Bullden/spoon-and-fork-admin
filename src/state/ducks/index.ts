@@ -14,6 +14,8 @@ import {
 } from 'state/ducks/restaurant';
 import {reducer as cuisinesReducer, saga as cuisinesSaga} from 'state/ducks/cuisine';
 import {reducer as dishesReducer, saga as dishesSaga} from 'state/ducks/dish';
+import {reducer as setsReducer, saga as setsSaga} from 'state/ducks/set';
+import {reducer as statusesReducer, saga as statusesSaga} from 'state/ducks/status';
 import {
   reducer as orderDetailsReducer,
   saga as orderDetailsSaga,
@@ -38,6 +40,10 @@ import {
   reducer as dishDetailsReducer,
   saga as dishDetailsSaga,
 } from 'state/ducks/dishDetails';
+import {
+  reducer as setDetailsReducer,
+  saga as setDetailsSaga,
+} from 'state/ducks/setDetails';
 import {all} from 'redux-saga/effects';
 import State from 'state/entities/State';
 import {combineReducers} from 'redux';
@@ -59,6 +65,9 @@ export const rootReducer = combineReducers<State>({
   cuisineDetails: cuisineDetailsReducer,
   dishes: dishesReducer,
   dishDetails: dishDetailsReducer,
+  sets: setsReducer,
+  setDetails: setDetailsReducer,
+  statuses: statusesReducer,
 });
 
 export function* rootSaga() {
@@ -80,6 +89,9 @@ export function* rootSaga() {
     cuisineDetailsSaga(),
     dishesSaga(),
     dishDetailsSaga(),
+    setsSaga(),
+    setDetailsSaga(),
+    statusesSaga(),
     pushNotificationSaga(),
   ]);
 }

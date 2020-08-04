@@ -15,6 +15,8 @@ import {
   mutationCreateCuisine,
   mutationUpdateDish,
   mutationCreateDish,
+  mutationUpdateSet,
+  mutationCreateSet,
   mutationUpdateMyAccountImage,
   mutationUpdateRestaurantInformation,
   myAccountQuery,
@@ -23,16 +25,21 @@ import {
   removeTheCurrentCourierMutation,
   restaurantByIdQuery,
   restaurantsQuery,
+  setsQuery,
+  setByIdQuery,
+  statusesQuery,
 } from './SpoonAndForkGraphqlQueryBuilder';
 import {ID} from 'entities/Common';
 import {
   MutationCreateCuisineArgs,
   MutationCreateDishArgs,
+  MutationCreateSetArgs,
   MutationUpdateClientInformationArgs,
   MutationUpdateCourierInformationArgs,
   MutationUpdateCuisineArgs,
   MutationUpdateDishArgs,
   MutationUpdateRestaurantInformationArgs,
+  MutationUpdateSetArgs,
 } from 'api/graphql/types';
 
 export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
@@ -62,6 +69,14 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public mutationCreateDish(request: MutationCreateDishArgs) {
     return this.mutation(mutationCreateDish(request));
+  }
+
+  public mutationUpdateSet(request: MutationUpdateSetArgs) {
+    return this.mutation(mutationUpdateSet(request));
+  }
+
+  public mutationCreateSet(request: MutationCreateSetArgs) {
+    return this.mutation(mutationCreateSet(request));
   }
 
   public mutationUpdateClientInformation(request: MutationUpdateClientInformationArgs) {
@@ -126,11 +141,23 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
     return this.query(dishByIdQuery({id}));
   }
 
+  public async querySets() {
+    return this.query(setsQuery());
+  }
+
+  public async querySetById(id: string) {
+    return this.query(setByIdQuery({id}));
+  }
+
   public async queryDeleteOrder(orderId: string) {
     await this.mutation(deleteOrderMutation({orderId}));
   }
 
   public async removeTheCurrentCourier(orderId: string) {
     await this.mutation(removeTheCurrentCourierMutation({orderId}));
+  }
+
+  public async queryStatuses() {
+    return this.query(statusesQuery());
   }
 }

@@ -198,11 +198,10 @@ type Query {
   cuisinesByRestaurantId(id: String!): [Cuisine!]!
   setById(id: String!): Set!
   setsByCuisineId(id: String!): [Set!]!
+  sets: [Set!]!
   dishById(id: String!): Dish!
   dishes: [Dish!]!
   dishesBySetId(id: String!): [Dish!]!
-  ingredientById(id: String!): Ingredient!
-  ingredientsByDishId(id: String!): [Ingredient!]!
   bagByCode(code: String!): Bag!
   bagByOrderId(id: String!): Bag!
   orders: [Order!]!
@@ -222,11 +221,16 @@ type Query {
   clientById(clientId: ID!): Client!
   clientOrdersAddresses: [Address!]!
   userLocation(id: String!): LatLng
+  statuses: [Status!]!
+  ingredientById(id: String!): Status!
+  ingredientsByDishId(id: String!): [Status!]!
 }
 
 type Mutation {
   updateCuisine(rating: String!, count: String!, nationality: String!, imageId: String!, id: String!): Cuisine!
   createCuisine(rating: String!, count: String!, nationality: String!, imageId: String!): Boolean!
+  updateSet(statuses: [String!]!, dishes: [String!]!, cuisineId: String!, priceCents: String!, imageId: String!, name: String!, id: String!): Set!
+  createSet(statuses: [String!]!, dishes: [String!]!, cuisineId: String!, priceCents: String!, imageId: String!, name: String!): Boolean!
   updateDish(imageId: String!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, id: String!): Dish!
   createDish(ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, imageId: String!): Boolean!
   createOrder(restaurantId: String!, cartId: String!, setId: String!, clientAddress: CreateAddressRequest!): Order!

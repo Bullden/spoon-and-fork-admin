@@ -9,6 +9,8 @@ import Courier from 'entities/Courier';
 import Restaurant from 'entities/Restaurant';
 import Cuisine from 'entities/Cuisine';
 import Dish from 'entities/Dish';
+import Set from 'entities/Set';
+import Status from 'entities/Status';
 import {ID} from 'entities/Common';
 import UpdateFirebaseTokenRequest from 'api/entities/UpdateFirebaseTokenRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
@@ -17,6 +19,8 @@ import UpdateCuisineRequest from 'api/entities/UpdateCuisineRequest';
 import CreateCuisineRequest from 'api/entities/CreateCuisineRequest';
 import UpdateDishRequest from 'api/entities/UpdateDishRequest';
 import CreateDishRequest from 'api/entities/CreateDishRequest';
+import UpdateSetRequest from 'api/entities/UpdateSetRequest';
+import CreateSetRequest from 'api/entities/CreateSetRequest';
 
 export interface ISpoonAndForkApi {
   register(request: RegisterRequest): Promise<Session>;
@@ -55,6 +59,13 @@ export interface ISpoonAndForkApi {
   getDishById(id: string): Promise<Dish>;
   updateDishRequest(request: UpdateDishRequest): Promise<Dish>;
   createDishRequest(request: CreateDishRequest): Promise<void>;
+
+  getSets(): Promise<Set[]>;
+  getSetById(id: string): Promise<Set>;
+  updateSetRequest(request: UpdateSetRequest): Promise<Set>;
+  createSetRequest(request: CreateSetRequest): Promise<void>;
+
+  getStatuses(): Promise<Status[]>;
 
   updateFirebaseToken(request: UpdateFirebaseTokenRequest): Promise<void>;
 

@@ -13,6 +13,8 @@ import {
   mapCuisinesFromGQL,
   mapDishFromGQL,
   mapDishesFromGQL,
+  mapSetFromGQL,
+  mapSetsFromGQL,
   mapMyAccountFromGQL,
   mapOrderFromGQL,
   mapOrdersFromGQL,
@@ -20,6 +22,7 @@ import {
   mapRestaurantsFromGQL,
   mapUpdateClientInformationRequestToGQL,
   mapUpdateCourierInformationRequestToGQL,
+  mapStatusesFromGQL,
 } from 'api/Mappers';
 // import {ApolloError} from 'apollo-boost';
 // import * as R from 'ramda';
@@ -38,8 +41,11 @@ import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequ
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 import Cuisine from 'entities/Cuisine';
 import Dish from 'entities/Dish';
+import Set from 'entities/Set';
 import CreateCuisineRequest from 'api/entities/CreateCuisineRequest';
 import CreateDishRequest from 'api/entities/CreateDishRequest';
+import UpdateSetRequest from 'api/entities/UpdateSetRequest';
+import CreateSetRequest from 'api/entities/CreateSetRequest';
 
 export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi {
   // private refreshQueue = new Queue(1, Infinity);
@@ -244,6 +250,32 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
 
   public async createDishRequest(request: CreateDishRequest): Promise<void> {
     return this.wrapApiCall(async () => this.graphqlApi.mutationCreateDish(request));
+  }
+
+  public async getSets() {
+    return this.wrapApiCall(async () =>
+      mapSetsFromGQL(this.configuration, await this.graphqlApi.querySets()),
+    );
+  }
+
+  public async getSetById(id: string) {
+    return this.wrapApiCall(async () =>
+      mapSetFromGQL(this.configuration, await this.graphqlApi.querySetById(id)),
+    );
+  }
+
+  public async updateSetRequest(request: UpdateSetRequest): Promise<Set> {
+    return this.wrapApiCall(async () => this.graphqlApi.mutationUpdateSet(request));
+  }
+
+  public async createSetRequest(request: CreateSetRequest): Promise<void> {
+    return this.wrapApiCall(async () => this.graphqlApi.mutationCreateSet(request));
+  }
+
+  public async getStatuses() {
+    return this.wrapApiCall(async () =>
+      mapStatusesFromGQL(this.configuration, await this.graphqlApi.queryStatuses()),
+    );
   }
 
   public async updateFirebaseToken(request: UpdateFirebaseTokenRequest) {

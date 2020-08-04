@@ -26,6 +26,11 @@ import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequ
 import UpdateRestaurantInformationRequest from 'api/entities/UpdateRestaurantInformationRequest';
 import CreateCuisineRequest from 'state/entities/CreateCuisineRequest';
 import CreateDishRequest from 'state/entities/CreateDishRequest';
+import {setActions} from '../ducks/set';
+import {setDetailsActions} from '../ducks/setDetails';
+import UpdateSetRequest from 'state/entities/UpdateSetRequest';
+import CreateSetRequest from 'state/entities/CreateSetRequest';
+import {statusActions} from '../ducks/status';
 
 export function useAuthActions() {
   const dispatch = useDispatch();
@@ -242,6 +247,49 @@ export function useDishDetailsActions() {
         }),
       );
     },
+  };
+}
+
+export function useSetActions() {
+  const dispatch = useDispatch();
+
+  return {
+    fetchSets: () => dispatch(setActions.fetchSets()),
+  };
+}
+
+export function useSetDetailsActions() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  return {
+    fetchSetDetails: (setId: string) => {
+      dispatch(setDetailsActions.fetchDetails(setId));
+    },
+    updateSet: (updateSetRequest: UpdateSetRequest) => {
+      dispatch(
+        setDetailsActions.updateSetRequest({
+          request: updateSetRequest,
+          history,
+        }),
+      );
+    },
+    createSet: (createSetRequest: CreateSetRequest) => {
+      dispatch(
+        setDetailsActions.createSetRequest({
+          request: createSetRequest,
+          history,
+        }),
+      );
+    },
+  };
+}
+
+export function useStatusActions() {
+  const dispatch = useDispatch();
+
+  return {
+    fetchStatuses: () => dispatch(statusActions.fetchStatuses()),
   };
 }
 

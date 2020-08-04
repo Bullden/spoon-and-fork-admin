@@ -303,6 +303,27 @@ export type MutationCreateDishArgs = {
 };
 
 
+export type MutationUpdateSetArgs = {
+  id: Scalars['String'],
+  name: Scalars['String'];
+  cuisineId: Scalars['String'];
+  image: Scalars['String'];
+  priceCents: Scalars['String'];
+  dishes: Array<Scalars['String']>;
+  statuses: Array<Scalars['String']>;
+};
+
+
+export type MutationCreateSetArgs = {
+  name: Scalars['String'];
+  cuisineId: Scalars['String'];
+  image: Scalars['String'];
+  priceCents: Scalars['String'];
+  dishes: Array<Scalars['String']>;
+  statuses: Array<Scalars['String']>;
+};
+
+
 export type MutationGetPaidArgs = {
   amount: Scalars['Int']
 };
@@ -490,6 +511,11 @@ export type QueryCuisineByIdArgs = {
 
 
 export type QueryDishByIdArgs = {
+  id: Scalars['String']
+};
+
+
+export type QuerySetByIdArgs = {
   id: Scalars['String']
 };
 

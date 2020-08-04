@@ -10,8 +10,11 @@ import {
   Courier,
   Cuisine,
   Dish,
+  Set,
+  Status,
   MutationCreateCuisineArgs,
   MutationCreateDishArgs,
+  MutationCreateSetArgs,
   MutationDeleteOrderArgs,
   MutationRemoveTheCurrentCourierArgs,
   MutationUpdateClientInformationArgs,
@@ -19,11 +22,13 @@ import {
   MutationUpdateCuisineArgs,
   MutationUpdateDishArgs,
   MutationUpdateRestaurantInformationArgs,
+  MutationUpdateSetArgs,
   Order,
   QueryClientByIdArgs,
   QueryCourierByIdArgs,
   QueryCuisineByIdArgs,
   QueryDishByIdArgs,
+  QuerySetByIdArgs,
   QueryOrderByIdArgs,
   QueryRestaurantByIdArgs,
   Restaurant,
@@ -345,6 +350,65 @@ export const mutationCreateDish = createMutationWithVariables<
   ({createDish}) => createDish,
 );
 
+export const mutationUpdateSet = createMutationWithVariables<
+  MutationUpdateSetArgs,
+  {updateSet: Set},
+  Set
+>(
+  gql`
+    ${SetFragment()}
+    mutation updateSet(
+      $id: String!
+      $name: String!
+      $cuisineId: String!
+      $image: String!
+      $priceCents: String!
+      $dishes: [String!]!
+      $statuses: [String!]!
+    ) {
+      updateSet(
+        id: $id
+        name: $name
+        cuisineId: $cuisineId
+        imageId: $image
+        priceCents: $priceCents
+        dishes: $dishes
+        statuses: $statuses
+      ) {
+        ...Set
+      }
+    }
+  `,
+  ({updateSet}) => updateSet,
+);
+
+export const mutationCreateSet = createMutationWithVariables<
+  MutationCreateSetArgs,
+  {createSet: Boolean},
+  void
+>(
+  gql`
+    mutation createSet(
+      $name: String!
+      $cuisineId: String!
+      $image: String!
+      $priceCents: String!
+      $dishes: [String!]!
+      $statuses: [String!]!
+    ) {
+      createSet(
+        name: $name
+        cuisineId: $cuisineId
+        imageId: $image
+        priceCents: $priceCents
+        dishes: $dishes
+        statuses: $statuses
+      )
+    }
+  `,
+  ({createSet}) => createSet,
+);
+
 export const orderByIdQuery = createQueryWithVariables<
   QueryOrderByIdArgs,
   {orderById: Order},
@@ -590,6 +654,46 @@ export const dishByIdQuery = createQueryWithVariables<
     }
   `,
   ({dishById}) => dishById,
+);
+
+export const setsQuery = createQuery<{sets: Set[]}, Set[]>(
+  gql`
+    ${SetFragment()}
+    query {
+      sets {
+        ...Set
+      }
+    }
+  `,
+  ({sets}) => sets,
+);
+
+export const setByIdQuery = createQueryWithVariables<
+  QuerySetByIdArgs,
+  {setById: Set},
+  Set
+>(
+  gql`
+    ${SetFragment()}
+    query($id: String!) {
+      setById(id: $id) {
+        ...Set
+      }
+    }
+  `,
+  ({setById}) => setById,
+);
+
+export const statusesQuery = createQuery<{statuses: Status[]}, Status[]>(
+  gql`
+    ${StatusFragment()}
+    query {
+      statuses {
+        ...Status
+      }
+    }
+  `,
+  ({statuses}) => statuses,
 );
 
 export const deleteOrderMutation = createMutationWithVariables<

@@ -4,7 +4,7 @@ import Dish from 'entities/Dish';
 export default interface Set {
   id: string;
   name: string;
-  imageId: string;
+  image: string;
   priceCents: number;
   cuisineId: string;
   statuses: Status[];

@@ -44,6 +44,10 @@ import UpdateDishRequest from 'state/entities/UpdateDishRequest';
 import ApiUpdateDishRequest from 'api/entities/UpdateDishRequest';
 import CreateDishRequest from 'state/entities/CreateDishRequest';
 import ApiCreateDishRequest from 'api/entities/CreateDishRequest';
+import UpdateSetRequest from 'state/entities/UpdateSetRequest';
+import ApiUpdateSetRequest from 'api/entities/UpdateSetRequest';
+import CreateSetRequest from 'state/entities/CreateSetRequest';
+import ApiCreateSetRequest from 'api/entities/CreateSetRequest';
 import UpdateUserInformationRequest from 'api/entities/UpdateUserInformationRequest';
 import UpdateRestaurantInformationRequest from './entities/UpdateRestaurantInformationRequest';
 import ApiConfiguration, {
@@ -105,6 +109,31 @@ export const mapCreateDishRequestToGQL = (
   weight: createDishRequest.weight,
   kal: createDishRequest.kal,
   ingredients: createDishRequest.ingredients,
+});
+
+export const mapUpdateSetRequestToGQL = (
+  updateSetRequest: UpdateSetRequest,
+  uploadFileId: string,
+): ApiUpdateSetRequest => ({
+  id: updateSetRequest.id,
+  image: uploadFileId,
+  name: updateSetRequest.name,
+  cuisineId: updateSetRequest.cuisineId,
+  priceCents: updateSetRequest.priceCents,
+  dishes: updateSetRequest.dishes,
+  statuses: updateSetRequest.statuses,
+});
+
+export const mapCreateSetRequestToGQL = (
+  createSetRequest: CreateSetRequest,
+  uploadFileId: string,
+): ApiCreateSetRequest => ({
+  image: uploadFileId,
+  name: createSetRequest.name,
+  cuisineId: createSetRequest.cuisineId,
+  priceCents: createSetRequest.priceCents,
+  dishes: createSetRequest.dishes,
+  statuses: createSetRequest.statuses,
 });
 
 export const mapUpdateClientInformationRequestToGQL = (
@@ -278,12 +307,19 @@ export const mapStatusesFromGQL = (
 export const mapSetFromGQL = (configuration: ApiConfiguration, set: GQLSet): Set => ({
   id: set.id,
   name: set.name,
-  imageId: mapImageFromGQL(configuration, set.imageId),
+  image: mapImageFromGQL(configuration, set.imageId),
   priceCents: set.priceCents,
   cuisineId: set.cuisineId,
   dishes: mapDishesFromGQL(configuration, set.dishes),
   statuses: mapStatusesFromGQL(configuration, set.statuses),
 });
+
+export const mapSetsFromGQL = (
+  configuration: ApiConfiguration,
+  sets: GQLSet[],
+): Set[] => {
+  return sets.map((set) => mapSetFromGQL(configuration, set));
+};
 
 export const mapOrderStateFromGQL = (orderState: GQLOrderState): OrderState => {
   switch (orderState) {
