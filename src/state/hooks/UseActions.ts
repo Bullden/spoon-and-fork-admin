@@ -255,6 +255,7 @@ export function useSetActions() {
 
   return {
     fetchSets: () => dispatch(setActions.fetchSets()),
+    fetchSetsByDishId: (id: string) => dispatch(setActions.fetchSetsByDishId(id)),
   };
 }
 

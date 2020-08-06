@@ -6,4 +6,5 @@ export default interface UpdateDishRequest {
   weight: string;
   kal: string;
   ingredients: string[];
+  sets: string[];
 }

@@ -264,6 +264,12 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
     );
   }
 
+  public async getSetsByDishId(id: string) {
+    return this.wrapApiCall(async () =>
+      mapSetsFromGQL(this.configuration, await this.graphqlApi.querySetsByDishId(id)),
+    );
+  }
+
   public async updateSetRequest(request: UpdateSetRequest): Promise<Set> {
     return this.wrapApiCall(async () => this.graphqlApi.mutationUpdateSet(request));
   }

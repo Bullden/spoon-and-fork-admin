@@ -65,11 +65,13 @@
   border: none;
 }
 
+.listContainer {
+  width: 300px;
+}
+
 .list {
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 220px;
-  max-width: 300px;
 }
 
 

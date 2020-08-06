@@ -12,7 +12,7 @@ import {useHistory, useParams} from 'react-router-dom';
 import {AuthInfoKeeper} from 'auth';
 import Set from 'entities/Set';
 import {Field, Form, Formik} from 'formik';
-import {TextField} from 'components';
+import {Loader, TextField} from 'components';
 import {useTranslation} from 'react-i18next';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -110,12 +110,11 @@ const Sets: React.FC = () => {
     history.push(`/sets/${set.id}`);
   };
 
-  const setsList = () => {
-    return sets ? (
+  const setsList = (sets: Set[]) => {
+    return (
       <List component="nav" aria-label="main mailbox folders" className={styles.list}>
-        {sets.isSuccess &&
-          cuisines.isSuccess &&
-          sets.sets.map((set: Set) => (
+        {cuisines.isSuccess &&
+          sets.map((set: Set) => (
             <ListItem
               key={set.id}
               button
@@ -126,18 +125,6 @@ const Sets: React.FC = () => {
               <ListItemText primary={set.name} />
             </ListItem>
           ))}
-        <ListItem
-          key="create"
-          button
-          selected={id === undefined}
-          onClick={() => openCreateSet()}
-          className={styles.button}
-        >
-          <ListItemText primary="+ create new set" />
-        </ListItem>
-      </List>
-    ) : (
-      <List component="nav" aria-label="main mailbox folders">
         <ListItem
           key="create"
           button
@@ -209,7 +196,9 @@ const Sets: React.FC = () => {
         <h2 className={styles.pagesContainerTitle}>Sets</h2>
       </div>
       <div className={styles.container}>
-        {setsList()}
+        <div className={styles.listContainer}>
+          {sets.isSuccess ? setsList(sets.sets) : <Loader />}
+        </div>
         <div className={styles.editorContainer}>
           <Formik
             initialValues={initialValues}

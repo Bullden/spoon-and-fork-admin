@@ -1,18 +1,25 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {useDishActions, useDishDetailsActions} from 'state/hooks/UseActions';
+import {
+  useCuisineActions,
+  useDishActions,
+  useDishDetailsActions,
+  useSetActions,
+} from 'state/hooks/UseActions';
 import styles from 'routes/dishes/Dishes.module.scss';
 import {useSelector} from 'state/hooks';
 import {useHistory, useParams} from 'react-router-dom';
 import {AuthInfoKeeper} from 'auth';
 import Dish from 'entities/Dish';
 import {Field, Form, Formik} from 'formik';
-import {TextField} from 'components';
+import {Loader, TextField} from 'components';
 import {useTranslation} from 'react-i18next';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import {Logo} from 'assets';
 import {DropzoneArea} from 'material-ui-dropzone';
+import Cuisine from 'entities/Cuisine';
+import Set from 'entities/Set';
 
 interface DishFormValues {
   name: string;
@@ -26,11 +33,15 @@ const Dishes: React.FC = () => {
   const history = useHistory();
   const {t} = useTranslation('dish');
 
+  const {id} = useParams<{id: string | undefined}>();
+
   const [file, setFile] = useState<File>();
   const [ingredients, setIngredients] = useState<string>('');
+  const [selectedSets, setSets] = useState<string[]>([]);
   const [isError, setError] = React.useState(false);
   const [isReady, setReady] = React.useState(true);
   const [isUniqueNationality, setUniqueNationality] = React.useState(true);
+  const [isShowSets, setShowSets] = useState(false);
 
   useEffect(() => {
     AuthInfoKeeper.isAuthenticated().then((isAuthenticated) => {
@@ -41,24 +52,72 @@ const Dishes: React.FC = () => {
   }, []);
 
   const dishActions = useDishActions();
+  const setActions = useSetActions();
+  const cuisineActions = useCuisineActions();
   const dishDetailsActions = useDishDetailsActions();
+
+  const {dishes, sets, cuisines} = useSelector((state) => state);
+
+  const setsByCuisines = (sets: Set[], cuisines: Cuisine[]) => {
+    const setsByCuisinesArray: {cuisine: Cuisine; sets: Set[]}[] = cuisines.map(
+      (cuisine) => {
+        return {
+          cuisine,
+          sets: [],
+        };
+      },
+    );
+
+    return setsByCuisinesArray.map((item) => {
+      return {
+        cuisine: item.cuisine,
+        sets: sets.filter((set) => set.cuisineId === item.cuisine.id),
+      };
+    });
+  };
 
   useEffect(() => {
     dishActions.fetchDishes();
+    cuisineActions.fetchCuisines();
+    setSets([]);
+    setIngredients('');
+    setShowSets(false);
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      dishDetailsActions.fetchDishDetails(id);
+      setActions.fetchSets();
+
+      if (sets.isSuccess) {
+        const dishSets = sets.sets
+          .filter((item) => item.dishes.map((dish) => dish.id).includes(id))
+          .map((set) => set.id);
+
+        setSets(dishSets);
+      }
+    }
+  }, [id]);
 
   const openCreateDish = () => {
     history.push('/dishes/create');
+    setSets([]);
+    setIngredients('');
+    setShowSets(false);
     setError(false);
   };
 
-  const {id} = useParams<{id: string | undefined}>();
+  const openDish = (dish: Dish) => {
+    history.push(`/dishes/${dish.id}`);
 
-  const data = useSelector((state) => state.dishes);
+    setError(false);
+    setIngredients(dish.ingredients.map((ingredient) => ingredient.name).join(', '));
+    setShowSets(false);
+  };
 
   const initialValues: DishFormValues =
-    id && data.isSuccess
-      ? data.dishes
+    id && dishes.isSuccess
+      ? dishes.dishes
           .filter((dish) => dish.id === id)
           .map((item) => {
             return {
@@ -75,56 +134,6 @@ const Dishes: React.FC = () => {
           kal: '',
         };
 
-  useEffect(() => {
-    if (id) dishDetailsActions.fetchDishDetails(id);
-  }, [id]);
-
-  const openDish = (dish: Dish) => {
-    setError(false);
-    setIngredients(dish.ingredients.map((ingredient) => ingredient.name).join(', '));
-    history.push(`/dishes/${dish.id}`);
-  };
-
-  const dishes = () => {
-    return data ? (
-      <List component="nav" aria-label="main mailbox folders" className={styles.list}>
-        {data.isSuccess &&
-          data.dishes.map((dish: Dish) => (
-            <ListItem
-              key={dish.id}
-              button
-              selected={id === dish.id}
-              onClick={() => openDish(dish)}
-              className={styles.button}
-            >
-              <ListItemText primary={dish.name} />
-            </ListItem>
-          ))}
-        <ListItem
-          key="create"
-          button
-          selected={id === undefined}
-          onClick={() => openCreateDish()}
-          className={styles.button}
-        >
-          <ListItemText primary="+ create new dish" />
-        </ListItem>
-      </List>
-    ) : (
-      <List component="nav" aria-label="main mailbox folders">
-        <ListItem
-          key="create"
-          button
-          selected={id === undefined}
-          onClick={() => openCreateDish()}
-          className={styles.button}
-        >
-          <ListItemText primary="+ create new dish" />
-        </ListItem>
-      </List>
-    );
-  };
-
   const nameUniquenessCheck = (dish: Dish, nationality: string) =>
     dish.name !== nationality;
 
@@ -134,7 +143,7 @@ const Dishes: React.FC = () => {
     setUniqueNationality(true);
     setReady(true);
 
-    if (id === undefined && data.isSuccess) {
+    if (id === undefined && dishes.isSuccess) {
       if (
         file &&
         values.name &&
@@ -143,18 +152,19 @@ const Dishes: React.FC = () => {
         values.kal &&
         ingredients
       ) {
-        if (data.dishes.every((dish: Dish) => nameUniquenessCheck(dish, values.name))) {
+        if (dishes.dishes.every((dish: Dish) => nameUniquenessCheck(dish, values.name))) {
           return actions.createDish({
             ...values,
             uploadFile: file,
             ingredients: ingredients.split(', '),
+            sets: selectedSets,
           });
         }
       } else {
         setReady(false);
       }
 
-      data.dishes.forEach((dish: Dish) => {
+      dishes.dishes.forEach((dish: Dish) => {
         if (dish.name === values.name) {
           setUniqueNationality(false);
         }
@@ -170,15 +180,44 @@ const Dishes: React.FC = () => {
       values.weight &&
       values.kal &&
       ingredients &&
-      data.isSuccess
+      selectedSets &&
+      dishes.isSuccess
     ) {
       return actions.updateDish({
         id,
         ...values,
-        uploadFile: file || data.dishes.filter((dish) => dish.id === id)[0].image,
+        uploadFile: file || dishes.dishes.filter((dish) => dish.id === id)[0].image,
         ingredients: ingredients.split(', '),
+        sets: selectedSets,
       });
     }
+  };
+
+  const dishList = (dishes: Dish[]) => {
+    return (
+      <List component="nav" aria-label="main mailbox folders" className={styles.list}>
+        {dishes.map((dish: Dish) => (
+          <ListItem
+            key={dish.id}
+            button
+            selected={id === dish.id}
+            onClick={() => openDish(dish)}
+            className={styles.button}
+          >
+            <ListItemText primary={dish.name} />
+          </ListItem>
+        ))}
+        <ListItem
+          key="create"
+          button
+          selected={id === undefined}
+          onClick={() => openCreateDish()}
+          className={styles.button}
+        >
+          <ListItemText primary="+ create new dish" />
+        </ListItem>
+      </List>
+    );
   };
 
   return (
@@ -187,21 +226,23 @@ const Dishes: React.FC = () => {
         <h2 className={styles.pagesContainerTitle}>Dishes</h2>
       </div>
       <div className={styles.container}>
-        {dishes()}
+        <div className={styles.listContainer}>
+          {dishes.isSuccess ? dishList(dishes.dishes) : <Loader />}
+        </div>
         <div className={styles.editorContainer}>
           <Formik
             initialValues={initialValues}
             enableReinitialize
             onSubmit={(values, formActions) => {
-              if (data && data.isSuccess) save(values);
+              if (dishes && dishes.isSuccess) save(values);
               formActions.setSubmitting(false);
             }}
           >
             <Form className={styles.form}>
               <div className={styles.dropdownContainer}>
                 {id ? (
-                  data.isSuccess &&
-                  data.dishes
+                  dishes.isSuccess &&
+                  dishes.dishes
                     .filter((dish) => dish.id === id)
                     .map((item) => (
                       <div className={styles.imageContainer}>
@@ -283,6 +324,68 @@ const Dishes: React.FC = () => {
                 }}
                 value={ingredients}
               />
+              <Field
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                name="sets"
+                label={t('sets')}
+                type="sets"
+                id="sets"
+                as={TextField}
+                className={styles.form__field}
+                onClick={() => setShowSets(!isShowSets)}
+                onChange={setSets}
+                value={
+                  sets.isSuccess &&
+                  sets.sets
+                    .filter((set) => selectedSets.includes(set.id))
+                    .map((item) => item.name)
+                    .join(', ')
+                }
+              />
+              {isShowSets && (
+                <ul className={styles.selectList}>
+                  {cuisines.isSuccess &&
+                    sets.isSuccess &&
+                    setsByCuisines(sets.sets, cuisines.cuisines).map((element) => {
+                      return (
+                        <div className={styles.cuisineWithSets}>
+                          <p>{element.cuisine.nationality}</p>
+                          <ul>
+                            {element.sets.map((item) => {
+                              return (
+                                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
+                                <li
+                                  onClick={() => {
+                                    const indexInArray = selectedSets.indexOf(item.id);
+
+                                    if (indexInArray === -1) {
+                                      setSets([...selectedSets, item.id]);
+                                    } else {
+                                      setSets([
+                                        ...selectedSets.filter(
+                                          (item, index) => index !== indexInArray,
+                                        ),
+                                      ]);
+                                    }
+                                  }}
+                                  className={
+                                    selectedSets.includes(item.id)
+                                      ? styles.selectList__selectedItem
+                                      : styles.selectList__item
+                                  }
+                                >
+                                  {item.name}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                </ul>
+              )}
               <div className={styles.buttons}>
                 <button className={styles.saveButton} type="submit">
                   Save

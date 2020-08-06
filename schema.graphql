@@ -119,6 +119,12 @@ type OrderInfo {
 type Cart {
   id: ID!
   userId: String!
+  status: CartState!
+}
+
+enum CartState {
+  Active
+  Delivered
 }
 
 type Order {
@@ -199,6 +205,7 @@ type Query {
   setById(id: String!): Set!
   setsByCuisineId(id: String!): [Set!]!
   sets: [Set!]!
+  setsByDishId(id: String!): [Set!]!
   dishById(id: String!): Dish!
   dishes: [Dish!]!
   dishesBySetId(id: String!): [Dish!]!
@@ -219,6 +226,7 @@ type Query {
   courierById(courierId: ID!): Courier!
   clients: [Client!]!
   clientById(clientId: ID!): Client!
+  cartsByUserId: [Cart!]!
   clientOrdersAddresses: [Address!]!
   userLocation(id: String!): LatLng
   statuses: [Status!]!
@@ -231,8 +239,8 @@ type Mutation {
   createCuisine(rating: String!, count: String!, nationality: String!, imageId: String!): Boolean!
   updateSet(statuses: [String!]!, dishes: [String!]!, cuisineId: String!, priceCents: String!, imageId: String!, name: String!, id: String!): Set!
   createSet(statuses: [String!]!, dishes: [String!]!, cuisineId: String!, priceCents: String!, imageId: String!, name: String!): Boolean!
-  updateDish(imageId: String!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, id: String!): Dish!
-  createDish(ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, imageId: String!): Boolean!
+  updateDish(imageId: String!, sets: [String!]!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, id: String!): Dish!
+  createDish(sets: [String!]!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, imageId: String!): Boolean!
   createOrder(restaurantId: String!, cartId: String!, setId: String!, clientAddress: CreateAddressRequest!): Order!
   evaluateOrder(rating: Float!, id: String!): Boolean!
   acceptOrder(id: String!): Boolean!

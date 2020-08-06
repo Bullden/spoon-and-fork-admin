@@ -5,4 +5,5 @@ export default interface CreateDishRequest {
   weight: string;
   kal: string;
   ingredients: string[];
+  sets: string[];
 }

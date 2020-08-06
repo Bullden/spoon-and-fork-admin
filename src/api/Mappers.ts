@@ -97,6 +97,7 @@ export const mapUpdateDishRequestToGQL = (
   weight: updateDishRequest.weight,
   kal: updateDishRequest.kal,
   ingredients: updateDishRequest.ingredients,
+  sets: updateDishRequest.sets,
 });
 
 export const mapCreateDishRequestToGQL = (
@@ -109,6 +110,7 @@ export const mapCreateDishRequestToGQL = (
   weight: createDishRequest.weight,
   kal: createDishRequest.kal,
   ingredients: createDishRequest.ingredients,
+  sets: createDishRequest.sets,
 });
 
 export const mapUpdateSetRequestToGQL = (

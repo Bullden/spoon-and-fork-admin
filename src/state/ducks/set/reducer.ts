@@ -16,11 +16,18 @@ const fetchSetsCompleted: ReducerNextThrow<ReducerState, Set[]> = {
   throw: (_, {payload}) => failed(payload),
 };
 
+const fetchSetsByDishIdCompleted: ReducerNextThrow<ReducerState, Set[]> = {
+  next: (_, {payload}) => success({sets: payload}),
+  throw: (_, {payload}) => failed(payload),
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default handleActions<ReducerState, any>(
   {
     [types.FETCH_SETS]: (state) => ({...state, isBusy: true}),
     [types.FETCH_SETS_COMPLETED]: fetchSetsCompleted,
+    [types.FETCH_SETS_BY_DISH_ID]: (state) => ({...state, isBusy: true}),
+    [types.FETCH_SETS_BY_DISH_ID_COMPLETED]: fetchSetsByDishIdCompleted,
     [types.CLEAR]: () => empty(),
   },
   empty(),

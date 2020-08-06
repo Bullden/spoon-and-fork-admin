@@ -290,6 +290,7 @@ export type MutationUpdateDishArgs = {
   weight: Scalars['String'];
   kal: Scalars['String'];
   ingredients: Array<Scalars['String']>;
+  sets: Array<Scalars['String']>;
 };
 
 
@@ -300,6 +301,7 @@ export type MutationCreateDishArgs = {
   weight: Scalars['String'];
   kal: Scalars['String'];
   ingredients: Array<Scalars['String']>;
+  sets: Array<Scalars['String']>;
 };
 
 
@@ -516,6 +518,11 @@ export type QueryDishByIdArgs = {
 
 
 export type QuerySetByIdArgs = {
+  id: Scalars['String']
+};
+
+
+export type QuerySetsByDishIdArgs = {
   id: Scalars['String']
 };
 

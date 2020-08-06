@@ -62,6 +62,7 @@ export interface ISpoonAndForkApi {
 
   getSets(): Promise<Set[]>;
   getSetById(id: string): Promise<Set>;
+  getSetsByDishId(id: string): Promise<Set[]>;
   updateSetRequest(request: UpdateSetRequest): Promise<Set>;
   createSetRequest(request: CreateSetRequest): Promise<void>;
 

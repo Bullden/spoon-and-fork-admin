@@ -32,6 +32,7 @@ import {
   QueryOrderByIdArgs,
   QueryRestaurantByIdArgs,
   Restaurant,
+  QuerySetsByDishIdArgs,
 } from './types';
 
 const AddressFragment = () => gql`
@@ -306,6 +307,7 @@ export const mutationUpdateDish = createMutationWithVariables<
       $weight: String!
       $kal: String!
       $ingredients: [String!]!
+      $sets: [String!]!
     ) {
       updateDish(
         id: $id
@@ -315,6 +317,7 @@ export const mutationUpdateDish = createMutationWithVariables<
         weight: $weight
         kal: $kal
         ingredients: $ingredients
+        sets: $sets
       ) {
         ...Dish
       }
@@ -336,6 +339,7 @@ export const mutationCreateDish = createMutationWithVariables<
       $weight: String!
       $kal: String!
       $ingredients: [String!]!
+      $sets: [String!]!
     ) {
       createDish(
         name: $name
@@ -344,6 +348,7 @@ export const mutationCreateDish = createMutationWithVariables<
         weight: $weight
         kal: $kal
         ingredients: $ingredients
+        sets: $sets
       )
     }
   `,
@@ -682,6 +687,22 @@ export const setByIdQuery = createQueryWithVariables<
     }
   `,
   ({setById}) => setById,
+);
+
+export const setsByDishIdQuery = createQueryWithVariables<
+  QuerySetsByDishIdArgs,
+  {setsByDishId: Set[]},
+  Set[]
+>(
+  gql`
+    ${SetFragment()}
+    query($id: String!) {
+      setsByDishId(id: $id) {
+        ...Set
+      }
+    }
+  `,
+  ({setsByDishId}) => setsByDishId,
 );
 
 export const statusesQuery = createQuery<{statuses: Status[]}, Status[]>(

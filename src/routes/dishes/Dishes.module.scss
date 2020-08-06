@@ -65,11 +65,33 @@
   border: none;
 }
 
+.listContainer {
+  width: 300px;
+}
+
 .list {
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 220px;
-  max-width: 300px;
+}
+
+.cuisineWithSets {
+  margin: 0 20px 20px;
+  padding: 10px 25px;
+  background-color: rgba(0, 0, 0, 0.02);
+  //border-radius: 6px;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  display: flex;
+
+  p {
+    width: 200px;
+  }
+
+  ul {
+    width: calc(100% - 200px);
+    list-style: none;
+    padding-left: 0;
+  }
 }
 
 
@@ -288,5 +310,34 @@
         background:  #4065E0;
       }
     }
+  }
+}
+
+.selectList {
+  list-style: none;
+  padding-left: 0;
+
+  &__selectedItem {
+    padding: 10px 30px;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  &__item {
+    padding: 10px 30px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  li:last-child {
+    border-bottom: none;
   }
 }

@@ -6,7 +6,7 @@ import {useHistory, useParams} from 'react-router-dom';
 import {AuthInfoKeeper} from 'auth';
 import Cuisine from 'entities/Cuisine';
 import {Field, Form, Formik} from 'formik';
-import {TextField} from 'components';
+import {Loader, TextField} from 'components';
 import {useTranslation} from 'react-i18next';
 import {List, ListItem} from '@material-ui/core';
 import {DropzoneArea} from 'material-ui-dropzone';
@@ -79,33 +79,20 @@ const Cuisines: React.FC = () => {
     history.push(`/cuisines/${cuisine.id}`);
   };
 
-  const cuisines = () => {
-    return data ? (
+  const cuisines = (cuisines: Cuisine[]) => {
+    return (
       <List component="nav" aria-label="main mailbox folders" className={styles.list}>
-        {data.isSuccess &&
-          data.cuisines.map((cuisine: Cuisine) => (
-            <ListItem
-              key={cuisine.id}
-              button
-              selected={id === cuisine.id}
-              onClick={() => openCuisine(cuisine)}
-              className={styles.button}
-            >
-              <ListItemText primary={cuisine.nationality} />
-            </ListItem>
-          ))}
-        <ListItem
-          key="create"
-          button
-          selected={id === undefined}
-          onClick={() => openCreateCuisine()}
-          className={styles.button}
-        >
-          <ListItemText primary="+ create new cuisine" />
-        </ListItem>
-      </List>
-    ) : (
-      <List component="nav" aria-label="main mailbox folders">
+        {cuisines.map((cuisine: Cuisine) => (
+          <ListItem
+            key={cuisine.id}
+            button
+            selected={id === cuisine.id}
+            onClick={() => openCuisine(cuisine)}
+            className={styles.button}
+          >
+            <ListItemText primary={cuisine.nationality} />
+          </ListItem>
+        ))}
         <ListItem
           key="create"
           button
@@ -165,7 +152,9 @@ const Cuisines: React.FC = () => {
         <h2 className={styles.pagesContainerTitle}>Cuisines</h2>
       </div>
       <div className={styles.container}>
-        {cuisines()}
+        <div className={styles.listContainer}>
+          {data.isSuccess ? cuisines(data.cuisines) : <Loader />}
+        </div>
         <div className={styles.editorContainer}>
           <Formik
             initialValues={initialValues}

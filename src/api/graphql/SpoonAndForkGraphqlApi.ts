@@ -28,6 +28,7 @@ import {
   setsQuery,
   setByIdQuery,
   statusesQuery,
+  setsByDishIdQuery,
 } from './SpoonAndForkGraphqlQueryBuilder';
 import {ID} from 'entities/Common';
 import {
@@ -147,6 +148,10 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public async querySetById(id: string) {
     return this.query(setByIdQuery({id}));
+  }
+
+  public async querySetsByDishId(id: string) {
+    return this.query(setsByDishIdQuery({id}));
   }
 
   public async queryDeleteOrder(orderId: string) {
