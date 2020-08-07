@@ -1,12 +1,12 @@
 {
-  "Project": "Klean-mobile",
+  "Project": "Spoon-and-fork-admin",
   "Source": {
     "Type": "Excel",
     "Placement": {
       "Type": "OneDrive",
       "Config": {
-        "ResId": "C62576FDA2F2250C!25306",
-        "AuthKey": "!ALxoYcweqQJPWY8"
+        "ResId": "C62576FDA2F2250C!32054",
+        "AuthKey": "!AGxx6hWuWeJYuPU"
       }
     },
     "Config": {

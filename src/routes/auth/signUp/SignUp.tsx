@@ -19,7 +19,7 @@ interface SignUpValues {
 }
 
 const SignUp: React.FC<FormikState<SignUpValues>> = () => {
-  const {t} = useTranslation('registration');
+  const {t} = useTranslation('auth');
   const actions = useAuthActions();
 
   const {isBusy} = useSelector((state) => state.auth);
@@ -34,7 +34,7 @@ const SignUp: React.FC<FormikState<SignUpValues>> = () => {
   };
 
   return (
-    <AuthLayout title={t('register')}>
+    <AuthLayout title={t('signUp')}>
       <Formik
         initialValues={initialValues}
         validationSchema={Schema.SignUpSchema}
@@ -58,7 +58,7 @@ const SignUp: React.FC<FormikState<SignUpValues>> = () => {
             margin="normal"
             fullWidth
             name="phoneNumber"
-            label={t('phoneNum')}
+            label={t('phone')}
             id="phoneNumber"
             autoComplete="phone"
             as={TextField}
@@ -78,7 +78,7 @@ const SignUp: React.FC<FormikState<SignUpValues>> = () => {
             margin="normal"
             fullWidth
             name="password"
-            label={t('pass')}
+            label={t('password')}
             type="password"
             id="password"
             as={TextField}

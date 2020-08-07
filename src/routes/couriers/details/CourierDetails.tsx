@@ -17,7 +17,7 @@ const ApprovedStatusIcon = require('./assets/approvedStatusIcon.png');
 const Passport = require('./assets/passport.jpg');
 
 const CourierDetails: React.FC = () => {
-  const {t} = useTranslation('courierDetails');
+  const {t} = useTranslation('courier');
   const {courierId} = useParams<{courierId: string}>();
   const actions = useCourierDetailsActions();
   const {courier} = useSelector((state) => state.courierDetails);
@@ -78,9 +78,9 @@ const CourierDetails: React.FC = () => {
     return (
       <ul className={styles.orders__list}>
         <li className={styles.orders__listItem__header} key="header">
-          <p>Created</p>
-          <p>Weight</p>
-          <p>Price</p>
+          <p>{t('created')}</p>
+          <p>{t('weight')}</p>
+          <p>{t('price')}</p>
         </li>
         {orders.map((order) => (
           // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
@@ -124,7 +124,7 @@ const CourierDetails: React.FC = () => {
         </div>
         <p className={styles.user__position}>{t('courier')}</p>
         <p className={styles.user__status}>
-          Status:{' '}
+          {t('status')}:{' '}
           <span
             className={
               isNew ? styles.user__statusTextNew : styles.user__statusTextApproved
@@ -139,7 +139,7 @@ const CourierDetails: React.FC = () => {
 
   const renderOrders = () => (
     <Grid className={styles.orders}>
-      <p className={styles.orders__title}>Customer&apos;s orders</p>
+      <p className={styles.orders__title}>{t('orders')}</p>
 
       {data &&
         data.isSuccess &&
@@ -147,9 +147,7 @@ const CourierDetails: React.FC = () => {
         (courierOrders.length > 0 ? (
           renderOrdersList(courierOrders)
         ) : (
-          <p className={styles.orders__ordersAbsentMessage}>
-            This courier not have orders
-          </p>
+          <p className={styles.orders__ordersAbsentMessage}>{t('noOrders')}</p>
         ))}
     </Grid>
   );
@@ -157,14 +155,14 @@ const CourierDetails: React.FC = () => {
   const renderExtraInfo = (courier: Courier) => (
     <div className={styles.extraInfo}>
       <div className={styles.extraInfo__header}>
-        <p className={styles.extraInfo__title}>Profile details</p>
+        <p className={styles.extraInfo__title}>{t('profileDetails')}</p>
         {isEditing ? (
           <>
             <div className={styles.extraInfo__editProfile}>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-              <p onClick={() => updateUserInformation()}>Save</p>
+              <p onClick={() => updateUserInformation()}>{t('save')}</p>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-              <p onClick={() => cancelEditingUserInformation()}>Cancel</p>
+              <p onClick={() => cancelEditingUserInformation()}>{t('cancel')}</p>
             </div>
           </>
         ) : (
@@ -173,15 +171,15 @@ const CourierDetails: React.FC = () => {
             className={styles.extraInfo__editProfile}
             onClick={() => openEditUserInformationPage(courier)}
           >
-            <img src={editProfileIcon} alt="Edit profile icon" />
-            <p>Edit profile</p>
+            <img src={editProfileIcon} alt={t('editProfile')} />
+            <p>{t('editProfile')}</p>
           </div>
         )}
       </div>
       <div className={styles.extraInfo__details}>
         <div className={styles.extraInfo__fieldsRow}>
           <div className={styles.extraInfo__field}>
-            <p className={styles.extraInfo__field__name}>Full Name:</p>
+            <p className={styles.extraInfo__field__name}>{t('fullName')}:</p>
             {isEditing ? (
               <input
                 className={styles.extraInfo__input}
@@ -196,7 +194,7 @@ const CourierDetails: React.FC = () => {
             )}
           </div>
           <div className={styles.extraInfo__field}>
-            <p className={styles.extraInfo__field__name}>Mobile phone:</p>
+            <p className={styles.extraInfo__field__name}>{t('mobilePhone')}:</p>
             {isEditing ? (
               <input
                 className={styles.extraInfo__input}
@@ -217,7 +215,7 @@ const CourierDetails: React.FC = () => {
         </div>
         <div className={styles.extraInfo__fieldsRow}>
           <div className={styles.extraInfo__field}>
-            <p className={styles.extraInfo__field__name}>E-mail address:</p>
+            <p className={styles.extraInfo__field__name}>{t('emailAddress')}:</p>
             {isEditing ? (
               <input
                 className={styles.extraInfo__input}
@@ -241,13 +239,13 @@ const CourierDetails: React.FC = () => {
   const renderDocument = () => {
     return (
       <div className={styles.courierDocument}>
-        <p className={styles.orders__title}>Courier document</p>
+        <p className={styles.orders__title}>{t('courierDocument')}</p>
         <img src={Passport} alt="" />
         <div>
           <button type="button" onClick={() => setIsNew(false)}>
-            Approve
+            {t('approve')}
           </button>
-          <button type="button">Decline</button>
+          <button type="button">{t('decline')}</button>
         </div>
       </div>
     );

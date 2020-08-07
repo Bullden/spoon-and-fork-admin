@@ -9,7 +9,7 @@ import {AuthInfoKeeper} from 'auth';
 import {useTranslation} from 'react-i18next';
 
 const Clients: React.FC = () => {
-  const {t} = useTranslation('client');
+  const {t} = useTranslation('customer');
   const history = useHistory();
 
   useEffect(() => {

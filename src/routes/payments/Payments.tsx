@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next';
 import classNames from 'classnames';
 
 const Payments: React.FC = () => {
-  const {t} = useTranslation('payments');
+  const {t} = useTranslation('payment');
   const history = useHistory();
 
   const {userType} = useParams();
@@ -79,7 +79,7 @@ const Payments: React.FC = () => {
           )}
           onClick={() => history.push('/payments/couriers')}
         >
-          Couriers
+          {t('couriers')}
         </p>
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
         <p
@@ -88,7 +88,7 @@ const Payments: React.FC = () => {
           )}
           onClick={() => history.push('/payments/restaurants')}
         >
-          Restaurants
+          {t('restaurants')}
         </p>
       </div>
       <Table

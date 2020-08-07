@@ -9,7 +9,7 @@ import {AuthInfoKeeper} from 'auth';
 import {useTranslation} from 'react-i18next';
 
 const Orders: React.FC = () => {
-  const {t} = useTranslation('orders');
+  const {t} = useTranslation('order');
   const history = useHistory();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Orders: React.FC = () => {
   const columns = React.useMemo(
     () => [
       {
-        Header: t('order'),
+        Header: t('orderNumber'),
         accessor: 'number',
       },
       {

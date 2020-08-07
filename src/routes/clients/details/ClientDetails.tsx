@@ -13,7 +13,7 @@ import Order from 'entities/Order';
 const editProfileIcon = require('./assets/editProfile.svg');
 
 const ClientDetails: React.FC = () => {
-  const {t} = useTranslation('clientDetails');
+  const {t} = useTranslation('customer');
   const {clientId} = useParams<{clientId: string}>();
   const actions = useClientDetailsActions();
   const {client} = useSelector((state) => state.clientDetails);
@@ -73,9 +73,9 @@ const ClientDetails: React.FC = () => {
     return (
       <ul className={styles.orders__list}>
         <li className={styles.orders__listItem__header} key="header">
-          <p>Created</p>
-          <p>Weight</p>
-          <p>Price</p>
+          <p>{t('created')}</p>
+          <p>{t('weight')}</p>
+          <p>{t('price')}</p>
         </li>
         {orders.map((order) => (
           // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/click-events-have-key-events
@@ -109,7 +109,7 @@ const ClientDetails: React.FC = () => {
 
   const renderOrders = () => (
     <Grid className={styles.orders}>
-      <p className={styles.orders__title}>Customer&apos;s orders</p>
+      <p className={styles.orders__title}>{t('orders')}</p>
 
       {data &&
         data.isSuccess &&
@@ -117,9 +117,7 @@ const ClientDetails: React.FC = () => {
         (customerOrders.length > 0 ? (
           renderOrdersList(customerOrders)
         ) : (
-          <p className={styles.orders__ordersAbsentMessage}>
-            This client not have orders
-          </p>
+          <p className={styles.orders__ordersAbsentMessage}>{t('noOrders')}</p>
         ))}
     </Grid>
   );
@@ -127,14 +125,14 @@ const ClientDetails: React.FC = () => {
   const renderExtraInfo = (client: Client) => (
     <div className={styles.extraInfo}>
       <div className={styles.extraInfo__header}>
-        <p className={styles.extraInfo__title}>Profile details</p>
+        <p className={styles.extraInfo__title}>{t('profileDetails')}</p>
         {isEditing ? (
           <>
             <div className={styles.extraInfo__editProfile}>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-              <p onClick={() => updateUserInformation()}>Save</p>
+              <p onClick={() => updateUserInformation()}>{t('save')}</p>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-              <p onClick={() => cancelEditingUserInformation()}>Cancel</p>
+              <p onClick={() => cancelEditingUserInformation()}>{t('cancel')}</p>
             </div>
           </>
         ) : (
@@ -143,15 +141,15 @@ const ClientDetails: React.FC = () => {
             className={styles.extraInfo__editProfile}
             onClick={() => openEditUserInformationPage(client)}
           >
-            <img src={editProfileIcon} alt="Edit profile icon" />
-            <p>Edit profile</p>
+            <img src={editProfileIcon} alt={t('editProfile')} />
+            <p>{t('editProfile')}</p>
           </div>
         )}
       </div>
       <div className={styles.extraInfo__details}>
         <div className={styles.extraInfo__fieldsRow}>
           <div className={styles.extraInfo__field}>
-            <p className={styles.extraInfo__field__name}>Full Name:</p>
+            <p className={styles.extraInfo__field__name}>{t('fullName')}:</p>
             {isEditing ? (
               <input
                 className={styles.extraInfo__input}
@@ -166,7 +164,7 @@ const ClientDetails: React.FC = () => {
             )}
           </div>
           <div className={styles.extraInfo__field}>
-            <p className={styles.extraInfo__field__name}>Mobile phone:</p>
+            <p className={styles.extraInfo__field__name}>{t('mobilePhone')}:</p>
             {isEditing ? (
               <input
                 className={styles.extraInfo__input}
@@ -187,7 +185,7 @@ const ClientDetails: React.FC = () => {
         </div>
         <div className={styles.extraInfo__fieldsRow}>
           <div className={styles.extraInfo__field}>
-            <p className={styles.extraInfo__field__name}>E-mail address:</p>
+            <p className={styles.extraInfo__field__name}>{t('emailAddress')}:</p>
             {isEditing ? (
               <input
                 className={styles.extraInfo__input}

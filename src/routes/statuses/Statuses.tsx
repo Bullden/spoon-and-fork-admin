@@ -94,7 +94,7 @@ const Statuses: React.FC = () => {
           onClick={() => openCreateStatus()}
           className={styles.button}
         >
-          <ListItemText primary="+ create new status" />
+          <ListItemText primary={t('createNewStatus')} />
         </ListItem>
       </List>
     );
@@ -142,7 +142,7 @@ const Statuses: React.FC = () => {
   return (
     <div className={styles.pageContentContainer}>
       <div className={styles.mainContentHeader}>
-        <h2 className={styles.pagesContainerTitle}>Statuses</h2>
+        <h2 className={styles.pagesContainerTitle}>{t('statuses')}</h2>
       </div>
       <div className={styles.container}>
         <div className={styles.listContainer}>
@@ -198,13 +198,13 @@ const Statuses: React.FC = () => {
               />
               <div className={styles.buttons}>
                 <button className={styles.saveButton} type="submit">
-                  Save
+                  {t('save')}
                 </button>
               </div>
               {isError && (
                 <div className={styles.errorMessages}>
-                  {!isReady && <p>All fields must be filled</p>}
-                  {!isUniqueName && <p>The name must be unique</p>}
+                  {!isReady && <p>{t('filledFields')}</p>}
+                  {!isUniqueName && <p>{t('uniqueFieldValue')}</p>}
                 </div>
               )}
             </Form>

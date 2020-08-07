@@ -132,7 +132,7 @@ const Sets: React.FC = () => {
           onClick={() => openCreateSet()}
           className={styles.button}
         >
-          <ListItemText primary="+ create new set" />
+          <ListItemText primary={t('createNewSet')} />
         </ListItem>
       </List>
     );
@@ -193,7 +193,7 @@ const Sets: React.FC = () => {
   return (
     <div className={styles.pageContentContainer}>
       <div className={styles.mainContentHeader}>
-        <h2 className={styles.pagesContainerTitle}>Sets</h2>
+        <h2 className={styles.pagesContainerTitle}>{t('sets')}</h2>
       </div>
       <div className={styles.container}>
         <div className={styles.listContainer}>
@@ -405,13 +405,13 @@ const Sets: React.FC = () => {
               )}
               <div className={styles.buttons}>
                 <button className={styles.saveButton} type="submit">
-                  Save
+                  {t('save')}
                 </button>
               </div>
               {isError && (
                 <div className={styles.errorMessages}>
-                  {!isReady && <p>All fields must be filled</p>}
-                  {!isUniqueSetName && <p>The set name must be unique</p>}
+                  {!isReady && <p>{t('filledFields')}</p>}
+                  {!isUniqueSetName && <p>{t('uniqueFieldValue')}</p>}
                 </div>
               )}
             </Form>

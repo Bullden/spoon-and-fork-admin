@@ -1,395 +1,254 @@
 {
   "en": {
-    "welcome": {
-      "login": "Login",
-      "registration": "Registration",
-      "terms&Conditions": "Terms & Conditions",
-      "forgotPass": "If you don’t remember neither password or email and the account really belongs\n          to you, you can contact our",
-      "support": "support",
-      "email": "Email",
-      "pass": "Password",
+    "cuisineSets": {
+      "chooseSet": "Meals",
+      "set": "Meal",
+      "toCart": "Add to Cart",
+      "portion": "Portion",
+      "ingredients": "Ingredients"
+    },
+    "auth": {
+      "welcomeTitle": "Welcome to Spoon&Fork",
+      "welcomeDescription": "Log In",
+      "createAccount": "Create your Account ",
+      "signUpDescription": "Please enter your Email Address.\nYou will receive a link to create a New Password via email.",
+      "signIn": "Sign In",
       "signUp": "Sign Up",
-      "can’tGetAccess": "Can’t get access?",
-      "accessRecovery": "Access recovery"
-    },
-    "clientDetails": {
-      "customer": "Customer",
-      "age": "Age: ",
-      "phone": "Phone: "
-    },
-    "client": {
+      "forgotPassword": "Forgot Password?",
+      "forgotPasswordDescription": "Please enter your Email Address. \nYou will receive a link to create a new password via email.",
       "name": "Name",
-      "phone": "Phone",
-      "email": "Email"
+      "phone": "Phone number ",
+      "address": "Address",
+      "password": "Password",
+      "send": "Send",
+      "forgotPasswordSignIn": "Forgot password",
+      "restore": "Restore",
+      "rememberAnAccount": "Remember your account",
+      "noAccount": "Don’t have an account?",
+      "registration": "Registration",
+      "fullName": "Full name",
+      "email": "Email",
+      "confirmPass": "Confirm password",
+      "alreadyReg": "Already registered?",
+      "submit": "Submit",
+      "emailInput": "incorrect email:",
+      "nameInput": "incorrect name:",
+      "birthdayInput": "incorrect birthday:",
+      "phoneNumberInput": "incorrect phone number:",
+      "passwordInput": "incorrect password: ",
+      "confirmPasswordInput": "incorrect confirm password:",
+      "terms&Conditions": "Terms & Conditions",
+      "can’tGetAccess": "Can’t get access?",
+      "accessRecovery": "Access recovery",
+      "haveAnAccount": "Have an account?",
+      "sendYourEmail": "We will send you an email with a link to restore access"
     },
-    "courierDetails": {
-      "accept": "Accept",
-      "decline": "Decline",
-      "waitVerificationCourier": "Please wait while courier made verification request",
+    "cuisinesList": {
+      "search": "Search...",
+      "places": "Places",
+      "welcome": "on your first order",
+      "cuisines": "Cuisines",
+      "cancel": "Cancel",
+      "submit": "Submit"
+    },
+    "cart": {
+      "cart": "Cart"
+    },
+    "address": {
+      "address": "New Address",
+      "recentAddresses": "Show Recent Addresses",
+      "entrance": "Street /Area ",
+      "floor": "Floor/Apartment ",
+      "apartment": "Emirate."
+    },
+    "order": {
+      "order": "Order",
+      "orders": "Orders",
+      "addAnotherItem": "Add Another Meal",
+      "subtotal": "Sub -Total",
+      "deliveryFee": "Delivery Charge",
+      "total": "Total AED",
+      "deliveryAddress": "Delivery Address",
+      "change": "Change",
+      "payment": "Payment",
+      "thankYou": "Thank you",
+      "orderAdded": "Your order has been successfully added",
+      "estimatedDelivery": "Estimated Delivery Date",
+      "ok": "OK",
+      "pickUpFrom": "Pick Up From",
+      "deliveryTo": "Delivery To",
+      "totalDistance": "Total Distance",
+      "totalWeight": "Total Weight",
+      "ordersDetails": "Order Details",
+      "orderList": "Order List",
+      "decline": "Decline Order",
+      "accept": "Accept Order",
+      "entrance": "Street /Area ",
+      "floor": "Floor/Apartment ",
+      "apartment": "Emirate.",
+      "waitingForCourier": "Waiting for Courier",
+      "orderInfo": "Order Info",
+      "scan": "Scan Order",
+      "waitingForCourierAccept": "Waiting for Courier to Accept Order",
+      "orderNumber": "Order#",
+      "date": "Date",
+      "customer": "Customer",
+      "status": "Status",
+      "orderMainInfo": "Order main info",
+      "orderExtraInfo": "Order extra info",
       "courier": "Courier",
-      "revisionStatus": "Revision status: ",
-      "age": "Age: ",
-      "phone": "Phone: ",
-      "email": "Email: ",
-      "W4": "W4",
-      "carInsurance": "Car insurance",
-      "driversLicense": "Drivers license",
-      "licensePlate": "License plate",
-      "carRegistration": "Car registration"
+      "restaurant": "Restaurant",
+      "orderStatus": "Order status",
+      "orderCost": "Order cost",
+      "leaveCourier": "Leave courier",
+      "closeOrder": "Close order"
+    },
+    "customer": {
+      "name": "Name",
+      "phone": "Phone number",
+      "email": "Email",
+      "created": "Created",
+      "weight": "Weight",
+      "price": "Price",
+      "customer": "Customer",
+      "orders": "Customer's orders",
+      "noOrders": "This client not have orders",
+      "profileDetails": "Profile details",
+      "save": "Save",
+      "cancel": "Cancel",
+      "editProfile": "Edit profile",
+      "fullName": "Full Name",
+      "mobilePhone": "Mobile phone",
+      "emailAddress": "E-mail address"
     },
     "courier": {
       "name": "Name",
-      "phone": "Phone",
+      "phone": "Phone number",
       "email": "Email",
-      "status": "Status"
-    },
-    "restaurants": {
-      "title": "Title",
-      "contactPerson": "Contact person",
-      "address": "Address"
-    },
-    "pages": {
-      "keyword": "Keyword",
-      "title": "Title",
-      "save": "Save"
-    },
-    "conditions": {
-      "termsAndConditions": "Terms and Conditions",
-      "registerNow": "Register now"
-    },
-    "registration": {
-      "registration": "Registration",
-      "fullName": "Full name",
-      "phoneNum": "Phone number",
-      "email": "Email",
-      "pass": "Password",
-      "confirmPass": "Confirm password",
-      "alreadyReg": "Already registered?",
-      "logIn": "Log In",
-      "submit": "Submit",
-      "birthday": "Birthday",
-      "signUp": "Sign Up"
-    },
-    "logIn": {
-      "logIn": "Log In",
-      "enterEmail": "Please enter your email",
-      "pass": "Password",
-      "forgotPass": "Forgot password ?",
-      "enter": "Enter"
-    },
-    "forgotPassword": {
-      "forgotPass": "Forgot password?",
-      "logIn": "Log In",
-      "havePass": "Have a password?",
-      "enter": "Enter",
-      "enterEmail": "Enter your E-mail",
-      "doNotRememberPass": "If you don’t remember neither password or email and the account really belongs to you, you can contact our",
-      "support": "support",
-      "accessRecovery": "Access recovery",
-      "sendYourEmail": "We will send you an email with a link to restore access",
-      "email": "Email",
-      "restore": "Restore",
-      "haveAnAccount": "Have an account ?"
-    },
-    "registrationDatePicker": {
-      "dateOfBirth": "Date of birth"
-    },
-    "addressDropMenu": {
-      "userAddress": "User Address",
-      "search": "Search"
-    },
-    "imagePickerPopUp": {
-      "camera": "Camera",
-      "gallery": "Gallery",
-      "cancel": "Cancel"
-    },
-    "scanner": {
-      "scanBags": "Scan bags"
-    },
-    "popUpContainer": {
-      "cancel": "Cancel"
-    },
-    "settings": {
-      "notice": "Notice!",
-      "tornOff": "Turn off",
-      "settings": "Settings",
-      "preferences": "Setup your preferences",
-      "notifications": "Push notifications",
-      "terms&Conditions": "Terms & Conditions"
-    },
-    "editProfile": {
-      "phoneNumber": "Phone number",
-      "profile": "Profile",
-      "saveProfile": "Profile has been saved"
-    },
-    "userProfile": {
-      "profile": "Profile",
-      "dateOfBirth": "Date of birth",
-      "phoneNumber": "Phone number",
-      "email": "E-mail",
-      "edit": "Edit"
-    },
-    "orderHistory": {
-      "orderHistory": "Order History"
-    },
-    "menu": {
-      "profileTitle": "Profile",
-      "orderHistoryTitle": "Order History",
-      "paymentCardTitle": "Payment Card",
-      "settingsTitle": "Settings",
-      "logOutTitle": "Log Out",
-      "wantToBeAPartner": "Want to be a partner?",
-      "learnHowBtn": "Learn how",
-      "profileSubTitle": "Edit your profile",
-      "orderHistorySubTitle": "See your order history",
-      "paymentCardSubTitle": "Change your payment info",
-      "settingsSubTitle": "Manage your application",
-      "logOutSubTitle": "Change your account",
-      "homeTitle": "Home",
-      "homeSubTitle": "Laundry list"
-    },
-    "additionalInfo": {
-      "additionalInfo": "Additional Info",
-      "restaurantName": "Bussiness name",
-      "workHours": "Work hours",
-      "contactPerson": "Contact person",
-      "website": "Website (optional)",
-      "bussinessDescription": "Describe your own business",
-      "save ": "Save",
-      "address": "Address",
-      "paymentInfo": "Payment info"
-    },
-    "bill": {
-      "bags": "Total bags",
-      "weight": "Measured weight",
-      "price": "Total price",
-      "billCustomer": "Bill Customer",
-      "openBill": "Open Bill"
-    },
-    "orderDetails": {
-      "summaryInformation": "Summary information",
-      "orderInfo": "Order info",
-      "scanBags": "Scan bags",
-      "solid": "solid",
-      "order": "Order ",
-      "status": "Status: ",
-      "address": "Address: ",
-      "restaurant": "Restaurant: ",
-      "customer": "Customer: ",
-      "courier": "Courier: "
-    },
-    "laundryOrders": {
-      "inRoute": "In route",
-      "washing": "Washing",
-      "completed": "Completed",
-      "orders": "Orders",
-      "refresh": "Drag down to refresh",
-      "selectOrder": "Select order"
-    },
-    "orderProgressLaundry": {
-      "loading...": "Loading...",
-      "loading": "Loading",
-      "pricing": "Pricing",
-      "configureBill": "Configure bill",
-      "payment": "Payment",
-      "enterPayment": "Enter payment",
-      "openBill": "Open Bill",
-      "washing": "Washing",
-      "timeRemaining": "Time remaining",
-      "washing...": "Washing...",
-      "orderInfo": "Order Info",
-      "confirmReady": "Confirm ready",
-      "customerPayment": "Customer payment",
-      "awaitingPayment": "Awaiting payment",
-      "bill": "Bill",
-      "refresh": "Refresh",
-      "completed": "Completed",
-      "orderStatus": "Order status",
-      "awaitingCourier": "Awaiting for courier",
-      "orders": "To orders"
-    },
-    "adminLayout": {
-      "orders": "ORDERS",
-      "customers": "CUSTOMERS",
-      "couriers": "COURIERS",
-      "restaurants": "RESTAURANTS",
-      "settings": "SETTINGS",
-      "payments": "PAYMENTS",
-      "logout": "LOGOUT"
-    },
-    "errorPlaceholder": {
-      "seeDetails": "See details",
-      "tryAgain": "Try again"
-    },
-    "orderSummary": {
-      "youName": "Your name",
-      "clientName": "Client name",
-      "yourAddress": "Your address",
-      "clientAddress": "Client address",
-      "laundryAddress": "Laundry address",
-      "totalBags": "Total bags",
-      "totalWeight": "Total weight",
-      "distanceMiles": "Distance miles",
-      "orderCreated": "Order created",
-      "orderCompleted": "Order completed",
-      "unlockCode": "Unlock code",
-      "deliveryLaundry": "Delivery to laundry",
-      "totalPrice": "Total price",
-      "billStatus": "Bill status",
-      "deliveryToClient": "Delivery to client",
-      "washService": "Wash service",
-      "finishTime": "Finish time",
+      "created": "Created",
       "weight": "Weight",
-      "orderTime": "Order time"
-    },
-    "scannedBags": {
-      "noScanedBags": "No scaned bags",
-      "scannedBags": "Scanned bags"
-    },
-    "additionalDocs": {
-      "refresh": "Refresh",
-      "confirm": "Confirm",
-      "W4": "W4",
-      "carInsurance": "Car insurance",
-      "driversLicense": "Drivers license",
-      "licensePlate": "License plate",
-      "carRegistration": "Car registration",
-      "additionalDocs": "Additional documents"
-    },
-    "orderInfo": {
-      "orderInfo": "Order info",
-      "totalPrice": "Total price",
-      "acceptOrder": "Accept order"
-    },
-    "orderProgressCourier": {
-      "loading": "Loading...",
-      "pickUp": "Pick up laundry",
-      "showNav": "Show on navigator",
-      "scanBags": "Scan bags",
-      "deliveryToLaundry": "Delivery to laundry",
-      "deliveryToClient": "Delivery to client",
-      "laundryDelivered": "Laundry delivered",
-      "packageDelivered": "Package delivered",
-      "toOrdersList": "To orders list"
-    },
-    "orderList": {
-      "bags": "Bags:",
-      "weight": "Weight:",
-      "price": "Price:"
-    },
-    "orders": {
-      "orders": "Orders",
-      "refresh": "Drag down to refresh",
-      "order": "Order#",
-      "date": "Date",
-      "customer": "Customer",
-      "status": "Status"
-    },
-    "changePass": {
-      "oldPass": "Old password",
-      "enterOldPass": "Enter old password",
-      "newPass": "New password",
-      "enterNewPass": "Enter new password",
-      "confirmPass": "Confirm password",
+      "price": "Price",
+      "courier": "Courier",
+      "orders": "Courier's orders",
+      "noOrders": "This courier not have orders",
+      "profileDetails": "Profile details",
+      "save": "Save",
       "cancel": "Cancel",
-      "confirm": "Confirm"
+      "editProfile": "Edit profile",
+      "fullName": "Full Name",
+      "mobilePhone": "Mobile phone",
+      "emailAddress": "E-mail address",
+      "status": "Status",
+      "courierDocument": "Courier document",
+      "approve": "Approve",
+      "decline": "Decline"
     },
-    "laundryDetails": {
-      "createOrder": "Create Order",
-      "laundryDetails": "Laundry details"
-    },
-    "laundryList": {
-      "laundryList": "Laundry list"
-    },
-    "newOrder": {
-      "newOrder": "New Order",
-      "address": "Your address:",
-      "enterAddress": "Enter your address",
-      "laundryAddress": "Laundry address:",
-      "distance": "Distance miles:",
-      "weight": "Weight:",
-      "UnlockCode": "Enter unlock code",
-      "comment": "Comment to order",
-      "returnShipping": "Return shipping:",
-      "selfDelivery": "Self delivery",
-      "scan": "Scan Bag(s)"
-    },
-    "orderComplete": {
-      "deliveryComplete": "Delivery complete",
-      "orderDetails": "Order details",
-      "totalPrice": "Total price",
-      "please": "Please",
-      "rate": "rate the service",
-      "acceptOrder": "Accept order"
-    },
-    "orderPayment": {
-      "newOrderDetails": "Check newOrder details",
-      "checkNewOrder": "Check newOrder",
-      "name": "Your name",
-      "address": "Your address",
-      "LaundryAddress": "Laundry address",
-      "bags": "Bags total",
-      "weight": "Weight total",
-      "distance": "Distance, miles",
-      "price": "Delivery price",
-      "checkOut": "Check out",
-      "orderPayment": "Order payment"
-    },
-    "orderPopUp": {
-      "confirmPay": "Confirm payment",
-      "verifyInfo": "Please verify info",
-      "bags": "Total Bags",
-      "weight": "Total Weight",
-      "distance": "Distance",
-      "total": "Total:",
-      "pay": "Pay"
+    "restaurant": {
+      "title": "Title",
+      "contactPerson": "ContactPerson",
+      "address": "Address",
+      "created": "Created",
+      "weight": "Weight",
+      "price": "Price",
+      "courier": "Restaurant",
+      "orders": "Restaurant's orders",
+      "noOrders": "This restaurant not have orders",
+      "profileDetails": "Profile details",
+      "save": "Save",
+      "cancel": "Cancel",
+      "editProfile": "Edit profile",
+      "description": "Description",
+      "restaurant": "Restaurant"
     },
     "payment": {
-      "paymentCard": "Payment card",
-      "addAPaymentCard": "Add a payment card to pay for services",
-      "addNewPayment": "Add new payment"
+      "userId": "User ID",
+      "userType": "User type",
+      "sum": "Sum",
+      "couriers": "Couriers",
+      "restaurants": "Restaurants"
     },
-    "washingPayment": {
-      "confirmPayment": "Confirm payment",
-      "VerifyInfo": "Please verify info",
-      "bags": "Total Bags",
-      "measuredWeight": "Measured weight",
-      "readyTime": "Ready time",
-      "total": "Total:",
-      "pay": "Pay"
+    "cuisine": {
+      "cuisines": "Cuisines",
+      "createNewCuisine": "+ create new cuisine",
+      "nationality": "Nationality",
+      "count": "Count",
+      "rating": "Rating",
+      "save": "Save",
+      "filledFields": "All fields must be filled",
+      "uniqueFieldValue": "The nationality must be unique"
     },
-    "orderProgressCl": {
-      "loading": "Loading...",
-      "payForOrder": "Pay for order",
-      "awaitingForPayment": "Awaiting for payment",
-      "deleteOrder": "Delete order",
-      "pay": "Pay",
-      "orderDetails": "Order Details",
-      "waitingForCourier": "Waiting for courier",
-      "courierOnWay": "Courier on way to you",
-      "waitingForCourierAssignment": "Waiting for courier assignment",
-      "refreshState": "Refresh state",
-      "deliveryToLaundry": "Delivery to laundry",
-      "courierOnWayToLaundry": "Courier on way to the laundry",
-      "delivered": "Delivered",
-      "laundryAcceptedOrder": "Laundry accepted your order",
-      "DeliveredYourPackageToLaundry": "Courier delivered your package to the laundry",
-      "laundryPricing": "Laundry pricing",
-      "bill": "Bill",
-      "confirmPayment": "Confirm payment",
-      "washing": "Washing",
-      "washInProgress": "Wash in progress",
-      "totalPrice": "Total price",
-      "washComplete": "Wash complete",
-      "onWayToYou": "Courier on the way to you",
-      "onWayToTheLaundry": "Courier on the way to the laundry",
-      "searchForAvailableCourier": "Search for available courier",
-      "deliveryPrice": "Delivery price",
-      "pickUpOrder": "Pick up he order",
-      "deliveryCompleted": "Delivery completed",
-      "orderIsWashingAndWaitingForYou": "order is washig and waiting for you",
-      "orderFinished": "Order finished",
-      "scanBags": "Scan bags"
+    "set": {
+      "sets": "Sets",
+      "createNewSet": "+ create new set",
+      "name": "Name",
+      "priceCents": "Price in cents",
+      "cuisine": "Cuisine",
+      "statuses": "Statuses",
+      "dishes": "Dishes",
+      "save": "Save",
+      "filledFields": "All fields must be filled",
+      "uniqueFieldValue": "The name must be unique"
+    },
+    "status": {
+      "statuses": "Statuses",
+      "createNewStatus": "+ create new status",
+      "name": "Name",
+      "save": "Save",
+      "filledFields": "All fields must be filled",
+      "uniqueFieldValue": "The name must be unique"
+    },
+    "dish": {
+      "dishes": "Dishes",
+      "createNewDish": "+ create new dish",
+      "name": "Name",
+      "descriptions": "Description",
+      "weight": "Weight",
+      "kal": "Kal",
+      "ingredients": "Ingredients",
+      "sets": "Sets",
+      "save": "Save",
+      "filledFields": "All fields must be filled",
+      "uniqueFieldValue": "The name must be unique"
+    },
+    "map": {
+      "orderStatus": "Order Status",
+      "delivering": "Delivering ",
+      "delivered": "Delivered ",
+      "orderDetailsStatus": "Order(s) Status",
+      "clientPosition": "Client position",
+      "yourPosition": "Your Position",
+      "confirmOrder": "Confirm Order"
+    },
+    "settings": {
+      "profile": "Profile",
+      "dateOfBirth": "Date of Birth",
+      "phoneNumber": "Phone number",
+      "password": "Password",
+      "logout": "Logout",
+      "settings": "Settings",
+      "notifications": "Notifications",
+      "payments": "Payments",
+      "card": "Debit/Credit Card(s)",
+      "pushNotifications": "Push Notifications",
+      "emailNotifications": "Email Notifications"
+    },
+    "transitionBar": {
+      "main": "Main",
+      "map": "Map",
+      "profile": "Profile"
+    },
+    "adminLayout": {
+      "orders": "Orders",
+      "customers": "Customers",
+      "couriers": "Couriers",
+      "restaurants": "Restaurants",
+      "payments": "Payments",
+      "cuisines": "Cuisines",
+      "sets": "Sets",
+      "statuses": "Statuses",
+      "dishes": "Dishes",
+      "settings": "Settings",
+      "logout": "Log out"
     }
   }
 }

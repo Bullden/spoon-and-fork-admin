@@ -9,7 +9,7 @@ import {AuthInfoKeeper} from 'auth';
 import {useTranslation} from 'react-i18next';
 
 const Restaurants: React.FC = () => {
-  const {t} = useTranslation('restaurants');
+  const {t} = useTranslation('restaurant');
   const history = useHistory();
 
   useEffect(() => {

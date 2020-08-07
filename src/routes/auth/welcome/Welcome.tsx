@@ -19,7 +19,7 @@ interface LoginFormValues {
 const Welcome: React.FC = () => {
   const actions = useAuthActions();
   const {isBusy} = useSelector((state) => state.auth);
-  const {t} = useTranslation('welcome');
+  const {t} = useTranslation('auth');
 
   const history = useHistory();
 
@@ -39,21 +39,21 @@ const Welcome: React.FC = () => {
   const renderBottomElements = () => (
     <Grid container className={styles.bottomContainer}>
       <Grid item>
-        <span>{t('forgotPass')}</span>
+        <span>{t('forgotPassword')}</span>
         <Link
           underline="always"
           color="inherit"
           component={RouterLink}
           to="/forgotPassword"
         >
-          {t('support')}
+          {t('restore')}
         </Link>
       </Grid>
     </Grid>
   );
 
   return (
-    <AuthLayout title={t('login')} bottomElements={renderBottomElements}>
+    <AuthLayout title={t('welcomeDescription')} bottomElements={renderBottomElements}>
       <Formik
         initialValues={initialValues}
         validationSchema={Schema.LoginSchema}
@@ -79,7 +79,7 @@ const Welcome: React.FC = () => {
             margin="normal"
             fullWidth
             name="password"
-            label={t('pass')}
+            label={t('password')}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -94,7 +94,7 @@ const Welcome: React.FC = () => {
                 variant="contained"
                 color="primary"
               >
-                {t('login')}
+                {t('signIn')}
               </Button>
             ) : (
               <Loader />

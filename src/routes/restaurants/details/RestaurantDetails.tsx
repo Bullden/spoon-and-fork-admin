@@ -18,7 +18,7 @@ import GooglePlacesAutocomplete, {
 const editProfileIcon = require('./assets/editProfile.svg');
 
 const RestaurantDetails: React.FC = () => {
-  const {t} = useTranslation('restaurantDetails');
+  const {t} = useTranslation('restaurant');
   const {restaurantId} = useParams<{restaurantId: string}>();
   const actions = useRestaurantDetailsActions();
 
@@ -86,9 +86,9 @@ const RestaurantDetails: React.FC = () => {
     return (
       <ul className={styles.orders__list}>
         <li className={styles.orders__listItem__header} key="header">
-          <p>Created</p>
-          <p>Weight</p>
-          <p>Price</p>
+          <p>{t('created')}</p>
+          <p>{t('weight')}</p>
+          <p>{t('price')}</p>
         </li>
         {orders.map((order) => (
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
@@ -120,7 +120,7 @@ const RestaurantDetails: React.FC = () => {
 
   const renderOrders = () => (
     <Grid className={styles.orders}>
-      <p className={styles.orders__title}>Restaurant orders</p>
+      <p className={styles.orders__title}>{t('orders')}</p>
 
       {data &&
         data.isSuccess &&
@@ -128,9 +128,7 @@ const RestaurantDetails: React.FC = () => {
         (restaurantOrders.length > 0 ? (
           renderOrdersList(restaurantOrders)
         ) : (
-          <p className={styles.orders__ordersAbsentMessage}>
-            This restaurant not have orders
-          </p>
+          <p className={styles.orders__ordersAbsentMessage}>{t('noOrders')}</p>
         ))}
     </Grid>
   );
@@ -140,14 +138,14 @@ const RestaurantDetails: React.FC = () => {
   const renderExtraInfo = (restaurant: Restaurant) => (
     <div className={styles.extraInfo}>
       <div className={styles.extraInfo__header}>
-        <p className={styles.extraInfo__title}>Profile details</p>
+        <p className={styles.extraInfo__title}>{t('profileDetails')}</p>
         {isEditing ? (
           <>
             <div className={styles.extraInfo__editProfile}>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-              <p onClick={() => updateUserInformation()}>Save</p>
+              <p onClick={() => updateUserInformation()}>{t('save')}</p>
               {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-              <p onClick={() => cancelEditingUserInformation()}>Cancel</p>
+              <p onClick={() => cancelEditingUserInformation()}>{t('cancel')}</p>
             </div>
           </>
         ) : (
@@ -156,15 +154,15 @@ const RestaurantDetails: React.FC = () => {
             className={styles.extraInfo__editProfile}
             onClick={() => openEditUserInformationPage(restaurant)}
           >
-            <img src={editProfileIcon} alt="Edit profile icon" />
-            <p>Edit profile</p>
+            <img src={editProfileIcon} alt={t('editProfile')} />
+            <p>{t('editProfile')}</p>
           </div>
         )}
       </div>
       <div className={styles.extraInfo__details}>
         <div className={styles.extraInfo__fieldsRow}>
           <div className={styles.extraInfo__fullField}>
-            <p className={styles.extraInfo__field__name}>Address:</p>
+            <p className={styles.extraInfo__field__name}>{t('address')}:</p>
             {isEditing ? (
               <GooglePlacesAutocomplete
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -192,7 +190,7 @@ const RestaurantDetails: React.FC = () => {
         </div>
         <div className={styles.extraInfo__fieldRow}>
           <div className={styles.extraInfo__fullField}>
-            <p className={styles.extraInfo__field__name}>Description:</p>
+            <p className={styles.extraInfo__field__name}>{t('description')}:</p>
             {isEditing ? (
               <input
                 className={styles.extraInfo__input}

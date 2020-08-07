@@ -4,8 +4,8 @@ import {Button, Grid, Link} from '@material-ui/core';
 import Schema from '../utils/validationSchema';
 import styles from '../welcome/Welcome.module.scss';
 import {Loader, TextField} from 'components';
-import {useAuthActions} from '../../../state/hooks/UseActions';
-import {useSelector} from '../../../state/hooks';
+import {useAuthActions} from 'state/hooks/UseActions';
+import {useSelector} from 'state/hooks';
 import AuthLayout from '../common/AuthLayout/AuthLayout';
 import {Link as RouterLink} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
@@ -15,7 +15,7 @@ interface ForgotPasswordValues {
 }
 
 const ForgotPassword: React.FC = () => {
-  const {t} = useTranslation('forgotPassword');
+  const {t} = useTranslation('auth');
   const actions = useAuthActions();
   const {isBusy} = useSelector((state) => state.auth);
 
@@ -25,14 +25,14 @@ const ForgotPassword: React.FC = () => {
   const renderBottomElements = () => (
     <Grid container className={styles.bottomContainer}>
       <Grid item>
-        <span>{t('doNotRememberPass')}</span>
+        <span>{t('forgotPassword')}</span>
         <Link
           underline="always"
           color="inherit"
           component={RouterLink}
           to="/forgotPassword"
         >
-          {t('support')}
+          {t('restore')}
         </Link>
       </Grid>
     </Grid>
@@ -80,7 +80,7 @@ const ForgotPassword: React.FC = () => {
             <Grid item>
               <span>{t('haveAnAccount')}</span>
               <Link underline="always" color="inherit" component={RouterLink} to="/auth">
-                {t('log In')}
+                {t('signIn')}
               </Link>
             </Grid>
           </Grid>

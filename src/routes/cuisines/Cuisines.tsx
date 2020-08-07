@@ -100,7 +100,7 @@ const Cuisines: React.FC = () => {
           onClick={() => openCreateCuisine()}
           className={styles.button}
         >
-          <ListItemText primary="+ create new cuisine" />
+          <ListItemText primary={t('createNewCuisine')} />
         </ListItem>
       </List>
     );
@@ -149,7 +149,7 @@ const Cuisines: React.FC = () => {
   return (
     <div className={styles.pageContentContainer}>
       <div className={styles.mainContentHeader}>
-        <h2 className={styles.pagesContainerTitle}>Cuisines</h2>
+        <h2 className={styles.pagesContainerTitle}>{t('cuisines')}</h2>
       </div>
       <div className={styles.container}>
         <div className={styles.listContainer}>
@@ -227,13 +227,13 @@ const Cuisines: React.FC = () => {
               />
               <div className={styles.buttons}>
                 <button className={styles.saveButton} type="submit">
-                  Save
+                  {t('save')}
                 </button>
               </div>
               {isError && (
                 <div className={styles.errorMessages}>
-                  {!isReady && <p>All fields must be filled</p>}
-                  {!isUniqueNationality && <p>The nationality must be unique</p>}
+                  {!isReady && <p>{t('filledFields')}</p>}
+                  {!isUniqueNationality && <p>{t('uniqueFieldValue')}</p>}
                 </div>
               )}
             </Form>
