@@ -17,6 +17,10 @@ import {reducer as dishesReducer, saga as dishesSaga} from 'state/ducks/dish';
 import {reducer as setsReducer, saga as setsSaga} from 'state/ducks/set';
 import {reducer as statusesReducer, saga as statusesSaga} from 'state/ducks/status';
 import {
+  reducer as statusDetailsReducer,
+  saga as statusDetailsSaga,
+} from 'state/ducks/statusDetails';
+import {
   reducer as orderDetailsReducer,
   saga as orderDetailsSaga,
 } from 'state/ducks/orderDetails';
@@ -68,6 +72,7 @@ export const rootReducer = combineReducers<State>({
   sets: setsReducer,
   setDetails: setDetailsReducer,
   statuses: statusesReducer,
+  statusDetails: statusDetailsReducer,
 });
 
 export function* rootSaga() {
@@ -92,6 +97,7 @@ export function* rootSaga() {
     setsSaga(),
     setDetailsSaga(),
     statusesSaga(),
+    statusDetailsSaga(),
     pushNotificationSaga(),
   ]);
 }

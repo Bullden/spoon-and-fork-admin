@@ -17,6 +17,7 @@ import {DishDetailsContainer} from 'state/entities/DishDetailsContainer';
 import SetsContainer from 'state/entities/SetsContainer';
 import {SetDetailsContainer} from 'state/entities/SetDetailsContainer';
 import StatusesContainer from 'state/entities/StatusesContainer';
+import {StatusDetailsContainer} from 'state/entities/StatusDetailsContainer';
 
 export default interface State {
   session: SessionContainer;
@@ -36,5 +37,6 @@ export default interface State {
   sets: LoadableContainer<SetsContainer>;
   setDetails: SetDetailsContainer;
   statuses: LoadableContainer<StatusesContainer>;
+  statusDetails: StatusDetailsContainer;
   snackBar: SnackBar;
 }
