@@ -23,6 +23,7 @@ import {
   mapUpdateClientInformationRequestToGQL,
   mapUpdateCourierInformationRequestToGQL,
   mapStatusesFromGQL,
+  mapStatusFromGQL,
 } from 'api/Mappers';
 // import {ApolloError} from 'apollo-boost';
 // import * as R from 'ramda';
@@ -46,6 +47,9 @@ import CreateCuisineRequest from 'api/entities/CreateCuisineRequest';
 import CreateDishRequest from 'api/entities/CreateDishRequest';
 import UpdateSetRequest from 'api/entities/UpdateSetRequest';
 import CreateSetRequest from 'api/entities/CreateSetRequest';
+import UpdateStatusRequest from 'api/entities/UpdateStatusRequest';
+import CreateStatusRequest from 'api/entities/CreateStatusRequest';
+import Status from 'entities/Status';
 
 export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi {
   // private refreshQueue = new Queue(1, Infinity);
@@ -282,6 +286,20 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
     return this.wrapApiCall(async () =>
       mapStatusesFromGQL(this.configuration, await this.graphqlApi.queryStatuses()),
     );
+  }
+
+  public async getStatusById(id: string) {
+    return this.wrapApiCall(async () =>
+      mapStatusFromGQL(this.configuration, await this.graphqlApi.queryStatusById(id)),
+    );
+  }
+
+  public async updateStatusRequest(request: UpdateStatusRequest): Promise<Status> {
+    return this.wrapApiCall(async () => this.graphqlApi.mutationUpdateStatus(request));
+  }
+
+  public async createStatusRequest(request: CreateStatusRequest): Promise<void> {
+    return this.wrapApiCall(async () => this.graphqlApi.mutationCreateStatus(request));
   }
 
   public async updateFirebaseToken(request: UpdateFirebaseTokenRequest) {

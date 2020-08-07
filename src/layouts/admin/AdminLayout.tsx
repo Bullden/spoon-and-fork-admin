@@ -97,6 +97,12 @@ const AdminLayout: React.FC = ({children}) => {
       activeIcon: DishesIconActive,
     },
     {
+      label: t('statuses'),
+      path: 'statuses',
+      icon: DishesIcon,
+      activeIcon: DishesIconActive,
+    },
+    {
       label: t('dishes'),
       path: 'dishes',
       icon: DishesIcon,

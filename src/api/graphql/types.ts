@@ -326,6 +326,19 @@ export type MutationCreateSetArgs = {
 };
 
 
+export type MutationUpdateStatusArgs = {
+  id: Scalars['String'],
+  image: Scalars['String'];
+  name: Scalars['String'];
+};
+
+
+export type MutationCreateStatusArgs = {
+  image: Scalars['String'];
+  name: Scalars['String'];
+};
+
+
 export type MutationGetPaidArgs = {
   amount: Scalars['Int']
 };
@@ -518,6 +531,11 @@ export type QueryDishByIdArgs = {
 
 
 export type QuerySetByIdArgs = {
+  id: Scalars['String']
+};
+
+
+export type QueryStatusByIdArgs = {
   id: Scalars['String']
 };
 

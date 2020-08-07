@@ -229,6 +229,7 @@ type Query {
   cartsByUserId: [Cart!]!
   clientOrdersAddresses: [Address!]!
   userLocation(id: String!): LatLng
+  statusById(id: String!): Status!
   statuses: [Status!]!
   ingredientById(id: String!): Status!
   ingredientsByDishId(id: String!): [Status!]!
@@ -253,6 +254,8 @@ type Mutation {
   createCartAndDistributeOrders(selectedSetsInfo: [SelectedSetInfo!]!, clientAddress: CreateAddressRequest!): Cart!
   createAddress(location: CreateAddressRequest!): Boolean!
   updateLocation(latLng: LatLngInput!): Boolean!
+  updateStatus(name: String!, imageId: String!, id: String!): Status!
+  createStatus(name: String!, imageId: String!): Boolean!
 }
 
 input CreateAddressRequest {

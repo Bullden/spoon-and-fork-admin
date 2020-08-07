@@ -21,6 +21,8 @@ import UpdateDishRequest from 'api/entities/UpdateDishRequest';
 import CreateDishRequest from 'api/entities/CreateDishRequest';
 import UpdateSetRequest from 'api/entities/UpdateSetRequest';
 import CreateSetRequest from 'api/entities/CreateSetRequest';
+import UpdateStatusRequest from 'api/entities/UpdateStatusRequest';
+import CreateStatusRequest from 'api/entities/CreateStatusRequest';
 
 export interface ISpoonAndForkApi {
   register(request: RegisterRequest): Promise<Session>;
@@ -67,6 +69,9 @@ export interface ISpoonAndForkApi {
   createSetRequest(request: CreateSetRequest): Promise<void>;
 
   getStatuses(): Promise<Status[]>;
+  getStatusById(id: string): Promise<Status>;
+  updateStatusRequest(request: UpdateStatusRequest): Promise<Status>;
+  createStatusRequest(request: CreateStatusRequest): Promise<void>;
 
   updateFirebaseToken(request: UpdateFirebaseTokenRequest): Promise<void>;
 

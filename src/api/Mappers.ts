@@ -40,6 +40,10 @@ import UpdateCuisineRequest from 'state/entities/UpdateCuisineRequest';
 import ApiUpdateCuisineRequest from 'api/entities/UpdateCuisineRequest';
 import CreateCuisineRequest from 'state/entities/CreateCuisineRequest';
 import ApiCreateCuisineRequest from 'api/entities/CreateCuisineRequest';
+import UpdateStatusRequest from 'state/entities/UpdateStatusRequest';
+import ApiUpdateStatusRequest from 'api/entities/UpdateStatusRequest';
+import CreateStatusRequest from 'state/entities/CreateStatusRequest';
+import ApiCreateStatusRequest from 'api/entities/CreateStatusRequest';
 import UpdateDishRequest from 'state/entities/UpdateDishRequest';
 import ApiUpdateDishRequest from 'api/entities/UpdateDishRequest';
 import CreateDishRequest from 'state/entities/CreateDishRequest';
@@ -84,6 +88,25 @@ export const mapCreateCuisineRequestToGQL = (
   nationality: createCuisineRequest.nationality,
   count: createCuisineRequest.count,
   rating: createCuisineRequest.rating,
+});
+
+export const mapUpdateStatusRequestToGQL = (
+  updateStatusRequest: UpdateStatusRequest,
+  uploadFileId: string,
+): ApiUpdateStatusRequest => {
+  return {
+    id: updateStatusRequest.id,
+    image: uploadFileId,
+    name: updateStatusRequest.name,
+  };
+};
+
+export const mapCreateStatusRequestToGQL = (
+  createStatusRequest: CreateStatusRequest,
+  uploadFileId: string,
+): ApiCreateStatusRequest => ({
+  image: uploadFileId,
+  name: createStatusRequest.name,
 });
 
 export const mapUpdateDishRequestToGQL = (
@@ -296,7 +319,7 @@ export const mapStatusFromGQL = (
 ): Status => ({
   id: status.id,
   name: status.name,
-  imageId: mapImageFromGQL(configuration, status.imageId),
+  image: mapImageFromGQL(configuration, status.imageId),
 });
 
 export const mapStatusesFromGQL = (

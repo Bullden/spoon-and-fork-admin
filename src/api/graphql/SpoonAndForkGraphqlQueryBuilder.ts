@@ -10,11 +10,10 @@ import {
   Courier,
   Cuisine,
   Dish,
-  Set,
-  Status,
   MutationCreateCuisineArgs,
   MutationCreateDishArgs,
   MutationCreateSetArgs,
+  MutationCreateStatusArgs,
   MutationDeleteOrderArgs,
   MutationRemoveTheCurrentCourierArgs,
   MutationUpdateClientInformationArgs,
@@ -23,16 +22,20 @@ import {
   MutationUpdateDishArgs,
   MutationUpdateRestaurantInformationArgs,
   MutationUpdateSetArgs,
+  MutationUpdateStatusArgs,
   Order,
   QueryClientByIdArgs,
   QueryCourierByIdArgs,
   QueryCuisineByIdArgs,
   QueryDishByIdArgs,
-  QuerySetByIdArgs,
   QueryOrderByIdArgs,
   QueryRestaurantByIdArgs,
-  Restaurant,
+  QuerySetByIdArgs,
   QuerySetsByDishIdArgs,
+  QueryStatusByIdArgs,
+  Restaurant,
+  Set,
+  Status,
 } from './types';
 
 const AddressFragment = () => gql`
@@ -290,6 +293,35 @@ export const mutationCreateCuisine = createMutationWithVariables<
     }
   `,
   ({createCuisine}) => createCuisine,
+);
+
+export const mutationUpdateStatus = createMutationWithVariables<
+  MutationUpdateStatusArgs,
+  {updateStatus: Status},
+  Status
+>(
+  gql`
+    ${StatusFragment()}
+    mutation updateStatus($id: String!, $image: String!, $name: String!) {
+      updateStatus(id: $id, imageId: $image, name: $name) {
+        ...Status
+      }
+    }
+  `,
+  ({updateStatus}) => updateStatus,
+);
+
+export const mutationCreateStatus = createMutationWithVariables<
+  MutationCreateStatusArgs,
+  {createStatus: Boolean},
+  void
+>(
+  gql`
+    mutation createStatus($image: String!, $name: String!) {
+      createStatus(imageId: $image, name: $name)
+    }
+  `,
+  ({createStatus}) => createStatus,
 );
 
 export const mutationUpdateDish = createMutationWithVariables<
@@ -715,6 +747,22 @@ export const statusesQuery = createQuery<{statuses: Status[]}, Status[]>(
     }
   `,
   ({statuses}) => statuses,
+);
+
+export const statusByIdQuery = createQueryWithVariables<
+  QueryStatusByIdArgs,
+  {statusById: Status},
+  Status
+>(
+  gql`
+    ${StatusFragment()}
+    query($id: String!) {
+      statusById(id: $id) {
+        ...Status
+      }
+    }
+  `,
+  ({statusById}) => statusById,
 );
 
 export const deleteOrderMutation = createMutationWithVariables<

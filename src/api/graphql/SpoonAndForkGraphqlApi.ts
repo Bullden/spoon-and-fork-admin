@@ -6,41 +6,46 @@ import {
   couriersQuery,
   cuisineByIdQuery,
   cuisinesQuery,
+  deleteOrderMutation,
   dishByIdQuery,
   dishesQuery,
-  deleteOrderMutation,
+  mutationCreateCuisine,
+  mutationCreateDish,
+  mutationCreateSet,
+  mutationCreateStatus,
   mutationUpdateClientInformation,
   mutationUpdateCourierInformation,
   mutationUpdateCuisine,
-  mutationCreateCuisine,
   mutationUpdateDish,
-  mutationCreateDish,
-  mutationUpdateSet,
-  mutationCreateSet,
   mutationUpdateMyAccountImage,
   mutationUpdateRestaurantInformation,
+  mutationUpdateSet,
+  mutationUpdateStatus,
   myAccountQuery,
   orderByIdQuery,
   ordersQuery,
   removeTheCurrentCourierMutation,
   restaurantByIdQuery,
   restaurantsQuery,
-  setsQuery,
   setByIdQuery,
-  statusesQuery,
   setsByDishIdQuery,
+  setsQuery,
+  statusByIdQuery,
+  statusesQuery,
 } from './SpoonAndForkGraphqlQueryBuilder';
 import {ID} from 'entities/Common';
 import {
   MutationCreateCuisineArgs,
   MutationCreateDishArgs,
   MutationCreateSetArgs,
+  MutationCreateStatusArgs,
   MutationUpdateClientInformationArgs,
   MutationUpdateCourierInformationArgs,
   MutationUpdateCuisineArgs,
   MutationUpdateDishArgs,
   MutationUpdateRestaurantInformationArgs,
   MutationUpdateSetArgs,
+  MutationUpdateStatusArgs,
 } from 'api/graphql/types';
 
 export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
@@ -164,5 +169,17 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public async queryStatuses() {
     return this.query(statusesQuery());
+  }
+
+  public async queryStatusById(id: string) {
+    return this.query(statusByIdQuery({id}));
+  }
+
+  public mutationUpdateStatus(request: MutationUpdateStatusArgs) {
+    return this.mutation(mutationUpdateStatus(request));
+  }
+
+  public mutationCreateStatus(request: MutationCreateStatusArgs) {
+    return this.mutation(mutationCreateStatus(request));
   }
 }

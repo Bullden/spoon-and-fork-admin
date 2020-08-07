@@ -31,6 +31,9 @@ import {setDetailsActions} from '../ducks/setDetails';
 import UpdateSetRequest from 'state/entities/UpdateSetRequest';
 import CreateSetRequest from 'state/entities/CreateSetRequest';
 import {statusActions} from '../ducks/status';
+import {statusDetailsActions} from '../ducks/statusDetails';
+import CreateStatusRequest from 'state/entities/CreateStatusRequest';
+import UpdateStatusRequest from 'state/entities/UpdateStatusRequest';
 
 export function useAuthActions() {
   const dispatch = useDispatch();
@@ -291,6 +294,33 @@ export function useStatusActions() {
 
   return {
     fetchStatuses: () => dispatch(statusActions.fetchStatuses()),
+  };
+}
+
+export function useStatusDetailsActions() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  return {
+    fetchStatusDetails: (statusId: string) => {
+      dispatch(statusDetailsActions.fetchDetails(statusId));
+    },
+    updateStatus: (updateStatusRequest: UpdateStatusRequest) => {
+      dispatch(
+        statusDetailsActions.updateStatusRequest({
+          request: updateStatusRequest,
+          history,
+        }),
+      );
+    },
+    createStatus: (createStatusRequest: CreateStatusRequest) => {
+      dispatch(
+        statusDetailsActions.createStatusRequest({
+          request: createStatusRequest,
+          history,
+        }),
+      );
+    },
   };
 }
 

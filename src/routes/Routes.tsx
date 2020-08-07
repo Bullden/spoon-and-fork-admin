@@ -19,6 +19,7 @@ import Payments from './payments/Payments';
 import Cuisines from 'routes/cuisines/Cuisines';
 import Dishes from 'routes/dishes/Dishes';
 import Sets from 'routes/sets/Sets';
+import Statuses from 'routes/statuses/Statuses';
 
 const Logout = () => {
   const actions = useAuthActions();
@@ -64,6 +65,9 @@ const Routes: React.FC = () => {
             <Redirect to="/sets" />
           </Route>
           <Route exact path="/main">
+            <Redirect to="/statuses" />
+          </Route>
+          <Route exact path="/main">
             <Redirect to="/settings" />
           </Route>
           <AppRoute exact path="/orders" component={Orders} layout={Layout.AdminLayout} />
@@ -89,6 +93,24 @@ const Routes: React.FC = () => {
             exact
             path="/cuisines/:id"
             component={Cuisines}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
+            path="/statuses"
+            component={Statuses}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
+            path="/statuses/create"
+            component={Statuses}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
+            path="/statuses/:id"
+            component={Statuses}
             layout={Layout.AdminLayout}
           />
           <AppRoute exact path="/dishes" component={Dishes} layout={Layout.AdminLayout} />
