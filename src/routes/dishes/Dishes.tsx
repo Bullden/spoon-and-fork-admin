@@ -247,14 +247,14 @@ const Dishes: React.FC = () => {
                     .map((item) => (
                       <div className={styles.imageContainer}>
                         <div className={styles.imageWrapper}>
-                          <img className={styles.image} src={item.image} alt="Cuisine" />
+                          <img className={styles.image} src={item.image} alt="Dish" />
                         </div>
                       </div>
                     ))[0]
                 ) : (
                   <div className={styles.imageContainer}>
                     <div className={styles.imageWrapper}>
-                      <img className={styles.image} src={Logo} alt="Cuisine" />
+                      <img className={styles.image} src={Logo} alt="Dish" />
                     </div>
                   </div>
                 )}
