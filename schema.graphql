@@ -34,9 +34,24 @@ type Client {
   user: User!
 }
 
+type DocumentsRevision {
+  id: String!
+  comment: String!
+  status: DocumentsRevisionStatus!
+}
+
+enum DocumentsRevisionStatus {
+  New
+  VerificationRequested
+  ChangesRequested
+  Approved
+  Rejected
+}
+
 type Courier {
   id: String!
   user: User!
+  revision: DocumentsRevision
 }
 
 type Address {
@@ -102,6 +117,21 @@ type Restaurant {
   address: Address!
   description: String!
   cuisines: [Cuisine!]!
+}
+
+type Document {
+  id: ID!
+  group: DocumentGroup!
+  fileId: String!
+}
+
+enum DocumentGroup {
+  w4
+  carInsurance
+  driversLicense
+  licensePlate
+  carRegistration
+  contract
 }
 
 type Bag {
@@ -233,6 +263,8 @@ type Query {
   statuses: [Status!]!
   ingredientById(id: String!): Status!
   ingredientsByDishId(id: String!): [Status!]!
+  currentRevision: DocumentsRevision
+  documents(revisionId: ID!): [Document!]!
 }
 
 type Mutation {
@@ -256,6 +288,10 @@ type Mutation {
   updateLocation(latLng: LatLngInput!): Boolean!
   updateStatus(name: String!, imageId: String!, id: String!): Status!
   createStatus(name: String!, imageId: String!): Boolean!
+  addDocument(group: DocumentGroup!, fileId: ID!): Document!
+  deleteDocument(documentId: ID!): Boolean!
+  requestDocumentsRevisionVerification(revisionId: ID!): Boolean!
+  evaluateDocumentsRevision(comment: String!, type: EvaluateDocumentsRevisionType!, courierId: ID!): Boolean!
 }
 
 input CreateAddressRequest {
@@ -276,4 +312,10 @@ input LatLngInput {
 input SelectedSetInfo {
   set: SetInput!
   quantity: Float!
+}
+
+enum EvaluateDocumentsRevisionType {
+  Approve
+  RequestChanges
+  Reject
 }

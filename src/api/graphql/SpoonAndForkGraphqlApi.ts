@@ -32,9 +32,12 @@ import {
   setsQuery,
   statusByIdQuery,
   statusesQuery,
+  documentsQuery,
+  evaluateDocumentsRevisionMutation,
 } from './SpoonAndForkGraphqlQueryBuilder';
 import {ID} from 'entities/Common';
 import {
+  EvaluateDocumentsRevisionType,
   MutationCreateCuisineArgs,
   MutationCreateDishArgs,
   MutationCreateSetArgs,
@@ -181,5 +184,17 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public mutationCreateStatus(request: MutationCreateStatusArgs) {
     return this.mutation(mutationCreateStatus(request));
+  }
+
+  public async evaluateDocumentsRevision(
+    courierId: ID,
+    type: EvaluateDocumentsRevisionType,
+    comment: string,
+  ) {
+    return this.mutation(evaluateDocumentsRevisionMutation({courierId, type, comment}));
+  }
+
+  public async queryDocuments(revisionId: ID) {
+    return this.query(documentsQuery({revisionId}));
   }
 }

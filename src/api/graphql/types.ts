@@ -37,6 +37,43 @@ export type Bag = {
   code: Scalars['String'],
 };
 
+
+export type Document = {
+  __typename?: 'Document',
+  id: Scalars['ID'],
+  group: DocumentGroup,
+  fileId: Scalars['String'],
+};
+
+export enum DocumentGroup {
+  W4 = 'w4',
+  CarInsurance = 'carInsurance',
+  DriversLicense = 'driversLicense',
+  LicensePlate = 'licensePlate',
+  CarRegistration = 'carRegistration'
+}
+
+export type DocumentsRevision = {
+  __typename?: 'DocumentsRevision',
+  id: Scalars['String'],
+  comment: Scalars['String'],
+  status: DocumentsRevisionStatus,
+};
+
+export enum DocumentsRevisionStatus {
+  New = 'New',
+  VerificationRequested = 'VerificationRequested',
+  ChangesRequested = 'ChangesRequested',
+  Approved = 'Approved',
+  Rejected = 'Rejected'
+}
+
+export enum EvaluateDocumentsRevisionType {
+  Approve = 'Approve',
+  RequestChanges = 'RequestChanges',
+  Reject = 'Reject'
+}
+
 export type Client = {
    __typename?: 'Client',
   id: Scalars['String'],
@@ -47,6 +84,7 @@ export type Courier = {
    __typename?: 'Courier',
   id: Scalars['String'],
   user: User,
+  revision?: Maybe<DocumentsRevision>,
 };
 
 export type CreateAddressRequest = {
@@ -118,6 +156,28 @@ export type Mutation = {
   createOrUpdateInformationPage: InformationPage,
   getPaid: Scalars['Boolean'],
   setPaypalId: Scalars['Boolean'],
+};
+
+export type MutationAddDocumentArgs = {
+  group: DocumentGroup,
+  fileId: Scalars['ID']
+};
+
+
+export type MutationDeleteDocumentArgs = {
+  documentId: Scalars['ID']
+};
+
+
+export type MutationRequestDocumentsRevisionVerificationArgs = {
+  revisionId: Scalars['ID']
+};
+
+
+export type MutationEvaluateDocumentsRevisionArgs = {
+  comment: Scalars['String'],
+  type: EvaluateDocumentsRevisionType,
+  courierId: Scalars['ID']
 };
 
 
@@ -441,6 +501,8 @@ export type Query = {
   myAccount: Account,
   restaurantById: Restaurant,
   currentRestaurant?: Maybe<Restaurant>,
+  currentRevision?: Maybe<DocumentsRevision>,
+  documents: Array<Document>,
   restaurants: Array<Restaurant>,
   orders: Array<Order>,
   orderById: Order,
@@ -461,6 +523,11 @@ export type Query = {
   informationPageById: InformationPage,
   informationPageByKey: InformationPage,
   transactions: Array<Transaction>,
+};
+
+
+export type QueryDocumentsArgs = {
+  revisionId: Scalars['ID']
 };
 
 

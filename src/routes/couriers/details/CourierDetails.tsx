@@ -9,18 +9,22 @@ import {format} from 'date-fns';
 import Courier from 'entities/Courier';
 import {useTranslation} from 'react-i18next';
 import Order from 'entities/Order';
+import {
+  DocumentsGroup,
+  DocumentsGroups,
+  DocumentsRevision,
+  DocumentsRevisionStatus,
+  EvaluateDocumentsRevisionType,
+} from 'entities/Documents';
 import classNames from 'classnames';
 
 const editProfileIcon = require('./assets/editProfile.svg');
-const NewStatusIcon = require('./assets/newStatusIcon.png');
-const ApprovedStatusIcon = require('./assets/approvedStatusIcon.png');
-const Passport = require('./assets/passport.jpg');
 
 const CourierDetails: React.FC = () => {
   const {t} = useTranslation('courier');
   const {courierId} = useParams<{courierId: string}>();
   const actions = useCourierDetailsActions();
-  const {courier} = useSelector((state) => state.courierDetails);
+  const {courier, groups} = useSelector((state) => state.courierDetails);
 
   const history = useHistory();
 
@@ -28,7 +32,13 @@ const CourierDetails: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [isNew, setIsNew] = useState<boolean>(true);
+  const [comment, setComment] = useState('');
+
+  const updateStatus = (type: EvaluateDocumentsRevisionType, comment: string) => {
+    if (courier.isSuccess && courier.revision) {
+      actions.evaluateDocumentsRevision(courier.id, type, comment);
+    }
+  };
 
   const openEditUserInformationPage = (courier: Courier) => {
     setEdit(true);
@@ -58,7 +68,7 @@ const CourierDetails: React.FC = () => {
 
   useEffect(() => {
     actions.fetchCourierDetails(courierId);
-  }, [isNew]);
+  }, []);
 
   const orderActions = useOrderActions();
 
@@ -108,29 +118,25 @@ const CourierDetails: React.FC = () => {
       <Grid className={styles.user} item>
         <div className={styles.user__nameAndStatus}>
           <p className={styles.user__name}>{courier.user.name}</p>
-          <div
-            className={
-              isNew
-                ? classNames(styles.user__statusIcon, styles.user__statusNew)
-                : classNames(styles.user__statusIcon, styles.user__statusApproved)
-            }
-          >
-            {isNew ? (
-              <img src={NewStatusIcon} alt="" />
-            ) : (
-              <img src={ApprovedStatusIcon} alt="" />
-            )}
-          </div>
         </div>
         <p className={styles.user__position}>{t('courier')}</p>
         <p className={styles.user__status}>
           {t('status')}:{' '}
           <span
-            className={
-              isNew ? styles.user__statusTextNew : styles.user__statusTextApproved
-            }
+            className={classNames(
+              courier.revision && {
+                [styles.New]: courier.revision.status === DocumentsRevisionStatus.New,
+                [styles.Approved]:
+                  courier.revision.status === DocumentsRevisionStatus.Approved,
+                [styles.Verifying]:
+                  courier.revision.status ===
+                  DocumentsRevisionStatus.VerificationRequested,
+                [styles.Reject]:
+                  courier.revision.status === DocumentsRevisionStatus.Rejected,
+              },
+            )}
           >
-            {isNew ? 'New' : 'Approved'}
+            {courier.revision ? courier.revision.status : 'New'}
           </span>
         </p>
       </Grid>
@@ -236,18 +242,116 @@ const CourierDetails: React.FC = () => {
     </div>
   );
 
-  const renderDocument = () => {
+  // const renderDocument = () => {
+  //   return (
+  //     <div className={styles.courierDocument}>
+  //       <p className={styles.orders__title}>{t('courierDocument')}</p>
+  //       <img src={Passport} alt="" />
+  //       <div>
+  //         <button type="button" onClick={() => setIsNew(false)}>
+  //           {t('approve')}
+  //         </button>
+  //         <button type="button">{t('decline')}</button>
+  //       </div>
+  //     </div>
+  //   );
+  // };
+
+  const renderFooter = (revision: DocumentsRevision) => {
     return (
-      <div className={styles.courierDocument}>
-        <p className={styles.orders__title}>{t('courierDocument')}</p>
-        <img src={Passport} alt="" />
-        <div>
-          <button type="button" onClick={() => setIsNew(false)}>
-            {t('approve')}
-          </button>
-          <button type="button">{t('decline')}</button>
+      <div className={styles.detailsContainer__paper__footer}>
+        <div className={styles.buttonContainer}>
+          {revision.status !== DocumentsRevisionStatus.New ? (
+            <>
+              <input
+                placeholder="Comments"
+                value={comment}
+                className={styles.commentField}
+                onChange={(event) => setComment(event.target.value)}
+              />
+              <div>
+                <button
+                  className={styles.buttonAcceptCourier}
+                  onClick={() => {
+                    return updateStatus(EvaluateDocumentsRevisionType.Approve, comment);
+                  }}
+                  type="submit"
+                >
+                  {t('accept')}
+                </button>
+                <button
+                  className={styles.buttonDeclineCourier}
+                  onClick={() => {
+                    return updateStatus(EvaluateDocumentsRevisionType.Reject, comment);
+                  }}
+                  type="submit"
+                >
+                  {t('decline')}
+                </button>
+              </div>
+            </>
+          ) : (
+            <span>{t('waitVerificationCourier')}</span>
+          )}
         </div>
       </div>
+    );
+  };
+
+  const renderDocumentsGroup = (
+    groups: DocumentsGroups,
+    title: string,
+    group: DocumentsGroup,
+  ) => {
+    return (
+      <div>
+        <h2 className={styles.documentName}>{title}</h2>
+        <div className={styles.documentsImagesContainer}>
+          {groups[group].map((document) => (
+            <div className={styles.documentImageContainer}>
+              <img
+                key={document.id}
+                className={styles.detailsContainer__paper__documentImage}
+                src={document.image}
+                alt="document"
+              />
+            </div>
+          ))}
+          {groups[group].length === 0 && (
+            <>
+              <div className={styles.defaultImage} />
+              <div className={styles.defaultImage} />
+            </>
+          )}
+          {groups[group].length === 1 && <div className={styles.defaultImage} />}
+        </div>
+      </div>
+    );
+  };
+
+  const renderDocuments = (courier: Courier) => {
+    return (
+      <Grid className={styles.detailsContainer__paper__info}>
+        <div className={styles.documents}>
+          <div className={styles.extraInfo__header}>
+            <p className={styles.extraInfo__title}>{t('courierDocuments')}</p>
+          </div>
+        </div>
+        {groups && (
+          <div className={styles.documentsList}>
+            <div className={styles.documentsGroupsList}>
+              {renderDocumentsGroup(groups, t('W4'), 'w4')}
+              {renderDocumentsGroup(groups, t('carInsurance'), 'carInsurance')}
+              {renderDocumentsGroup(groups, t('driversLicense'), 'driversLicense')}
+            </div>
+            <div className={styles.documentsGroupsList}>
+              {renderDocumentsGroup(groups, t('licensePlate'), 'licensePlate')}
+              {renderDocumentsGroup(groups, t('carRegistration'), 'carRegistration')}
+            </div>
+          </div>
+        )}
+        {courier.revision && renderFooter(courier.revision)}
+      </Grid>
     );
   };
 
@@ -256,7 +360,7 @@ const CourierDetails: React.FC = () => {
       <div className={styles.infoContainer}>
         {courier.isSuccess ? renderMainInfo(courier) : <Loader />}
         {courier.isSuccess ? renderExtraInfo(courier) : <Loader />}
-        {courier.isSuccess ? renderDocument() : <Loader />}
+        {courier.isSuccess ? renderDocuments(courier) : <Loader />}
       </div>
       <div className={styles.infoContainer}>
         {courier.isSuccess ? renderOrders() : <Loader />}

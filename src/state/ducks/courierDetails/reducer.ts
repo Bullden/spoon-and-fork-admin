@@ -10,6 +10,7 @@ const fetchDetailsCompleted: ReducerNextThrow<ReducerState, FetchDetailsComplete
   next: (state, {payload}) => ({
     ...state,
     courier: success(payload.courier),
+    groups: payload.groups,
   }),
   throw: (state, {payload}) => ({...state, courier: failed(payload)}),
 };
@@ -20,5 +21,5 @@ export default handleActions<ReducerState, any>(
     [types.FETCH_DETAILS_COMPLETED]: fetchDetailsCompleted,
     [types.SUBMIT]: (state) => ({...state, isVerifying: true}),
   },
-  {courier: empty()},
+  {courier: empty(), groups: undefined},
 );

@@ -34,6 +34,7 @@ import {statusActions} from '../ducks/status';
 import {statusDetailsActions} from '../ducks/statusDetails';
 import CreateStatusRequest from 'state/entities/CreateStatusRequest';
 import UpdateStatusRequest from 'state/entities/UpdateStatusRequest';
+import {EvaluateDocumentsRevisionType} from 'entities/Documents';
 
 export function useAuthActions() {
   const dispatch = useDispatch();
@@ -145,6 +146,15 @@ export function useCourierDetailsActions() {
           request: updateCourierInformationRequest,
           history,
         }),
+      );
+    },
+    evaluateDocumentsRevision: (
+      courierId: string,
+      type: EvaluateDocumentsRevisionType,
+      comment: string,
+    ) => {
+      dispatch(
+        courierDetailsActions.evaluateDocumentsRevision({courierId, type, comment}),
       );
     },
   };

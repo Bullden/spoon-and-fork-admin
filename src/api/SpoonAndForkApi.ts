@@ -5,6 +5,7 @@ import RestApi from 'api/rest/RestApi';
 import ApiConfiguration from '@spryrocks/react-api/ApiConfiguration';
 import SpoonAndForkGraphqlApi from 'api/graphql/SpoonAndForkGraphqlApi';
 import {
+  groupDocumentFromGQL,
   mapClientFromGQL,
   mapClientsFromGQL,
   mapCourierFromGQL,
@@ -50,6 +51,7 @@ import CreateSetRequest from 'api/entities/CreateSetRequest';
 import UpdateStatusRequest from 'api/entities/UpdateStatusRequest';
 import CreateStatusRequest from 'api/entities/CreateStatusRequest';
 import Status from 'entities/Status';
+import {EvaluateDocumentsRevisionType} from 'entities/Documents';
 
 export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi {
   // private refreshQueue = new Queue(1, Infinity);
@@ -182,7 +184,7 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
 
   public async getCourierById(id: ID) {
     return this.wrapApiCall(async () =>
-      mapCourierFromGQL(await this.graphqlApi.queryCourierById(id)),
+      mapCourierFromGQL(this.configuration, await this.graphqlApi.queryCourierById(id)),
     );
   }
 
@@ -192,6 +194,25 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
     return this.wrapApiCall(async () =>
       this.graphqlApi.mutationUpdateCourierInformation(
         mapUpdateCourierInformationRequestToGQL(request),
+      ),
+    );
+  }
+
+  public async evaluateDocumentsRevision(
+    courierId: ID,
+    type: EvaluateDocumentsRevisionType,
+    comment: string,
+  ) {
+    return this.wrapApiCall(async () =>
+      this.graphqlApi.evaluateDocumentsRevision(courierId, type, comment),
+    );
+  }
+
+  public async getDocuments(revisionId: ID) {
+    return this.wrapApiCall(async () =>
+      groupDocumentFromGQL(
+        this.configuration,
+        await this.graphqlApi.queryDocuments(revisionId),
       ),
     );
   }

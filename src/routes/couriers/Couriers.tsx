@@ -7,6 +7,9 @@ import Courier from 'entities/Courier';
 import {useHistory} from 'react-router-dom';
 import {AuthInfoKeeper} from 'auth';
 import {useTranslation} from 'react-i18next';
+import {CellProps} from 'react-table';
+import classNames from 'classnames';
+import {DocumentsRevisionStatus} from 'entities/Documents';
 
 const Couriers: React.FC = () => {
   const {t} = useTranslation('courier');
@@ -35,6 +38,25 @@ const Couriers: React.FC = () => {
       {
         Header: t('email'),
         accessor: 'user.additionalInfo.email',
+      },
+      {
+        Header: t('status'),
+        accessor: 'revision.status',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        Cell: ({cell: {value}}: CellProps<any>) => {
+          return (
+            <span
+              className={classNames({
+                [styles.Approved]: value === DocumentsRevisionStatus.Approved,
+                [styles.Verifying]:
+                  value === DocumentsRevisionStatus.VerificationRequested,
+                [styles.Reject]: value === DocumentsRevisionStatus.Rejected,
+              })}
+            >
+              {value}
+            </span>
+          );
+        },
       },
     ],
     [],

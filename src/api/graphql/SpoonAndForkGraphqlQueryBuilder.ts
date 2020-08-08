@@ -10,11 +10,13 @@ import {
   Courier,
   Cuisine,
   Dish,
+  Document,
   MutationCreateCuisineArgs,
   MutationCreateDishArgs,
   MutationCreateSetArgs,
   MutationCreateStatusArgs,
   MutationDeleteOrderArgs,
+  MutationEvaluateDocumentsRevisionArgs,
   MutationRemoveTheCurrentCourierArgs,
   MutationUpdateClientInformationArgs,
   MutationUpdateCourierInformationArgs,
@@ -28,6 +30,7 @@ import {
   QueryCourierByIdArgs,
   QueryCuisineByIdArgs,
   QueryDishByIdArgs,
+  QueryDocumentsArgs,
   QueryOrderByIdArgs,
   QueryRestaurantByIdArgs,
   QuerySetByIdArgs,
@@ -37,6 +40,22 @@ import {
   Set,
   Status,
 } from './types';
+
+const DocumentsRevisionFragment = () => gql`
+  fragment DocumentsRevision on DocumentsRevision {
+    id
+    status
+    comment
+  }
+`;
+
+const DocumentFragment = () => gql`
+  fragment Document on Document {
+    id
+    group
+    fileId
+  }
+`;
 
 const AddressFragment = () => gql`
   fragment Address on Address {
@@ -117,10 +136,14 @@ const ClientFragment = () => gql`
 `;
 
 const CourierFragment = () => gql`
+  ${DocumentsRevisionFragment()}
   fragment Courier on Courier {
     id
     user {
       ...User
+    }
+    revision {
+      ...DocumentsRevision
     }
   }
 `;
@@ -196,6 +219,35 @@ const CuisineFragment = () => gql`
     rating
   }
 `;
+
+export const evaluateDocumentsRevisionMutation = createMutationWithVariables<
+  MutationEvaluateDocumentsRevisionArgs,
+  {evaluateDocumentsRevision: boolean},
+  void
+>(
+  gql`
+    mutation($courierId: ID!, $type: EvaluateDocumentsRevisionType!, $comment: String!) {
+      evaluateDocumentsRevision(courierId: $courierId, type: $type, comment: $comment)
+    }
+  `,
+  () => undefined,
+);
+
+export const documentsQuery = createQueryWithVariables<
+  QueryDocumentsArgs,
+  {documents: Document[]},
+  Document[]
+>(
+  gql`
+    ${DocumentFragment()}
+    query($revisionId: ID!) {
+      documents(revisionId: $revisionId) {
+        ...Document
+      }
+    }
+  `,
+  ({documents}) => documents,
+);
 
 export const myAccountQuery = createQuery<{myAccount: Account}, Account>(
   gql`
