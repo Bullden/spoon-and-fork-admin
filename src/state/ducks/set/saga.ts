@@ -56,11 +56,11 @@ function* distributeSetsByDays({
   payload: {request, history},
 }: Action<DistributeSetsByDaysProps>) {
   try {
-    const distributedSets: Set[] = yield SpoonAndForkApi.distributeSetsByDays({
+    yield SpoonAndForkApi.distributeSetsByDays({
       setIdsAndDays: request,
     });
 
-    yield put(actions.distributeSetsByDaysCompleted({distributedSets, history}));
+    yield put(actions.distributeSetsByDaysCompleted({history}));
   } catch (e) {
     yield put(actions.distributeSetsByDaysCompleted(e));
   }
@@ -77,10 +77,9 @@ function* distributeSetsByDaysCompleted({
         type: 'error',
       }),
     );
-    return;
   }
 
-  yield put(actions.fetchSets());
+  // yield put(actions.fetchSets());
 }
 
 export default function* () {

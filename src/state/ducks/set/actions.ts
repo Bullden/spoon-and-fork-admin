@@ -8,9 +8,7 @@ import {NavigationPayload} from '../router/actions';
 export type DistributeSetsByDaysProps = {
   request: DistributeSetsByDays[];
 } & NavigationPayload;
-export type DistributeSetsByDaysCompleted = {
-  distributedSets: Set[];
-} & NavigationPayload;
+export type DistributeSetsByDaysCompleted = NavigationPayload;
 
 export default {
   fetchDetails: createAction<string>(types.FETCH_DETAILS),

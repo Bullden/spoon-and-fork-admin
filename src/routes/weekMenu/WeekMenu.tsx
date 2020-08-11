@@ -96,6 +96,153 @@ const WeekMenu: React.FC = () => {
     return setActions.distributeSetsByDays(setIdsAndDays);
   };
 
+  const setsTable = (sets: Set[]) => {
+    return (
+      <>
+        <div>
+          <div className={styles.weekDay}>
+            <span>Sunday</span>
+          </div>
+          {sets
+            .filter((item) => item.day === 'Sunday' || item.day === null)
+            .map((set) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+              <div
+                className={
+                  setIds.includes(set.id)
+                    ? styles.selectList__selectedItem
+                    : styles.selectList__item
+                }
+                onClick={() => setSelectedSetToState(set)}
+              >
+                <span>{set.name}</span>
+              </div>
+            ))}
+        </div>
+        <div>
+          <div className={styles.weekDay}>
+            <span>Monday</span>
+          </div>
+          {sets
+            .filter((item) => item.day === 'Monday' || item.day === null)
+            .map((set) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+              <div
+                className={
+                  setIds.includes(set.id)
+                    ? styles.selectList__selectedItem
+                    : styles.selectList__item
+                }
+                onClick={() => setSelectedSetToState(set)}
+              >
+                <span>{set.name}</span>
+              </div>
+            ))}
+        </div>
+        <div>
+          <div className={styles.weekDay}>
+            <span>Tuesday</span>
+          </div>
+          {sets
+            .filter((item) => item.day === 'Tuesday' || item.day === null)
+            .map((set) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+              <div
+                className={
+                  setIds.includes(set.id)
+                    ? styles.selectList__selectedItem
+                    : styles.selectList__item
+                }
+                onClick={() => setSelectedSetToState(set)}
+              >
+                <span>{set.name}</span>
+              </div>
+            ))}
+        </div>
+        <div>
+          <div className={styles.weekDay}>
+            <span>Wednesday</span>
+          </div>
+          {sets
+            .filter((item) => item.day === 'Wednesday' || item.day === null)
+            .map((set) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+              <div
+                className={
+                  setIds.includes(set.id)
+                    ? styles.selectList__selectedItem
+                    : styles.selectList__item
+                }
+                onClick={() => setSelectedSetToState(set)}
+              >
+                <span>{set.name}</span>
+              </div>
+            ))}
+        </div>
+        <div>
+          <div className={styles.weekDay}>
+            <span>Thursday</span>
+          </div>
+          {sets
+            .filter((item) => item.day === 'Thursday' || item.day === null)
+            .map((set) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+              <div
+                className={
+                  setIds.includes(set.id)
+                    ? styles.selectList__selectedItem
+                    : styles.selectList__item
+                }
+                onClick={() => setSelectedSetToState(set)}
+              >
+                <span>{set.name}</span>
+              </div>
+            ))}
+        </div>
+        <div>
+          <div className={styles.weekDay}>
+            <span>Friday</span>
+          </div>
+          {sets
+            .filter((item) => item.day === 'Friday' || item.day === null)
+            .map((set) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+              <div
+                className={
+                  setIds.includes(set.id)
+                    ? styles.selectList__selectedItem
+                    : styles.selectList__item
+                }
+                onClick={() => setSelectedSetToState(set)}
+              >
+                <span>{set.name}</span>
+              </div>
+            ))}
+        </div>
+        <div>
+          <div className={styles.weekDay}>
+            <span>Saturday</span>
+          </div>
+          {sets
+            .filter((item) => item.day === 'Saturday' || item.day === null)
+            .map((set) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+              <div
+                className={
+                  setIds.includes(set.id)
+                    ? styles.selectList__selectedItem
+                    : styles.selectList__item
+                }
+                onClick={() => setSelectedSetToState(set)}
+              >
+                <span>{set.name}</span>
+              </div>
+            ))}
+        </div>
+      </>
+    );
+  };
+
   return (
     <div className={styles.content}>
       <div className={styles.pageContentContainer}>
@@ -114,153 +261,7 @@ const WeekMenu: React.FC = () => {
             <h2 className={styles.pagesContainerTitle}>Sets by day of the week</h2>
           </div>
           <div className={styles.weekTable}>
-            <div>
-              <div className={styles.weekDay}>
-                <span>Sunday</span>
-              </div>
-              {sets.isSuccess &&
-                sets.sets
-                  .filter((item) => item.day === 'Sunday' || item.day === null)
-                  .map((set) => (
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div
-                      className={
-                        setIds.includes(set.id)
-                          ? styles.selectList__selectedItem
-                          : styles.selectList__item
-                      }
-                      onClick={() => setSelectedSetToState(set)}
-                    >
-                      <span>{set.name}</span>
-                    </div>
-                  ))}
-            </div>
-            <div>
-              <div className={styles.weekDay}>
-                <span>Monday</span>
-              </div>
-              {sets.isSuccess &&
-                sets.sets
-                  .filter((item) => item.day === 'Monday' || item.day === null)
-                  .map((set) => (
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div
-                      className={
-                        setIds.includes(set.id)
-                          ? styles.selectList__selectedItem
-                          : styles.selectList__item
-                      }
-                      onClick={() => setSelectedSetToState(set)}
-                    >
-                      <span>{set.name}</span>
-                    </div>
-                  ))}
-            </div>
-            <div>
-              <div className={styles.weekDay}>
-                <span>Tuesday</span>
-              </div>
-              {sets.isSuccess &&
-                sets.sets
-                  .filter((item) => item.day === 'Tuesday' || item.day === null)
-                  .map((set) => (
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div
-                      className={
-                        setIds.includes(set.id)
-                          ? styles.selectList__selectedItem
-                          : styles.selectList__item
-                      }
-                      onClick={() => setSelectedSetToState(set)}
-                    >
-                      <span>{set.name}</span>
-                    </div>
-                  ))}
-            </div>
-            <div>
-              <div className={styles.weekDay}>
-                <span>Wednesday</span>
-              </div>
-              {sets.isSuccess &&
-                sets.sets
-                  .filter((item) => item.day === 'Wednesday' || item.day === null)
-                  .map((set) => (
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div
-                      className={
-                        setIds.includes(set.id)
-                          ? styles.selectList__selectedItem
-                          : styles.selectList__item
-                      }
-                      onClick={() => setSelectedSetToState(set)}
-                    >
-                      <span>{set.name}</span>
-                    </div>
-                  ))}
-            </div>
-            <div>
-              <div className={styles.weekDay}>
-                <span>Thursday</span>
-              </div>
-              {sets.isSuccess &&
-                sets.sets
-                  .filter((item) => item.day === 'Thursday' || item.day === null)
-                  .map((set) => (
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div
-                      className={
-                        setIds.includes(set.id)
-                          ? styles.selectList__selectedItem
-                          : styles.selectList__item
-                      }
-                      onClick={() => setSelectedSetToState(set)}
-                    >
-                      <span>{set.name}</span>
-                    </div>
-                  ))}
-            </div>
-            <div>
-              <div className={styles.weekDay}>
-                <span>Friday</span>
-              </div>
-              {sets.isSuccess &&
-                sets.sets
-                  .filter((item) => item.day === 'Friday' || item.day === null)
-                  .map((set) => (
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div
-                      className={
-                        setIds.includes(set.id)
-                          ? styles.selectList__selectedItem
-                          : styles.selectList__item
-                      }
-                      onClick={() => setSelectedSetToState(set)}
-                    >
-                      <span>{set.name}</span>
-                    </div>
-                  ))}
-            </div>
-            <div>
-              <div className={styles.weekDay}>
-                <span>Saturday</span>
-              </div>
-              {sets.isSuccess &&
-                sets.sets
-                  .filter((item) => item.day === 'Saturday' || item.day === null)
-                  .map((set) => (
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div
-                      className={
-                        setIds.includes(set.id)
-                          ? styles.selectList__selectedItem
-                          : styles.selectList__item
-                      }
-                      onClick={() => setSelectedSetToState(set)}
-                    >
-                      <span>{set.name}</span>
-                    </div>
-                  ))}
-            </div>
+            {id && (sets.isSuccess ? setsTable(sets.sets) : <Loader />)}
           </div>
           <div className={styles.buttons}>
             <button
