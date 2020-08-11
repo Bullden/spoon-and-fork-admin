@@ -9,4 +9,6 @@ export default interface Set {
   cuisineId: string;
   statuses: Status[];
   dishes: Dish[];
+  day: string | undefined;
+  isFavorite: boolean;
 }

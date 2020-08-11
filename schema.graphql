@@ -100,6 +100,8 @@ type Set {
   priceCents: Int!
   dishes: [Dish!]!
   statuses: [Status!]!
+  day: String
+  isFavorite: Boolean
 }
 
 type Cuisine {
@@ -223,6 +225,8 @@ input SetInput {
   priceCents: Int!
   dishes: [DishInput!]!
   statuses: [StatusInput!]!
+  day: String
+  isFavorite: Boolean
 }
 
 type Query {
@@ -272,6 +276,7 @@ type Mutation {
   createCuisine(rating: String!, count: String!, nationality: String!, imageId: String!): Boolean!
   updateSet(statuses: [String!]!, dishes: [String!]!, cuisineId: String!, priceCents: String!, imageId: String!, name: String!, id: String!): Set!
   createSet(statuses: [String!]!, dishes: [String!]!, cuisineId: String!, priceCents: String!, imageId: String!, name: String!): Boolean!
+  distributeSetsOfWeek(setIdsAndDays: [SetIdAndDay!]!): Boolean!
   updateDish(imageId: String!, sets: [String!]!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, id: String!): Dish!
   createDish(sets: [String!]!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, imageId: String!): Boolean!
   createOrder(restaurantId: String!, cartId: String!, setId: String!, clientAddress: CreateAddressRequest!): Order!
@@ -292,6 +297,11 @@ type Mutation {
   deleteDocument(documentId: ID!): Boolean!
   requestDocumentsRevisionVerification(revisionId: ID!): Boolean!
   evaluateDocumentsRevision(comment: String!, type: EvaluateDocumentsRevisionType!, courierId: ID!): Boolean!
+}
+
+input SetIdAndDay {
+  setId: String!
+  day: String!
 }
 
 input CreateAddressRequest {

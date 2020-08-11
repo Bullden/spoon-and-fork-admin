@@ -309,6 +309,11 @@ export type MutationUpdateLocationArgs = {
 };
 
 
+export type MutationUpdateSetsWeekDaysArgs = {
+  setIdsAndDays: Array<SetIdAndDay>
+};
+
+
 export type MutationUpdateClientInformationArgs = {
   phoneNumber: Scalars['String'],
   email: Scalars['String'],
@@ -383,6 +388,11 @@ export type MutationCreateSetArgs = {
   priceCents: Scalars['String'];
   dishes: Array<Scalars['String']>;
   statuses: Array<Scalars['String']>;
+};
+
+
+export type MutationDistributeSetsByDaysArgs = {
+  setIdsAndDays: Array<SetIdAndDay>;
 };
 
 
@@ -479,6 +489,13 @@ export type Set = {
   priceCents: Scalars['Int'];
   dishes: Array<Dish>;
   statuses: Array<Status>;
+  day: Scalars['String'];
+  isFavorite: Scalars['Boolean'];
+};
+
+export type SetIdAndDay = {
+  setId: Scalars['String'];
+  day: Scalars['String'];
 };
 
 export enum OrderState {
@@ -608,6 +625,11 @@ export type QueryStatusByIdArgs = {
 
 
 export type QuerySetsByDishIdArgs = {
+  id: Scalars['String']
+};
+
+
+export type QuerySetsByCuisineIdArgs = {
   id: Scalars['String']
 };
 

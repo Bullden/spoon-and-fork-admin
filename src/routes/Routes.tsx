@@ -20,6 +20,7 @@ import Cuisines from 'routes/cuisines/Cuisines';
 import Dishes from 'routes/dishes/Dishes';
 import Sets from 'routes/sets/Sets';
 import Statuses from 'routes/statuses/Statuses';
+import WeekMenu from './weekMenu/WeekMenu';
 
 const Logout = () => {
   const actions = useAuthActions();
@@ -68,6 +69,9 @@ const Routes: React.FC = () => {
             <Redirect to="/statuses" />
           </Route>
           <Route exact path="/main">
+            <Redirect to="/weekMenu" />
+          </Route>
+          <Route exact path="/main">
             <Redirect to="/settings" />
           </Route>
           <AppRoute exact path="/orders" component={Orders} layout={Layout.AdminLayout} />
@@ -111,6 +115,18 @@ const Routes: React.FC = () => {
             exact
             path="/statuses/:id"
             component={Statuses}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
+            path="/weekMenu"
+            component={WeekMenu}
+            layout={Layout.AdminLayout}
+          />
+          <AppRoute
+            exact
+            path="/weekMenu/cuisine/:id"
+            component={WeekMenu}
             layout={Layout.AdminLayout}
           />
           <AppRoute exact path="/dishes" component={Dishes} layout={Layout.AdminLayout} />

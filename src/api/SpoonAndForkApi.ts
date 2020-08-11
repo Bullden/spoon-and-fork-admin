@@ -52,6 +52,7 @@ import UpdateStatusRequest from 'api/entities/UpdateStatusRequest';
 import CreateStatusRequest from 'api/entities/CreateStatusRequest';
 import Status from 'entities/Status';
 import {EvaluateDocumentsRevisionType} from 'entities/Documents';
+import DistributeSetsByDaysRequest from './entities/DistributeSetsByDaysRequest';
 
 export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi {
   // private refreshQueue = new Queue(1, Infinity);
@@ -295,12 +296,24 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
     );
   }
 
+  public async getSetsByCuisineId(id: string) {
+    return this.wrapApiCall(async () =>
+      mapSetsFromGQL(this.configuration, await this.graphqlApi.querySetsByCuisineId(id)),
+    );
+  }
+
   public async updateSetRequest(request: UpdateSetRequest): Promise<Set> {
     return this.wrapApiCall(async () => this.graphqlApi.mutationUpdateSet(request));
   }
 
   public async createSetRequest(request: CreateSetRequest): Promise<void> {
     return this.wrapApiCall(async () => this.graphqlApi.mutationCreateSet(request));
+  }
+
+  public async distributeSetsByDays(request: DistributeSetsByDaysRequest): Promise<void> {
+    return this.wrapApiCall(async () =>
+      this.graphqlApi.mutationDistributeSetsByDays(request),
+    );
   }
 
   public async getStatuses() {

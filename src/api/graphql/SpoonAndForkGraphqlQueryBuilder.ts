@@ -16,6 +16,7 @@ import {
   MutationCreateSetArgs,
   MutationCreateStatusArgs,
   MutationDeleteOrderArgs,
+  MutationDistributeSetsByDaysArgs,
   MutationEvaluateDocumentsRevisionArgs,
   MutationRemoveTheCurrentCourierArgs,
   MutationUpdateClientInformationArgs,
@@ -34,6 +35,7 @@ import {
   QueryOrderByIdArgs,
   QueryRestaurantByIdArgs,
   QuerySetByIdArgs,
+  QuerySetsByCuisineIdArgs,
   QuerySetsByDishIdArgs,
   QueryStatusByIdArgs,
   Restaurant,
@@ -123,6 +125,8 @@ const SetFragment = () => gql`
     dishes {
       ...Dish
     }
+    day
+    isFavorite
   }
 `;
 
@@ -498,6 +502,19 @@ export const mutationCreateSet = createMutationWithVariables<
   ({createSet}) => createSet,
 );
 
+export const mutationDistributeSetsByDays = createMutationWithVariables<
+  MutationDistributeSetsByDaysArgs,
+  {distributeSetsByDays: Boolean},
+  void
+>(
+  gql`
+    mutation($setIdsAndDays: [SetIdAndDay!]!) {
+      distributeSetsOfWeek(setIdsAndDays: $setIdsAndDays)
+    }
+  `,
+  ({distributeSetsByDays}) => distributeSetsByDays,
+);
+
 export const orderByIdQuery = createQueryWithVariables<
   QueryOrderByIdArgs,
   {orderById: Order},
@@ -787,6 +804,22 @@ export const setsByDishIdQuery = createQueryWithVariables<
     }
   `,
   ({setsByDishId}) => setsByDishId,
+);
+
+export const setsByCuisineIdQuery = createQueryWithVariables<
+  QuerySetsByCuisineIdArgs,
+  {setsByCuisineId: Set[]},
+  Set[]
+>(
+  gql`
+    ${SetFragment()}
+    query setsByCuisineId($id: String!) {
+      setsByCuisineId(id: $id) {
+        ...Set
+      }
+    }
+  `,
+  ({setsByCuisineId}) => setsByCuisineId,
 );
 
 export const statusesQuery = createQuery<{statuses: Status[]}, Status[]>(

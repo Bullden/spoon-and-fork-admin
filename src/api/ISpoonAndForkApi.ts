@@ -24,6 +24,7 @@ import CreateSetRequest from 'api/entities/CreateSetRequest';
 import UpdateStatusRequest from 'api/entities/UpdateStatusRequest';
 import CreateStatusRequest from 'api/entities/CreateStatusRequest';
 import {DocumentsGroups, EvaluateDocumentsRevisionType} from 'entities/Documents';
+import DistributeSetsByDaysRequest from './entities/DistributeSetsByDaysRequest';
 
 export interface ISpoonAndForkApi {
   register(request: RegisterRequest): Promise<Session>;
@@ -66,8 +67,10 @@ export interface ISpoonAndForkApi {
   getSets(): Promise<Set[]>;
   getSetById(id: string): Promise<Set>;
   getSetsByDishId(id: string): Promise<Set[]>;
+  getSetsByCuisineId(id: string): Promise<Set[]>;
   updateSetRequest(request: UpdateSetRequest): Promise<Set>;
   createSetRequest(request: CreateSetRequest): Promise<void>;
+  distributeSetsByDays(request: DistributeSetsByDaysRequest): Promise<void>;
 
   getStatuses(): Promise<Status[]>;
   getStatusById(id: string): Promise<Status>;

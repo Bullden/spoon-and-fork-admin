@@ -420,6 +420,8 @@ export const mapSetFromGQL = (configuration: ApiConfiguration, set: GQLSet): Set
   cuisineId: set.cuisineId,
   dishes: mapDishesFromGQL(configuration, set.dishes),
   statuses: mapStatusesFromGQL(configuration, set.statuses),
+  day: set.day,
+  isFavorite: set.isFavorite,
 });
 
 export const mapSetsFromGQL = (

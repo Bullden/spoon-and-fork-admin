@@ -29,6 +29,7 @@ import CreateDishRequest from 'state/entities/CreateDishRequest';
 import {setActions} from '../ducks/set';
 import {setDetailsActions} from '../ducks/setDetails';
 import UpdateSetRequest from 'state/entities/UpdateSetRequest';
+import DistributeSetsByDays from 'state/entities/DistributeSetsByDays';
 import CreateSetRequest from 'state/entities/CreateSetRequest';
 import {statusActions} from '../ducks/status';
 import {statusDetailsActions} from '../ducks/statusDetails';
@@ -265,10 +266,14 @@ export function useDishDetailsActions() {
 
 export function useSetActions() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   return {
     fetchSets: () => dispatch(setActions.fetchSets()),
     fetchSetsByDishId: (id: string) => dispatch(setActions.fetchSetsByDishId(id)),
+    fetchSetsByCuisineId: (id: string) => dispatch(setActions.fetchSetsByCuisineId(id)),
+    distributeSetsByDays: (setIdsAndDays: DistributeSetsByDays[]) =>
+      dispatch(setActions.distributeSetsByDays({request: setIdsAndDays, history})),
   };
 }
 

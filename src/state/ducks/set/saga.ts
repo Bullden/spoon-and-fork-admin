@@ -2,7 +2,10 @@ import types from './types';
 import {all, put, takeEvery} from 'redux-saga/effects';
 import {Action} from 'redux-actions';
 import {SpoonAndForkApi} from 'api/index';
-import actions from './actions';
+import actions, {
+  DistributeSetsByDaysCompleted,
+  DistributeSetsByDaysProps,
+} from './actions';
 import {snackBarActions} from '../snackBar';
 import {processError} from '../alert/saga';
 import Set from 'entities/Set';
@@ -39,11 +42,55 @@ function* fetchSetsByDishId({payload}: Action<ID>) {
   }
 }
 
+function* fetchSetsByCuisineId({payload}: Action<ID>) {
+  try {
+    const setsByCuisineId: Set[] = yield SpoonAndForkApi.getSetsByCuisineId(payload);
+
+    yield put(actions.fetchSetsCompleted(setsByCuisineId));
+  } catch (e) {
+    yield put(actions.fetchSetsCompleted(e));
+  }
+}
+
+function* distributeSetsByDays({
+  payload: {request, history},
+}: Action<DistributeSetsByDaysProps>) {
+  try {
+    const distributedSets: Set[] = yield SpoonAndForkApi.distributeSetsByDays({
+      setIdsAndDays: request,
+    });
+
+    yield put(actions.distributeSetsByDaysCompleted({distributedSets, history}));
+  } catch (e) {
+    yield put(actions.distributeSetsByDaysCompleted(e));
+  }
+}
+
+function* distributeSetsByDaysCompleted({
+  payload,
+  error,
+}: Action<DistributeSetsByDaysCompleted>) {
+  if (error) {
+    yield put(
+      snackBarActions.showSnackbar({
+        message: processError({error: payload}),
+        type: 'error',
+      }),
+    );
+    return;
+  }
+
+  yield put(actions.fetchSets());
+}
+
 export default function* () {
   yield all([
     //
     takeEvery(types.FETCH_SETS, fetchSets),
     takeEvery(types.FETCH_SETS_COMPLETED, fetchSetsCompleted),
     takeEvery(types.FETCH_SETS_BY_DISH_ID, fetchSetsByDishId),
+    takeEvery(types.FETCH_SETS_BY_CUISINE_ID, fetchSetsByCuisineId),
+    takeEvery(types.DISTRIBUTE_SETS_BY_DAYS, distributeSetsByDays),
+    takeEvery(types.DISTRIBUTE_SETS_BY_DAYS_COMPLETED, distributeSetsByDaysCompleted),
   ]);
 }
