@@ -15,8 +15,15 @@ const WeekMenu: React.FC = () => {
   const history = useHistory();
   const {t} = useTranslation('cuisine');
 
+  const cuisineActions = useCuisineActions();
+  const setActions = useSetActions();
+
   const [setIdsAndDays, setSetIdsAndDays] = useState<{setId: string; day: string}[]>([]);
   const [setIds, setSetIds] = useState<string[]>([]);
+
+  const {id} = useParams<{id: string | undefined}>();
+
+  const {cuisines, sets} = useSelector((state) => state);
 
   useEffect(() => {
     AuthInfoKeeper.isAuthenticated().then((isAuthenticated) => {
@@ -26,18 +33,11 @@ const WeekMenu: React.FC = () => {
     });
   }, []);
 
-  const cuisineActions = useCuisineActions();
-  const setActions = useSetActions();
-
   useEffect(() => {
     setSetIds([]);
     setSetIdsAndDays([]);
     cuisineActions.fetchCuisines();
   }, []);
-
-  const {id} = useParams<{id: string | undefined}>();
-
-  const {cuisines, sets} = useSelector((state) => state);
 
   useEffect(() => {
     setSetIds([]);
@@ -45,36 +45,39 @@ const WeekMenu: React.FC = () => {
     if (id) setActions.fetchSetsByCuisineId(id);
   }, [id]);
 
-  const setSelectedSetToState = (set: Set) => {
+  const setSelectedSetToState = (set: Set, day: string) => {
     if (setIds.includes(set.id)) {
       setSetIds(setIds.filter((item) => item !== set.id));
+      setSetIdsAndDays([...setIdsAndDays.filter((item) => item.setId !== set.id)]);
     } else {
       setSetIds([...setIds, set.id]);
-    }
-
-    if (
-      setIdsAndDays.filter((item) => item.setId !== set.id).length ===
-        setIdsAndDays.length &&
-      set.day
-    ) {
-      setSetIdsAndDays([...setIdsAndDays, {setId: set.id, day: set.day}]);
-    } else {
-      setSetIdsAndDays(setIdsAndDays.filter((item) => item.setId !== set.id));
+      setSetIdsAndDays([...setIdsAndDays, {setId: set.id, day}]);
     }
   };
 
-  const openCuisineWeekMenu = (cuisine: Cuisine) => {
+  const openCuisineWeekMenu = (cuisine: Cuisine, sets: Set[]) => {
     history.push(`/weekMenu/cuisine/${cuisine.id}`);
-    if (id && sets.isSuccess) {
-      sets.sets.forEach((set) => {
-        if (set.day !== undefined) {
-          setSelectedSetToState(set);
-        }
-      });
+
+    setSetIds([]);
+    setSetIdsAndDays([]);
+
+    if (id) {
+      sets
+        .filter((item) => item.cuisineId === cuisine.id)
+        .forEach((set) => {
+          setSetIds([...setIds, set.id]);
+          if (set.day) {
+            setSetIdsAndDays([...setIdsAndDays, {setId: set.id, day: set.day}]);
+          }
+        });
     }
   };
 
-  const cuisinesList = (cuisines: Cuisine[]) => {
+  const save = () => {
+    return setActions.distributeSetsByDays(setIdsAndDays);
+  };
+
+  const cuisinesList = (cuisines: Cuisine[], sets: Set[]) => {
     return (
       <List component="nav" aria-label="main mailbox folders" className={styles.list}>
         {cuisines.map((cuisine: Cuisine) => (
@@ -82,7 +85,7 @@ const WeekMenu: React.FC = () => {
             key={cuisine.id}
             button
             selected={id === cuisine.id}
-            onClick={() => openCuisineWeekMenu(cuisine)}
+            onClick={() => id !== cuisine.id && openCuisineWeekMenu(cuisine, sets)}
             className={styles.button}
           >
             <ListItemText primary={cuisine.nationality} />
@@ -92,154 +95,42 @@ const WeekMenu: React.FC = () => {
     );
   };
 
-  const save = () => {
-    return setActions.distributeSetsByDays(setIdsAndDays);
+  const tableColumn = (title: string, dayName: string, sets: Set[]) => {
+    return (
+      <div>
+        <div className={styles.weekDay}>
+          <span>{title}</span>
+        </div>
+        <ul className={styles.selectList}>
+          {sets
+            .filter((item) => item.day === dayName || !item.day)
+            .map((set) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
+              <li
+                className={
+                  set.day ? styles.selectList__selectedItem : styles.selectList__item
+                }
+                onClick={() => setSelectedSetToState(set, dayName)}
+              >
+                <span>{set.name}</span>
+              </li>
+            ))}
+        </ul>
+      </div>
+    );
   };
 
   const setsTable = (sets: Set[]) => {
     return (
-      <>
-        <div>
-          <div className={styles.weekDay}>
-            <span>Sunday</span>
-          </div>
-          {sets
-            .filter((item) => item.day === 'Sunday' || item.day === null)
-            .map((set) => (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-              <div
-                className={
-                  setIds.includes(set.id)
-                    ? styles.selectList__selectedItem
-                    : styles.selectList__item
-                }
-                onClick={() => setSelectedSetToState(set)}
-              >
-                <span>{set.name}</span>
-              </div>
-            ))}
-        </div>
-        <div>
-          <div className={styles.weekDay}>
-            <span>Monday</span>
-          </div>
-          {sets
-            .filter((item) => item.day === 'Monday' || item.day === null)
-            .map((set) => (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-              <div
-                className={
-                  setIds.includes(set.id)
-                    ? styles.selectList__selectedItem
-                    : styles.selectList__item
-                }
-                onClick={() => setSelectedSetToState(set)}
-              >
-                <span>{set.name}</span>
-              </div>
-            ))}
-        </div>
-        <div>
-          <div className={styles.weekDay}>
-            <span>Tuesday</span>
-          </div>
-          {sets
-            .filter((item) => item.day === 'Tuesday' || item.day === null)
-            .map((set) => (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-              <div
-                className={
-                  setIds.includes(set.id)
-                    ? styles.selectList__selectedItem
-                    : styles.selectList__item
-                }
-                onClick={() => setSelectedSetToState(set)}
-              >
-                <span>{set.name}</span>
-              </div>
-            ))}
-        </div>
-        <div>
-          <div className={styles.weekDay}>
-            <span>Wednesday</span>
-          </div>
-          {sets
-            .filter((item) => item.day === 'Wednesday' || item.day === null)
-            .map((set) => (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-              <div
-                className={
-                  setIds.includes(set.id)
-                    ? styles.selectList__selectedItem
-                    : styles.selectList__item
-                }
-                onClick={() => setSelectedSetToState(set)}
-              >
-                <span>{set.name}</span>
-              </div>
-            ))}
-        </div>
-        <div>
-          <div className={styles.weekDay}>
-            <span>Thursday</span>
-          </div>
-          {sets
-            .filter((item) => item.day === 'Thursday' || item.day === null)
-            .map((set) => (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-              <div
-                className={
-                  setIds.includes(set.id)
-                    ? styles.selectList__selectedItem
-                    : styles.selectList__item
-                }
-                onClick={() => setSelectedSetToState(set)}
-              >
-                <span>{set.name}</span>
-              </div>
-            ))}
-        </div>
-        <div>
-          <div className={styles.weekDay}>
-            <span>Friday</span>
-          </div>
-          {sets
-            .filter((item) => item.day === 'Friday' || item.day === null)
-            .map((set) => (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-              <div
-                className={
-                  setIds.includes(set.id)
-                    ? styles.selectList__selectedItem
-                    : styles.selectList__item
-                }
-                onClick={() => setSelectedSetToState(set)}
-              >
-                <span>{set.name}</span>
-              </div>
-            ))}
-        </div>
-        <div>
-          <div className={styles.weekDay}>
-            <span>Saturday</span>
-          </div>
-          {sets
-            .filter((item) => item.day === 'Saturday' || item.day === null)
-            .map((set) => (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-              <div
-                className={
-                  setIds.includes(set.id)
-                    ? styles.selectList__selectedItem
-                    : styles.selectList__item
-                }
-                onClick={() => setSelectedSetToState(set)}
-              >
-                <span>{set.name}</span>
-              </div>
-            ))}
-        </div>
-      </>
+      <div className={styles.weekTable}>
+        {tableColumn(t('sunday'), 'Sunday', sets)}
+        {tableColumn(t('monday'), 'Monday', sets)}
+        {tableColumn(t('tuesday'), 'Tuesday', sets)}
+        {tableColumn(t('wednesday'), 'Wednesday', sets)}
+        {tableColumn(t('thursday'), 'Thursday', sets)}
+        {tableColumn(t('friday'), 'Friday', sets)}
+        {tableColumn(t('saturday'), 'Saturday', sets)}
+      </div>
     );
   };
 
@@ -251,18 +142,20 @@ const WeekMenu: React.FC = () => {
         </div>
         <div className={styles.container}>
           <div className={styles.listContainer}>
-            {cuisines.isSuccess ? cuisinesList(cuisines.cuisines) : <Loader />}
+            {cuisines.isSuccess && sets.isSuccess ? (
+              cuisinesList(cuisines.cuisines, sets.sets)
+            ) : (
+              <Loader />
+            )}
           </div>
         </div>
       </div>
       <div>
         <div className={styles.editorContainer}>
           <div className={styles.mainContentHeader}>
-            <h2 className={styles.pagesContainerTitle}>Sets by day of the week</h2>
+            <h2 className={styles.weekTableTitle}>Sets by day of the week</h2>
           </div>
-          <div className={styles.weekTable}>
-            {id && (sets.isSuccess ? setsTable(sets.sets) : <Loader />)}
-          </div>
+          {id && (sets.isSuccess ? setsTable(sets.sets) : <Loader />)}
           <div className={styles.buttons}>
             <button
               className={styles.saveButton}

@@ -79,7 +79,7 @@ function* distributeSetsByDaysCompleted({
     );
   }
 
-  // yield put(actions.fetchSets());
+  yield put(actions.fetchSets());
 }
 
 export default function* () {
