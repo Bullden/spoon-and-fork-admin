@@ -126,8 +126,7 @@ export type Cuisine = {
   id: Scalars['ID'];
   imageId: Scalars['String'];
   nationality: Scalars['String'];
-  count: Scalars['String'];
-  rating: Scalars['String'];
+  rating?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -334,16 +333,12 @@ export type MutationUpdateCuisineArgs = {
   id: Scalars['String'],
   image: Scalars['String'],
   nationality: Scalars['String'],
-  count: Scalars['String'],
-  rating: Scalars['String']
 };
 
 
 export type MutationCreateCuisineArgs = {
   image: Scalars['String'],
   nationality: Scalars['String'],
-  count: Scalars['String'],
-  rating: Scalars['String']
 };
 
 

@@ -86,8 +86,6 @@ export const mapUpdateCuisineRequestToGQL = (
     id: updateCuisineRequest.id,
     image: uploadFileId,
     nationality: updateCuisineRequest.nationality,
-    count: updateCuisineRequest.count,
-    rating: updateCuisineRequest.rating,
   };
 };
 
@@ -97,8 +95,6 @@ export const mapCreateCuisineRequestToGQL = (
 ): ApiCreateCuisineRequest => ({
   image: uploadFileId,
   nationality: createCuisineRequest.nationality,
-  count: createCuisineRequest.count,
-  rating: createCuisineRequest.rating,
 });
 
 export const mapUpdateStatusRequestToGQL = (
@@ -338,8 +334,7 @@ export const mapCuisineFromGQL = (
   id: cuisine.id,
   image: mapImageFromGQL(configuration, cuisine.imageId),
   nationality: cuisine.nationality,
-  count: cuisine.count,
-  rating: cuisine.rating,
+  rating: cuisine.rating || '-',
 });
 
 export const mapCuisinesFromGQL = (

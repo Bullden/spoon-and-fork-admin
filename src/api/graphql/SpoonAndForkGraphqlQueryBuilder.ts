@@ -219,7 +219,6 @@ const CuisineFragment = () => gql`
     id
     imageId
     nationality
-    count
     rating
   }
 `;
@@ -307,20 +306,8 @@ export const mutationUpdateCuisine = createMutationWithVariables<
 >(
   gql`
     ${CuisineFragment()}
-    mutation updateCuisine(
-      $id: String!
-      $image: String!
-      $nationality: String!
-      $count: String!
-      $rating: String!
-    ) {
-      updateCuisine(
-        id: $id
-        imageId: $image
-        nationality: $nationality
-        count: $count
-        rating: $rating
-      ) {
+    mutation updateCuisine($id: String!, $image: String!, $nationality: String!) {
+      updateCuisine(id: $id, imageId: $image, nationality: $nationality) {
         ...Cuisine
       }
     }
@@ -334,18 +321,8 @@ export const mutationCreateCuisine = createMutationWithVariables<
   void
 >(
   gql`
-    mutation createCuisine(
-      $image: String!
-      $nationality: String!
-      $count: String!
-      $rating: String!
-    ) {
-      createCuisine(
-        imageId: $image
-        nationality: $nationality
-        count: $count
-        rating: $rating
-      )
+    mutation createCuisine($image: String!, $nationality: String!) {
+      createCuisine(imageId: $image, nationality: $nationality)
     }
   `,
   ({createCuisine}) => createCuisine,

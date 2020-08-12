@@ -15,8 +15,6 @@ import {Logo} from 'assets';
 
 interface CuisineFormValues {
   nationality: string;
-  count: string;
-  rating: string;
 }
 
 const Cuisines: React.FC = () => {
@@ -60,14 +58,10 @@ const Cuisines: React.FC = () => {
           .map((item) => {
             return {
               nationality: item.nationality,
-              count: item.count,
-              rating: item.rating,
             };
           })[0]
       : {
           nationality: '',
-          count: '',
-          rating: '',
         };
 
   useEffect(() => {
@@ -116,7 +110,7 @@ const Cuisines: React.FC = () => {
     setReady(true);
 
     if (id === undefined && data.isSuccess) {
-      if (file && values.nationality && values.count && values.rating) {
+      if (file && values.nationality) {
         if (
           data.cuisines.every((cuisine: Cuisine) =>
             nationalityUniquenessCheck(cuisine, values.nationality),
@@ -137,7 +131,7 @@ const Cuisines: React.FC = () => {
       setError(true);
     }
 
-    if (id && values.nationality && values.count && values.rating && data.isSuccess) {
+    if (id && values.nationality && data.isSuccess) {
       return actions.updateCuisine({
         id,
         ...values,
@@ -201,28 +195,6 @@ const Cuisines: React.FC = () => {
                 type="nationality"
                 as={TextField}
                 label={t('nationality')}
-                className={styles.form__field}
-              />
-              <Field
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="count"
-                label={t('count')}
-                type="count"
-                id="count"
-                as={TextField}
-                className={styles.form__field}
-              />
-              <Field
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                name="rating"
-                label={t('rating')}
-                type="rating"
-                id="rating"
-                as={TextField}
                 className={styles.form__field}
               />
               <div className={styles.buttons}>

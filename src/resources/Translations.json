@@ -190,7 +190,7 @@
       "uniqueFieldValue": "The name must be unique"
     },
     "status": {
-      "statuses": "Statuses",
+      "statuses": "Set statuses",
       "createNewStatus": "+ create new status",
       "name": "Name",
       "save": "Save",
