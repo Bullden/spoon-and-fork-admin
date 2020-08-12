@@ -23,9 +23,10 @@ const Cuisines: React.FC = () => {
   const {t} = useTranslation('cuisine');
 
   const [file, setFile] = useState<File>();
-  const [isError, setError] = React.useState(false);
-  const [isReady, setReady] = React.useState(true);
-  const [isUniqueNationality, setUniqueNationality] = React.useState(true);
+  const [showPreview, setShowPreview] = useState(false);
+  const [isError, setError] = useState(false);
+  const [isReady, setReady] = useState(true);
+  const [isUniqueNationality, setUniqueNationality] = useState(true);
 
   useEffect(() => {
     AuthInfoKeeper.isAuthenticated().then((isAuthenticated) => {
@@ -116,6 +117,7 @@ const Cuisines: React.FC = () => {
             nationalityUniquenessCheck(cuisine, values.nationality),
           )
         ) {
+          setShowPreview(false);
           return actions.createCuisine({...values, uploadFile: file});
         }
       } else {
@@ -132,6 +134,7 @@ const Cuisines: React.FC = () => {
     }
 
     if (id && values.nationality && data.isSuccess) {
+      setShowPreview(false);
       return actions.updateCuisine({
         id,
         ...values,
@@ -182,8 +185,10 @@ const Cuisines: React.FC = () => {
                   filesLimit={1}
                   onChange={(files: File[]) => {
                     setFile(files[0]);
+                    setShowPreview(true);
                   }}
                   initialFiles={[]}
+                  showPreviewsInDropzone={showPreview}
                 />
               </div>
               <Field
