@@ -11,7 +11,7 @@ import {useHistory, useParams} from 'react-router-dom';
 import {AuthInfoKeeper} from 'auth';
 import Dish from 'entities/Dish';
 import {Field, Form, Formik} from 'formik';
-import {Loader, TextField} from 'components';
+import {Loader, TextArea, TextField} from 'components';
 import {useTranslation} from 'react-i18next';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -285,8 +285,9 @@ const Dishes: React.FC = () => {
                 label={t('description')}
                 type="description"
                 id="description"
-                as={TextField}
+                as={TextArea}
                 className={styles.form__field}
+                control="textarea"
               />
               <Field
                 variant="outlined"
