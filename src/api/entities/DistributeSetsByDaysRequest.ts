@@ -1,5 +1,5 @@
-import {SetIdAndDay} from '../graphql/types';
+import DistributeSetsByDays from 'state/entities/DistributeSetsByDays';
 
 export default interface DistributeSetsByDaysRequest {
-  setIdsAndDays: SetIdAndDay[];
+  setIdsAndDays: DistributeSetsByDays[];
 }

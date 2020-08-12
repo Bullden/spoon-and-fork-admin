@@ -61,6 +61,12 @@ function* distributeSetsByDays({
     });
 
     yield put(actions.distributeSetsByDaysCompleted({history}));
+    yield put(
+      snackBarActions.showSnackbar({
+        message: 'Cuisine sets success distributed by days of week',
+        type: 'success',
+      }),
+    );
   } catch (e) {
     yield put(actions.distributeSetsByDaysCompleted(e));
   }
@@ -78,8 +84,6 @@ function* distributeSetsByDaysCompleted({
       }),
     );
   }
-
-  yield put(actions.fetchSets());
 }
 
 export default function* () {

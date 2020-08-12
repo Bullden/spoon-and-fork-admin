@@ -495,7 +495,7 @@ export type Set = {
 
 export type SetIdAndDay = {
   setId: Scalars['String'];
-  day: Scalars['String'];
+  day?: Maybe<Scalars['String']>;
 };
 
 export enum OrderState {

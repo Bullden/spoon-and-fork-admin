@@ -13,12 +13,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const WeekMenu: React.FC = () => {
   const history = useHistory();
-  const {t} = useTranslation('cuisine');
+  const {t} = useTranslation('weekMenu');
 
   const cuisineActions = useCuisineActions();
   const setActions = useSetActions();
 
-  const [setIdsAndDays, setSetIdsAndDays] = useState<{setId: string; day: string}[]>([]);
   const [setIds, setSetIds] = useState<string[]>([]);
 
   const {id} = useParams<{id: string | undefined}>();
@@ -35,23 +34,31 @@ const WeekMenu: React.FC = () => {
 
   useEffect(() => {
     setSetIds([]);
-    setSetIdsAndDays([]);
     cuisineActions.fetchCuisines();
   }, []);
 
   useEffect(() => {
     setSetIds([]);
-    setSetIdsAndDays([]);
     if (id) setActions.fetchSetsByCuisineId(id);
   }, [id]);
 
   const setSelectedSetToState = (set: Set, day: string) => {
     if (setIds.includes(set.id)) {
+      if (sets.isSuccess) {
+        sets.sets = [
+          ...sets.sets.filter((item) => item.name !== set.name),
+          {...set, day: undefined},
+        ];
+      }
       setSetIds(setIds.filter((item) => item !== set.id));
-      setSetIdsAndDays([...setIdsAndDays.filter((item) => item.setId !== set.id)]);
     } else {
+      if (sets.isSuccess) {
+        sets.sets = [
+          ...sets.sets.filter((item) => item.name !== set.name),
+          {...set, day},
+        ];
+      }
       setSetIds([...setIds, set.id]);
-      setSetIdsAndDays([...setIdsAndDays, {setId: set.id, day}]);
     }
   };
 
@@ -59,22 +66,24 @@ const WeekMenu: React.FC = () => {
     history.push(`/weekMenu/cuisine/${cuisine.id}`);
 
     setSetIds([]);
-    setSetIdsAndDays([]);
 
     if (id) {
       sets
-        .filter((item) => item.cuisineId === cuisine.id)
+        .filter((item) => {
+          return item.cuisineId === cuisine.id;
+        })
         .forEach((set) => {
           setSetIds([...setIds, set.id]);
-          if (set.day) {
-            setSetIdsAndDays([...setIdsAndDays, {setId: set.id, day: set.day}]);
-          }
         });
     }
   };
 
-  const save = () => {
-    return setActions.distributeSetsByDays(setIdsAndDays);
+  const save = (sets: Set[]) => {
+    return setActions.distributeSetsByDays(
+      sets.map((set) => {
+        return {setId: set.id, day: set.day};
+      }),
+    );
   };
 
   const cuisinesList = (cuisines: Cuisine[], sets: Set[]) => {
@@ -107,6 +116,7 @@ const WeekMenu: React.FC = () => {
             .map((set) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
               <li
+                key={`set_${dayName}_${set.id}`}
                 className={
                   set.day ? styles.selectList__selectedItem : styles.selectList__item
                 }
@@ -153,14 +163,16 @@ const WeekMenu: React.FC = () => {
       <div>
         <div className={styles.editorContainer}>
           <div className={styles.mainContentHeader}>
-            <h2 className={styles.weekTableTitle}>Sets by day of the week</h2>
+            <h2 className={styles.weekTableTitle}>{t('sets')}</h2>
           </div>
           {id && (sets.isSuccess ? setsTable(sets.sets) : <Loader />)}
           <div className={styles.buttons}>
             <button
               className={styles.saveButton}
               type="submit"
-              onClick={() => id && cuisines.isSuccess && save()}
+              onClick={() =>
+                id && cuisines.isSuccess && sets.isSuccess && save(sets.sets)
+              }
             >
               {t('save')}
             </button>
