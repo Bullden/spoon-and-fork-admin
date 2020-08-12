@@ -4,6 +4,8 @@ import Set from 'entities/Set';
 import {NavigationPayload} from 'state/ducks/router/actions';
 import UpdateSetRequest from 'state/entities/UpdateSetRequest';
 import CreateSetRequest from 'state/entities/CreateSetRequest';
+import {ID} from 'entities/Common';
+import * as H from 'history';
 
 export type FetchDetailsCompleted = {
   set: Set;
@@ -31,4 +33,5 @@ export default {
   updateSetRequestCompleted: createAction<UpdateSetCompleted>(types.UPDATE_SET_COMPLETED),
   createSetRequest: createAction<CreateSet>(types.CREATE_SET),
   createSetRequestCompleted: createAction<CreateSetCompleted>(types.CREATE_SET_COMPLETED),
+  deleteSet: createAction<{setId: ID; history: H.History}>(types.DELETE_SET),
 };

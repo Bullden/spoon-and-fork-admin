@@ -14,6 +14,9 @@ import Cuisine from 'entities/Cuisine';
 import {UpdateCuisine} from 'state/ducks/cuisineDetails/actions';
 import {mapCreateCuisineRequestToGQL, mapUpdateCuisineRequestToGQL} from 'api/Mappers';
 import cuisinesActions from 'state/ducks/cuisine/actions';
+import {ID} from '../../../entities/Common';
+import * as H from 'history';
+import {sharedRouterActions} from '../router';
 
 function* updateCuisine({payload: {request, history}}: Action<UpdateCuisine>) {
   try {
@@ -111,6 +114,24 @@ function* fetchDetailsCompleted({payload, error}: Action<FetchDetailsCompleted>)
   }
 }
 
+function* deleteCuisine({payload}: Action<{cuisineId: ID; history: H.History}>) {
+  try {
+    yield SpoonAndForkApi.deleteCuisine(payload.cuisineId);
+    yield put(sharedRouterActions.goBack(payload));
+    yield put(
+      snackBarActions.showSnackbar({
+        message: 'Cuisine success removed',
+        type: 'warning',
+      }),
+    );
+
+    yield put(cuisinesActions.fetchCuisines());
+  } catch (e) {
+    // eslint-disable-next-line no-alert
+    alert(e);
+  }
+}
+
 export default function* () {
   yield all([
     //
@@ -120,5 +141,6 @@ export default function* () {
     takeEvery(types.UPDATE_CUISINE_COMPLETED, updateCuisineCompleted),
     takeEvery(types.CREATE_CUISINE, createCuisine),
     takeEvery(types.CREATE_CUISINE_COMPLETED, createCuisineCompleted),
+    takeEvery(types.DELETE_CUISINE, deleteCuisine),
   ]);
 }

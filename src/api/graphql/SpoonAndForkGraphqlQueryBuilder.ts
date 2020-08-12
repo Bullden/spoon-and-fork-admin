@@ -15,7 +15,11 @@ import {
   MutationCreateDishArgs,
   MutationCreateSetArgs,
   MutationCreateStatusArgs,
+  MutationDeleteCuisineArgs,
+  MutationDeleteDishArgs,
   MutationDeleteOrderArgs,
+  MutationDeleteSetArgs,
+  MutationDeleteStatusArgs,
   MutationDistributeSetsByDaysArgs,
   MutationEvaluateDocumentsRevisionArgs,
   MutationRemoveTheCurrentCourierArgs,
@@ -838,6 +842,58 @@ export const deleteOrderMutation = createMutationWithVariables<
     }
   `,
   ({deleteOrder}) => deleteOrder,
+);
+
+export const deleteStatusMutation = createMutationWithVariables<
+  MutationDeleteStatusArgs,
+  {deleteStatus: boolean},
+  boolean
+>(
+  gql`
+    mutation($statusId: ID!) {
+      deleteStatus(statusId: $statusId)
+    }
+  `,
+  ({deleteStatus}) => deleteStatus,
+);
+
+export const deleteCuisineMutation = createMutationWithVariables<
+  MutationDeleteCuisineArgs,
+  {deleteCuisine: boolean},
+  boolean
+>(
+  gql`
+    mutation($cuisineId: ID!) {
+      deleteCuisine(cuisineId: $cuisineId)
+    }
+  `,
+  ({deleteCuisine}) => deleteCuisine,
+);
+
+export const deleteDishMutation = createMutationWithVariables<
+  MutationDeleteDishArgs,
+  {deleteDish: boolean},
+  boolean
+>(
+  gql`
+    mutation($dishId: ID!) {
+      deleteDish(dishId: $dishId)
+    }
+  `,
+  ({deleteDish}) => deleteDish,
+);
+
+export const deleteSetMutation = createMutationWithVariables<
+  MutationDeleteSetArgs,
+  {deleteSet: boolean},
+  boolean
+>(
+  gql`
+    mutation($setId: ID!) {
+      deleteSet(setId: $setId)
+    }
+  `,
+  ({deleteSet}) => deleteSet,
 );
 
 export const removeTheCurrentCourierMutation = createMutationWithVariables<

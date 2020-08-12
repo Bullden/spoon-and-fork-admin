@@ -36,6 +36,10 @@ import {
   evaluateDocumentsRevisionMutation,
   setsByCuisineIdQuery,
   mutationDistributeSetsByDays,
+  deleteCuisineMutation,
+  deleteDishMutation,
+  deleteSetMutation,
+  deleteStatusMutation,
 } from './SpoonAndForkGraphqlQueryBuilder';
 import {ID} from 'entities/Common';
 import {
@@ -175,6 +179,22 @@ export default class SpoonAndForkGraphqlApi extends GraphqlApiBase {
 
   public async queryDeleteOrder(orderId: string) {
     await this.mutation(deleteOrderMutation({orderId}));
+  }
+
+  public async queryDeleteCuisine(cuisineId: string) {
+    await this.mutation(deleteCuisineMutation({cuisineId}));
+  }
+
+  public async queryDeleteDish(dishId: string) {
+    await this.mutation(deleteDishMutation({dishId}));
+  }
+
+  public async queryDeleteSet(setId: string) {
+    await this.mutation(deleteSetMutation({setId}));
+  }
+
+  public async queryDeleteStatus(statusId: string) {
+    await this.mutation(deleteStatusMutation({statusId}));
   }
 
   public async removeTheCurrentCourier(orderId: string) {

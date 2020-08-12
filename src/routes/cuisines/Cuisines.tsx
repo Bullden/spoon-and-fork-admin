@@ -203,6 +203,15 @@ const Cuisines: React.FC = () => {
                 className={styles.form__field}
               />
               <div className={styles.buttons}>
+                {id && (
+                  <button
+                    className={styles.deleteButton}
+                    type="button"
+                    onClick={() => cuisineDetailsActions.deleteCuisine(id)}
+                  >
+                    {t('delete')}
+                  </button>
+                )}
                 <button className={styles.saveButton} type="submit">
                   {t('save')}
                 </button>

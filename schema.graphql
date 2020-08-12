@@ -9,6 +9,7 @@ type AdditionalUserInfo {
 
 type User {
   id: ID!
+  image: String
   name: String!
   preferencesId: String!
   lat: Float!
@@ -108,8 +109,7 @@ type Cuisine {
   id: ID!
   imageId: String!
   nationality: String!
-  count: String!
-  rating: String!
+  rating: String
 }
 
 type Restaurant {
@@ -272,13 +272,18 @@ type Query {
 }
 
 type Mutation {
-  updateCuisine(rating: String!, count: String!, nationality: String!, imageId: String!, id: String!): Cuisine!
-  createCuisine(rating: String!, count: String!, nationality: String!, imageId: String!): Boolean!
+  updateMyAccount(user: UserUpdateRequest!): Account!
+  updateMyAccountImage(image: String!): Boolean!
+  updateCuisine(nationality: String!, imageId: String!, id: String!): Cuisine!
+  createCuisine(nationality: String!, imageId: String!): Boolean!
+  deleteCuisine(cuisineId: ID!): Boolean!
   updateSet(statuses: [String!]!, dishes: [String!]!, cuisineId: String!, priceCents: String!, imageId: String!, name: String!, id: String!): Set!
   createSet(statuses: [String!]!, dishes: [String!]!, cuisineId: String!, priceCents: String!, imageId: String!, name: String!): Boolean!
   distributeSetsOfWeek(setIdsAndDays: [SetIdAndDay!]!): Boolean!
+  deleteSet(setId: ID!): Boolean!
   updateDish(imageId: String!, sets: [String!]!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, id: String!): Dish!
   createDish(sets: [String!]!, ingredients: [String!]!, kal: String!, weight: String!, description: String!, name: String!, imageId: String!): Boolean!
+  deleteDish(dishId: ID!): Boolean!
   createOrder(restaurantId: String!, cartId: String!, setId: String!, clientAddress: CreateAddressRequest!): Order!
   evaluateOrder(rating: Float!, id: String!): Boolean!
   acceptOrder(id: String!): Boolean!
@@ -293,15 +298,22 @@ type Mutation {
   updateLocation(latLng: LatLngInput!): Boolean!
   updateStatus(name: String!, imageId: String!, id: String!): Status!
   createStatus(name: String!, imageId: String!): Boolean!
+  deleteStatus(statusId: ID!): Boolean!
   addDocument(group: DocumentGroup!, fileId: ID!): Document!
   deleteDocument(documentId: ID!): Boolean!
   requestDocumentsRevisionVerification(revisionId: ID!): Boolean!
   evaluateDocumentsRevision(comment: String!, type: EvaluateDocumentsRevisionType!, courierId: ID!): Boolean!
 }
 
+input UserUpdateRequest {
+  name: String!
+  email: String!
+  phoneNumber: String!
+}
+
 input SetIdAndDay {
   setId: String!
-  day: String!
+  day: String
 }
 
 input CreateAddressRequest {

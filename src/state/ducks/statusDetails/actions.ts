@@ -4,6 +4,8 @@ import Status from 'entities/Status';
 import {NavigationPayload} from 'state/ducks/router/actions';
 import UpdateStatusRequest from 'state/entities/UpdateStatusRequest';
 import CreateStatusRequest from 'state/entities/CreateStatusRequest';
+import {ID} from 'entities/Common';
+import * as H from 'history';
 
 export type FetchDetailsCompleted = {
   status: Status;
@@ -35,4 +37,5 @@ export default {
   createStatusRequestCompleted: createAction<CreateStatusCompleted>(
     types.CREATE_STATUS_COMPLETED,
   ),
+  deleteStatus: createAction<{statusId: ID; history: H.History}>(types.DELETE_STATUS),
 };

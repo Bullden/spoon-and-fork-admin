@@ -7,6 +7,7 @@ export default {
   UPDATE_DISH_COMPLETED: `${prefix}UPDATE_DISH_COMPLETED`,
   CREATE_DISH: `${prefix}CREATE_DISH`,
   CREATE_DISH_COMPLETED: `${prefix}CREATE_DISH_COMPLETED`,
+  DELETE_DISH: `${prefix}DELETE_DISH`,
   CLEAR: `${prefix}CLEAR`,
   SUBMIT: `${prefix}SUBMIT`,
 };

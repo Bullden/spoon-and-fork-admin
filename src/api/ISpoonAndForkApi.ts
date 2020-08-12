@@ -90,4 +90,8 @@ export interface ISpoonAndForkApi {
   removeTheCurrentCourier(courierId: ID): Promise<void>;
 
   deleteOrder(orderId: ID): Promise<void>;
+  deleteCuisine(cuisineId: ID): Promise<void>;
+  deleteDish(dishId: ID): Promise<void>;
+  deleteSet(setId: ID): Promise<void>;
+  deleteStatus(statusId: ID): Promise<void>;
 }

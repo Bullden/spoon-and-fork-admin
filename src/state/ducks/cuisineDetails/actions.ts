@@ -4,6 +4,8 @@ import Cuisine from 'entities/Cuisine';
 import {NavigationPayload} from 'state/ducks/router/actions';
 import UpdateCuisineRequest from 'state/entities/UpdateCuisineRequest';
 import CreateCuisineRequest from 'state/entities/CreateCuisineRequest';
+import {ID} from 'entities/Common';
+import * as H from 'history';
 
 export type FetchDetailsCompleted = {
   cuisine: Cuisine;
@@ -35,4 +37,5 @@ export default {
   createCuisineRequestCompleted: createAction<CreateCuisineCompleted>(
     types.CREATE_CUISINE_COMPLETED,
   ),
+  deleteCuisine: createAction<{cuisineId: ID; history: H.History}>(types.DELETE_CUISINE),
 };

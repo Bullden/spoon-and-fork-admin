@@ -344,6 +344,22 @@ export default class SpoonAndForkApi extends ApiBase implements ISpoonAndForkApi
     await this.wrapApiCall(async () => this.graphqlApi.queryDeleteOrder(orderId));
   }
 
+  public async deleteCuisine(cuisineId: ID) {
+    await this.wrapApiCall(async () => this.graphqlApi.queryDeleteCuisine(cuisineId));
+  }
+
+  public async deleteDish(dishId: ID) {
+    await this.wrapApiCall(async () => this.graphqlApi.queryDeleteDish(dishId));
+  }
+
+  public async deleteSet(setId: ID) {
+    await this.wrapApiCall(async () => this.graphqlApi.queryDeleteSet(setId));
+  }
+
+  public async deleteStatus(statusId: ID) {
+    await this.wrapApiCall(async () => this.graphqlApi.queryDeleteStatus(statusId));
+  }
+
   public async removeTheCurrentCourier(orderId: string) {
     await this.wrapApiCall(async () => this.graphqlApi.removeTheCurrentCourier(orderId));
   }

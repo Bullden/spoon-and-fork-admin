@@ -14,6 +14,9 @@ import {processError} from '../alert/saga';
 import Status from 'entities/Status';
 import {mapCreateStatusRequestToGQL, mapUpdateStatusRequestToGQL} from 'api/Mappers';
 import statusesActions from 'state/ducks/status/actions';
+import {ID} from '../../../entities/Common';
+import * as H from 'history';
+import {sharedRouterActions} from '../router';
 
 function* updateStatus({payload: {request, history}}: Action<UpdateStatus>) {
   try {
@@ -108,6 +111,24 @@ function* fetchDetailsCompleted({payload, error}: Action<FetchDetailsCompleted>)
   }
 }
 
+function* deleteStatus({payload}: Action<{statusId: ID; history: H.History}>) {
+  try {
+    yield SpoonAndForkApi.deleteStatus(payload.statusId);
+    yield put(sharedRouterActions.goBack(payload));
+    yield put(
+      snackBarActions.showSnackbar({
+        message: 'Status success removed',
+        type: 'warning',
+      }),
+    );
+
+    yield put(statusesActions.fetchStatuses());
+  } catch (e) {
+    // eslint-disable-next-line no-alert
+    alert(e);
+  }
+}
+
 export default function* () {
   yield all([
     //
@@ -117,5 +138,6 @@ export default function* () {
     takeEvery(types.UPDATE_STATUS_COMPLETED, updateStatusCompleted),
     takeEvery(types.CREATE_STATUS, createStatus),
     takeEvery(types.CREATE_STATUS_COMPLETED, createStatusCompleted),
+    takeEvery(types.DELETE_STATUS, deleteStatus),
   ]);
 }

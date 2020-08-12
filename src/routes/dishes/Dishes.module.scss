@@ -123,36 +123,11 @@
   }
 }
 
-.deleteButton {
-  background: #fff;
-  box-shadow: none;
-  border: none;
-  color: #D60000;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
-  outline: none;
-  cursor: pointer;
-}
-
-.draftButton {
-  background: #fff;
-  box-shadow: none;
-  border: none;
-  color: #2B4BB7;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
-  outline: none;
-  margin: 0 35px;
-  cursor: pointer;
-}
-
 .saveButton {
   background: rgb(252, 112, 54);
   box-shadow: 0 2.24779px 2.24779px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  border: none;
+  border: 2px solid rgb(252, 112, 54);
   color: white;
   font-weight: 500;
   font-size: 18px;
@@ -160,6 +135,36 @@
   outline: none;
   padding: 9px 60px;
   cursor: pointer;
+  transition: all 0.3s;
+  margin-left: 40px;
+
+  &:hover {
+    color: white;
+    background: rgba(252, 112, 54, 0.7);
+    transition: all 0.3s;
+  }
+}
+
+.deleteButton {
+  background: white;
+  box-shadow: 0 2.24779px 2.24779px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: 2px solid rgb(252, 112, 54);
+  color: rgb(252, 112, 54);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  outline: none;
+  padding: 9px 60px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.3s;
+
+  &:hover {
+    color: white;
+    background: rgba(252, 112, 54, 0.7);
+    transition: all 0.3s;
+  }
 }
 
 .phonePreviewContainer {

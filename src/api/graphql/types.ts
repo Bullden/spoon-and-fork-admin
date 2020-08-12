@@ -298,6 +298,26 @@ export type MutationDeleteOrderArgs = {
 };
 
 
+export type MutationDeleteStatusArgs = {
+  statusId: Scalars['ID']
+};
+
+
+export type MutationDeleteCuisineArgs = {
+  cuisineId: Scalars['ID']
+};
+
+
+export type MutationDeleteDishArgs = {
+  dishId: Scalars['ID']
+};
+
+
+export type MutationDeleteSetArgs = {
+  setId: Scalars['ID']
+};
+
+
 export type MutationRemoveTheCurrentCourierArgs = {
   orderId: Scalars['ID']
 };

@@ -388,6 +388,15 @@ const Dishes: React.FC = () => {
                 </ul>
               )}
               <div className={styles.buttons}>
+                {id && (
+                  <button
+                    className={styles.deleteButton}
+                    type="button"
+                    onClick={() => dishDetailsActions.deleteDish(id)}
+                  >
+                    {t('delete')}
+                  </button>
+                )}
                 <button className={styles.saveButton} type="submit">
                   Save
                 </button>

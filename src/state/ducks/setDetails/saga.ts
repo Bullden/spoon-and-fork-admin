@@ -14,6 +14,9 @@ import Set from 'entities/Set';
 import {UpdateSet} from 'state/ducks/setDetails/actions';
 import {mapCreateSetRequestToGQL, mapUpdateSetRequestToGQL} from 'api/Mappers';
 import setsActions from 'state/ducks/set/actions';
+import {ID} from '../../../entities/Common';
+import * as H from 'history';
+import {sharedRouterActions} from '../router';
 
 function* updateSet({payload: {request, history}}: Action<UpdateSet>) {
   try {
@@ -111,6 +114,24 @@ function* fetchDetailsCompleted({payload, error}: Action<FetchDetailsCompleted>)
   }
 }
 
+function* deleteSet({payload}: Action<{setId: ID; history: H.History}>) {
+  try {
+    yield SpoonAndForkApi.deleteSet(payload.setId);
+    yield put(sharedRouterActions.goBack(payload));
+    yield put(
+      snackBarActions.showSnackbar({
+        message: 'Set success removed',
+        type: 'warning',
+      }),
+    );
+
+    yield put(setsActions.fetchSets());
+  } catch (e) {
+    // eslint-disable-next-line no-alert
+    alert(e);
+  }
+}
+
 export default function* () {
   yield all([
     //
@@ -120,5 +141,6 @@ export default function* () {
     takeEvery(types.UPDATE_SET_COMPLETED, updateSetCompleted),
     takeEvery(types.CREATE_SET, createSet),
     takeEvery(types.CREATE_SET_COMPLETED, createSetCompleted),
+    takeEvery(types.DELETE_SET, deleteSet),
   ]);
 }

@@ -4,6 +4,8 @@ import Dish from 'entities/Dish';
 import {NavigationPayload} from 'state/ducks/router/actions';
 import UpdateDishRequest from 'state/entities/UpdateDishRequest';
 import CreateDishRequest from 'state/entities/CreateDishRequest';
+import {ID} from 'entities/Common';
+import * as H from 'history';
 
 export type FetchDetailsCompleted = {
   dish: Dish;
@@ -35,4 +37,5 @@ export default {
   createDishRequestCompleted: createAction<CreateDishCompleted>(
     types.CREATE_DISH_COMPLETED,
   ),
+  deleteDish: createAction<{dishId: ID; history: H.History}>(types.DELETE_DISH),
 };

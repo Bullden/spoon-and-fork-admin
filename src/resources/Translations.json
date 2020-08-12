@@ -175,7 +175,8 @@
       "rating": "Rating",
       "save": "Save",
       "filledFields": "All fields must be filled",
-      "uniqueFieldValue": "The nationality must be unique"
+      "uniqueFieldValue": "The nationality must be unique",
+      "delete": "Delete"
     },
     "set": {
       "sets": "Sets",
@@ -187,7 +188,8 @@
       "dishes": "Dishes",
       "save": "Save",
       "filledFields": "All fields must be filled",
-      "uniqueFieldValue": "The name must be unique"
+      "uniqueFieldValue": "The name must be unique",
+      "delete": "Delete"
     },
     "status": {
       "statuses": "Set statuses",
@@ -195,7 +197,8 @@
       "name": "Name",
       "save": "Save",
       "filledFields": "All fields must be filled",
-      "uniqueFieldValue": "The name must be unique"
+      "uniqueFieldValue": "The name must be unique",
+      "delete": "Delete"
     },
     "dish": {
       "dishes": "Dishes",
@@ -208,7 +211,8 @@
       "sets": "Sets",
       "save": "Save",
       "filledFields": "All fields must be filled",
-      "uniqueFieldValue": "The name must be unique"
+      "uniqueFieldValue": "The name must be unique",
+      "delete": "Delete"
     },
     "weekMenu": {
       "cuisines": "Cuisines",

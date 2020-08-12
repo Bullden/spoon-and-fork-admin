@@ -404,6 +404,15 @@ const Sets: React.FC = () => {
                 </ul>
               )}
               <div className={styles.buttons}>
+                {id && (
+                  <button
+                    className={styles.deleteButton}
+                    type="button"
+                    onClick={() => setDetailsActions.deleteSet(id)}
+                  >
+                    {t('delete')}
+                  </button>
+                )}
                 <button className={styles.saveButton} type="submit">
                   {t('save')}
                 </button>

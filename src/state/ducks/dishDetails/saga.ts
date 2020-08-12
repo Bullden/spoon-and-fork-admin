@@ -14,6 +14,9 @@ import Dish from 'entities/Dish';
 import {UpdateDish} from 'state/ducks/dishDetails/actions';
 import {mapCreateDishRequestToGQL, mapUpdateDishRequestToGQL} from 'api/Mappers';
 import dishesActions from 'state/ducks/dish/actions';
+import {ID} from '../../../entities/Common';
+import * as H from 'history';
+import {sharedRouterActions} from '../router';
 
 function* updateDish({payload: {request, history}}: Action<UpdateDish>) {
   try {
@@ -111,6 +114,24 @@ function* fetchDetailsCompleted({payload, error}: Action<FetchDetailsCompleted>)
   }
 }
 
+function* deleteDish({payload}: Action<{dishId: ID; history: H.History}>) {
+  try {
+    yield SpoonAndForkApi.deleteDish(payload.dishId);
+    yield put(sharedRouterActions.goBack(payload));
+    yield put(
+      snackBarActions.showSnackbar({
+        message: 'Dish success removed',
+        type: 'warning',
+      }),
+    );
+
+    yield put(dishesActions.fetchDishes());
+  } catch (e) {
+    // eslint-disable-next-line no-alert
+    alert(e);
+  }
+}
+
 export default function* () {
   yield all([
     //
@@ -120,5 +141,6 @@ export default function* () {
     takeEvery(types.UPDATE_DISH_COMPLETED, updateDishCompleted),
     takeEvery(types.CREATE_DISH, createDish),
     takeEvery(types.CREATE_DISH_COMPLETED, createDishCompleted),
+    takeEvery(types.DELETE_DISH, deleteDish),
   ]);
 }

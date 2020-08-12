@@ -226,6 +226,8 @@ export function useCuisineDetailsActions() {
         }),
       );
     },
+    deleteCuisine: (cuisineId: string) =>
+      dispatch(cuisineDetailsActions.deleteCuisine({cuisineId, history})),
   };
 }
 
@@ -261,6 +263,8 @@ export function useDishDetailsActions() {
         }),
       );
     },
+    deleteDish: (dishId: string) =>
+      dispatch(dishDetailsActions.deleteDish({dishId, history})),
   };
 }
 
@@ -301,6 +305,7 @@ export function useSetDetailsActions() {
         }),
       );
     },
+    deleteSet: (setId: string) => dispatch(setDetailsActions.deleteSet({setId, history})),
   };
 }
 
@@ -336,6 +341,8 @@ export function useStatusDetailsActions() {
         }),
       );
     },
+    deleteStatus: (statusId: string) =>
+      dispatch(statusDetailsActions.deleteStatus({statusId, history})),
   };
 }
 
