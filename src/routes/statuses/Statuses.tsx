@@ -23,6 +23,7 @@ const Statuses: React.FC = () => {
   const {t} = useTranslation('status');
 
   const [file, setFile] = useState<File>();
+  const [showPreview, setShowPreview] = useState(false);
   const [isError, setError] = React.useState(false);
   const [isReady, setReady] = React.useState(true);
   const [isUniqueName, setUniqueName] = React.useState(true);
@@ -115,6 +116,7 @@ const Statuses: React.FC = () => {
             nameUniquenessCheck(status, values.name),
           )
         ) {
+          setShowPreview(false);
           return actions.createStatus({...values, uploadFile: file});
         }
       } else {
@@ -131,6 +133,7 @@ const Statuses: React.FC = () => {
     }
 
     if (id && values.name && data.isSuccess) {
+      setShowPreview(false);
       return actions.updateStatus({
         id,
         ...values,
@@ -181,8 +184,10 @@ const Statuses: React.FC = () => {
                   filesLimit={1}
                   onChange={(files: File[]) => {
                     setFile(files[0]);
+                    setShowPreview(true);
                   }}
                   initialFiles={[]}
+                  showPreviewsInDropzone={showPreview}
                 />
               </div>
               <Field

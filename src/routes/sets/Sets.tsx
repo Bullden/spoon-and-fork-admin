@@ -32,6 +32,7 @@ const Sets: React.FC = () => {
   const {t} = useTranslation('set');
 
   const [file, setFile] = useState<File>();
+  const [showPreview, setShowPreview] = useState(false);
   const [cuisine, setCuisine] = useState<Cuisine>();
   const [selectedDishes, setDishes] = useState<string[]>([]);
   const [selectedStatuses, setStatuses] = useState<string[]>([]);
@@ -149,6 +150,7 @@ const Sets: React.FC = () => {
     if (id === undefined && sets.isSuccess) {
       if (file && cuisine && values.name && values.priceCents) {
         if (sets.sets.every((set: Set) => nameUniquenessCheck(set, values.name))) {
+          setShowPreview(false);
           return actions.createSet({
             ...values,
             uploadFile: file,
@@ -179,6 +181,7 @@ const Sets: React.FC = () => {
       selectedStatuses &&
       sets.isSuccess
     ) {
+      setShowPreview(false);
       return actions.updateSet({
         id,
         ...values,
@@ -232,8 +235,10 @@ const Sets: React.FC = () => {
                   filesLimit={1}
                   onChange={(files: File[]) => {
                     setFile(files[0]);
+                    setShowPreview(true);
                   }}
                   initialFiles={[]}
+                  showPreviewsInDropzone={showPreview}
                 />
               </div>
               <Field

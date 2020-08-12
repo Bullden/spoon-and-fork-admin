@@ -36,6 +36,7 @@ const Dishes: React.FC = () => {
   const {id} = useParams<{id: string | undefined}>();
 
   const [file, setFile] = useState<File>();
+  const [showPreview, setShowPreview] = useState(false);
   const [ingredients, setIngredients] = useState<string>('');
   const [selectedSets, setSets] = useState<string[]>([]);
   const [isError, setError] = React.useState(false);
@@ -153,6 +154,7 @@ const Dishes: React.FC = () => {
         ingredients
       ) {
         if (dishes.dishes.every((dish: Dish) => nameUniquenessCheck(dish, values.name))) {
+          setShowPreview(false);
           return actions.createDish({
             ...values,
             uploadFile: file,
@@ -183,6 +185,7 @@ const Dishes: React.FC = () => {
       selectedSets &&
       dishes.isSuccess
     ) {
+      setShowPreview(false);
       return actions.updateDish({
         id,
         ...values,
@@ -262,8 +265,10 @@ const Dishes: React.FC = () => {
                   filesLimit={1}
                   onChange={(files: File[]) => {
                     setFile(files[0]);
+                    setShowPreview(true);
                   }}
                   initialFiles={[]}
+                  showPreviewsInDropzone={showPreview}
                 />
               </div>
               <Field
